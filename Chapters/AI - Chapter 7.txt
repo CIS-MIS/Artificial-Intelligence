@@ -1,0 +1,339 @@
+1CS 4400: Artificial Intelligence 
+Beyond Classical Search
+Contents
+21.Nondeterministic environment
+❑Erratic vacuum world
+❑AND -OR search trees
+❑Slippery vacuum world
+2.Unobservable environment
+❑Belief state and belief state -space
+3.Partially observable environment
+❑AND -ORsearch
+4.Recursive state estimation
+1/4. Value ofpercepts
+3◼In fully observable, deterministic environment
+❑Assume the initial state is known to the agent
+❑Agent can determine exactly which states it is in after  
+taking any sequence ofactions
+❑Percepts provide no new information
+◼When does an agent need percepts?
+❑When initial state is notknown
+❑When environment is non -deterministic (=stochastic)
+❑Ex. erratic vacuum world, and slippery vacuum world
+Erratic vacuum world
+◼Suck at square A
+❑When A has dirt, it removes dirt,
+sometimes removes dirt in B aswell
+❑When A is clean, it sometimes deposits dirt
+◼Result(a,s) → Result s(a,s)
+◼Contingency plan
+❑[Suck , if state=5 then [ Right,Suck ] else […]]
+❑Need a tree, rather than a single sequence to solve  
+theproblem
+4
+The eight possible 
+states of the vacuum 
+world; states 7 and 
+8 are goal states
+This allows the selection of actions 
+based on contingencies arising during 
+execution
+Erratic vacuum world
+5
+[Suck, if State = 5 then  
+       [Right, Suck ] else []]No single sequence of actions solves
+the problem. 
+Solution still exists as a conditional
+plan (suppose at State 1): 
+Solution is a tree – of a 
+different character!
+AND -OR search trees
+6OR node
+AND  node
+Branching is introduced by 
+the environment’s choice of 
+outcome for each action
+AND -ORsearch
+7◼OR nodes = state nodes
+❑Branching by different actions
+◼AND nodes
+❑Branching by nondeterministic environment
+◼Solution in AND -OR tree is a subtree which
+1)Has a goal node at every leaf
+2)Specifies one action at each of its ORnodes
+3)Includes every outcome at its AND nodes
+Example of a (Partial) Tree
+8
+A solution  is a connected portion 
+of the AND -OR tree such that
+ every OR node has exactly one 
+    child (i.e., one of the actions); 
+ every AND node has all children
+    (possible outcomes) from the 
+    corresponding action; 
+ all the leaves are goal nodes.  its root is the tree’s root; 
+Recursive DFS for AND -OR graph search
+For simplicity, ignore path cost. 9
+Recursive DFS for AND -OR graph search
+For simplicity, ignore path cost. 1
+0
+*If the current state is identical to a state on the path 
+from the root, it returns failure. 
+➔ Does not mean that there is no solution from the 
+current state; it simply means that if there is noncyclic 
+solution, it must be reachable from the earlier 
+incarnation of the current state, so the new incarnation 
+can be discarded
+Slippery vacuum world
+◼“Suck” works fine, but “Left/Right” has no effect from  
+time to time
+❑ state 5→ state 5
+❑ cyclic 
+solution:  
+while state=5  
+doright
+❑ AND -ORsearch  
+can be modified
+11
+Movement actions 
+sometimes fail, leaving the 
+agent in the same location.
+2/4. Unobservable environment
+12◼No observation (a.k.a. sensorless problem)
+❑To avoid costly observation: broad -spectrum
+antibiotics instead of expensive blood test
+◼Sensorless vacuum world
+❑Deterministic environment (non-erratic, non-slippery)
+❑Doesn’t know if it’s in square A orB
+❑Cannot sense dirt
+❑Agent’s precepts provide no information at all . 
+◼Can an agent solve sensorless problems?
+❑Yes, for vacuum: [ Right, Suck, Left, Suck ]
+❑No, if it’s a8-puzzle .
+*The agent knows the 
+geography of its world
+Belief states
+13◼Belief states vs singleton state
+❑Any possible subset of the powerset: 2N
+◼state = {1}, {2}, ... ,{N}
+◼belief state = {1},...,{N}, {1,2},...,{1,N}, {1,2,3}, ...,..., {1,2,....,N}
+◼Why use belief states?
+❑Can handle sensorless problem
+◼Agent can fully observe its own belief state !
+◼Can find a solution as a sequence of actions
+❑Can also handle non -deterministic problem
+◼No contingency plan needed
+A belief state is a set of physical states 
+believed to be possible by the agent. 
+Belief states space
+◼Initial belief state
+◼Unknown initial state → known belief states {1,…,8}
+◼Actions: twodefinitions
+❑Union: 𝐴𝐶𝑇𝐼𝑂𝑁𝑆∗(𝑏) =U𝑠∈𝑏𝐴𝐶𝑇𝐼𝑂𝑁𝑆(𝑠)
+❑Intersection: 𝐴𝐶𝑇𝐼𝑂𝑁𝑆∗(𝑏) =∩𝑠∈𝑏𝐴𝐶𝑇𝐼𝑂𝑁𝑆(𝑠)
+◼Transition: 𝑏′ = 𝑅𝐸𝑆𝑈𝐿𝑇∗𝑏,𝑎=𝑠′: 𝑠′ = 𝑅𝐸𝑆𝑈𝐿𝑇(𝑠,𝑎,𝑠∈𝑏}
+11
+sensorless sensorless and slippery
+Typically  the set of all 
+states in the underlying 
+physical problem.
+Predicting the next belief state for 
+the sensorless  vacuum world with 
+a deterministic action, Right
+Prediction for the same belief state 
+and action in the slippery version of 
+the sensorless  vacuum world
+◼Results of the transition in belief states will be called
+prediction
+◼Goal test: all singleton goal states and their  
+combinations
+❑Ex. if {1} and {2} are goals, then {1}, {2}, and {1,2} are belief state
+Goals (if all the physical states in it satisfy ‘goal’ )
+❑{1,3} is not a belief state goal: agent may accidentally achieve the  
+goal {1} earlier , but it won’t know that it has done so.
+◼Path cost
+❑Difficult to compute if the cost of each singleton action is different
+❑Assume unit cost for the belief state actions  (for now, we assume that the 
+cost of an action is the same in all states and so can be transferred directly from the 
+underlying physical problem.)
+15
+Belief state-space (sensorless, deterministic)
+16
+The reachable portion of the belief -state space for the deteterministic , sensorless  vacuum 
+world . Each shaded box corresponds to a single belief sate. At any given point, the agent 
+is in a particular belief state but not know which physical state it is in.
+17
+The reachable portion of the belief -state space for the deteterministic , sensorless  vacuum 
+world. Each shaded box corresponds to a single belief sate. At any given point, the agent 
+is in a particular belief state but not know which physical state it is in.
+18
+The reachable portion of the belief -state space for the deteterministic , sensorless  vacuum 
+world. Each shaded box corresponds to a single belief sate. At any given point, the agent 
+is in a particular belief state but not know which physical state it is in.
+19
+The reachable portion of the belief -state space for the deteterministic , sensorless  vacuum 
+world. Each shaded box corresponds to a single belief sate. At any given point, the agent 
+is in a particular belief state but not know which physical state it is in.
+20
+The reachable portion of the belief -state space for the deteterministic , sensorless  vacuum 
+world. Each shaded box corresponds to a single belief sate. At any given point, the agent 
+is in a particular belief state but not know which physical state it is in.
+Cf. singleton state space
+21
+The agent may not know the current state in a 
+partially observable environment.3/4. Partially observable environment
+◼Local -sensing vacuum agent
+❑PERCEPT(1) =[A,Dirty ]
+❑Fullobservation:
+◼PERCEPT(1) = [A, A is dirty and B is clean]
+❑Suppose initial percept =[A,Dirty ]
+→ state = 1 or3
+→ belief state = {1,3}
+❑Now take action Right
+◼You can assume deterministic or
+non-deterministic environment
+(e.g., slippery vacuum)
+22
+◼Deterministic world: predict
+23
+◼Deterministic world: observation prediction
+24
+◼Deterministic world: update
+25
+◼Slippery world:
+26
+◼Slippery world: prediction
+27
+◼Slippery world: observation prediction
+28
+◼Slippery world: update
+29
+◼Prediction of belief state:
+❑𝑏′ = 𝑃𝑅𝐸𝐷𝐼𝐶𝑇∗𝑏,𝑎=𝑠′: 𝑠′ = 𝑅𝐸𝑆𝑈𝐿𝑇(𝑠, 𝑎, 𝑠∈𝑏}
+◼Observation prediction
+❑𝑃𝑂𝑆𝑆𝐼𝐵𝐿𝐸𝑃𝐸𝑅𝐶𝐸𝑃𝑇𝑆∗𝑏′=𝑜: 𝑜=𝑃𝐸𝑅𝐶𝐸𝑃𝑇(𝑠,𝑠∈𝑏′}
+◼Update
+❑𝑏𝑜= 𝑈𝑃𝐷𝐴𝑇𝐸∗𝑏′,𝑎=𝑠: 𝑜=𝑃𝐸𝑅𝐶𝐸𝑃𝑇(𝑠,𝑠∈𝑏′}
+30
+Determines the set of percept o that could be 
+observed in the predicted belief state:
+Determines, for each possible percept, the belief 
+state that would result from the percept
+Updated belief state
+2
+Comparison of belief state spaces
+Deterministic, noobs Slippery, noobs
+8Deterministic, partial obs Slippery, partial obs
+2Comparison of belief state spaces
+8Two example of transitions in local -sensing vacuum worlds. 
+(a)In the deterministic world, 
+Right is applied in the initial belief state, resulting in a new belief state with two 
+possible physical states; for those states, the possible percepts are [B, Dirty ] and [B, 
+Clean ], leading to two belief states , each of which is a singleton. 
+(b) In the slippery world, 
+Right is applied in the initial belief state, giving a new belief state with four physical 
+states; for those states, the possible percepts are [A, Dirty ], [B, Dirty ], and [B, 
+Clean ],leading to three belief states as shown.
+Partially observable environment
+◼Use AND -OR search on belief state space
+◼Solution: [ Suck , Right , if Bstate = {6} then Suck else[…]]
+33
+*Part of the search tree for the local -
+sensing vacuum world, assuming an 
+initial percept [A, Dirty]
+*The solution is the conditional plan 
+that tests belief state rather than the 
+actual state.
+Solution with Partial Observation
+34
+
+Cf. Fully -observable, stochastic
+◼Erratic vacuum Slippery vacuum
+35
+Summary
+36◼Fully -observable, deterministic
+❑use uninformed/informed search
+◼Fully -observable, non-deterministic
+❑use AND -ORsearch
+◼Unobserved, deterministic
+❑use belief state + uninformed/informed search
+◼Partially -observable, deterministic
+❑use belief state + AND -ORsearch
+◼Partially -observable, non -deterministic: same as above
+❑Why? The effect of partial observability is very similar to having  
+non-deterministic environments
+❑Most realistic, but more complex to find solution
+4/4. Agent in partially observable  
+environment
+◼Searching in action:
+❑Agent receives one percept at a time
+❑Recursively update the current belief state  (b:state , a: action, o:percept )
+❑𝑏2  = 𝑈𝑃𝐷𝐴𝑇𝐸∗𝑃𝑅𝐸𝐷𝐼𝐶𝑇∗𝑏1, 𝑎1 ,𝑜1
+❑𝑏3  = 𝑈𝑃𝐷𝐴𝑇𝐸∗𝑃𝑅𝐸𝐷𝐼𝐶𝑇∗𝑏2, 𝑎2  ,𝑜2
+❑…
+◼Recursive state estimation is quite common anduseful
+◼More details in Ch.15
+37
+•The design of a problem -solving agent for partially observable environments.
+➔The agent formulate a problem, calls a search algorithms (s.t AND -OR-GRAPH -SEARCH) to solve it, and execute 
+the solution.
+➔The solution to a problem is a conditional plan rather than a sequence
+➔The agent will need to maintain its belief state as it performs actions and receives percepts.
+Exam ple1
+◼Kindergarten vacuum world with local sensing
+38
+*any square may become dirty at any time unless the agent is actively cleaning it at 
+that moment
+*Two prediction -update cycles of belief -state maintenance in the kindergarten 
+vacuum world with local sensing
+Exam ple1
+◼Kindergarten vacuum world with local sensing
+39
+*Two prediction -update cycles of belief -state maintenance in the kindergarten 
+vacuum world with local sensing
+Exam ple1
+◼Kindergarten vacuum world with local sensing
+40
+*Two prediction -update cycles of belief -state maintenance in the kindergarten 
+vacuum world with local sensing
+Exam ple1
+◼Kindergarten vacuum world with local sensing
+41
+*Two prediction -update cycles of belief -state maintenance in the kindergarten 
+vacuum world with local sensing
+Exam ple1
+◼Kindergarten vacuum world with local sensing
+42
+*Two prediction -update cycles of belief -state maintenance in the kindergarten 
+vacuum world with local sensing
+Example 2: robot localization
+◼Known map, unknown initial location
+◼First observation: blocked inN,S,W
+❑Where am I?
+43
+•The robot is equipped with four sonar sensors that tell whether there is an obstacle (ex. The outer wall or a 
+black square) in each of the four compass directions. 
+•Unfortunately  the robot’s navigational system is broken, so when it executes a ‘Move’ action, it moves 
+randomly to one of the adjacent squares.
+•The robot’s task is to determine its current location.
+Example 2: robot localization
+◼One of four possible locations
+◼Make another move (in unknown direction)
+◼Second observation: N,S
+❑Where am I?
+44
+*The move make the new belief state contains all the locations that are one step away from previous one.
+*When the second percept, NS, arrives, the robot find that the belief state has collapsed down to the 
+single location.NESW =1011 (obstacles in N, S, W)
+// only four possible locations 𝑏0= UPDATE(𝑏,1011)𝑏: set of all locations
+Example 2: robot localization
+◼Location (=state) is narrowed down to just onelocation
+◼For recursive state estimation in general,
+❑Action increases uncertainty due to nondeterministic environment
+❑Observation, partial or full, decreases uncertainty
+❑Uncertainty will repeatedly grow then shrink assearch 
+progresses
+45Next, the robot executes a Right  action.
+𝑏𝑎= PREDICT(𝑏0,𝑅𝑖𝑔ℎ𝑡)
+NESW =1010
+𝑏1=Update(𝑏𝑎,1010) // One possible location!

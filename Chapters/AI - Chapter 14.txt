@@ -1,0 +1,243 @@
+1CS4400 : Artificial Intelligence
+Probability and Bayes’  rule2
+Contents
+21.Uncertainty andprobability
+2.Formal definitions
+3.Joint and conditional probability
+4.Inference using joint distributions
+5.Bayes’ rule
+6.Independence and conditional independence
+7.Naï ve Bayes
+8.Wumpus world
+6/8. Independence
+3◼Some variables are inherently unrelated
+❑In P(Toothache,Catch,Cavity,Weather), weather does
+not affect nor is affected by other variables
+◼The notion is captured byindependence
+❑P(A,B) = P(A)P(B) : A and B areindependent
+◼Example
+❑Flipping 2 coins at once, is itindependent?
+❑P(c1=H,c2=H) = P(c1=H,c2=T) = P(c1=T,c2=H) =  
+P(c1=T,c2=T) =0.25
+◼More than two variables: P(A,B,C) = P(A)P(B)P(C)
+Independence
+4◼Independence can be expressed in other equivalent  
+ways
+❑Remember P(A,B) = P(A|B) P(B) = P(A) P(B|A) is always true
+◼A and B are independent iff
+❑P(A,B) = P(A) P(B)
+❑P(A) = P(A|B)
+❑Prove that it’s also equivalent to P(B) = P(B|A)
+◼Example
+❑P(Toothache,Catch,Cavity,Weather) =
+P(Toothache,Catch,Cavity) P(Weather)
+❑P(Toothache,Catch,Cavity|Weather) =P(Toothache,Catch,Cavity)
+❑P(Weather|Toothache,Catch,Cavity) = P(Weather)
+Conditional Independence
+5◼Independence is a strong assumption
+❑e.g., toothache and catch are not independent (they are each
+more likely if you have a cavity)
+◼However, variables may be independent GIVEN other  
+variables
+◼Example:
+❑P(toothache ∧ catch |cavity) = P(toothache|cavity) P(catch|cavity)
+◼Interpretation1: If you have a cavity, the probability that the  
+probe catches in your tooth is not affected by yourtoothache
+◼Interpretation 2: If you have a cavity, the probability of you  
+having a toothache is not affected by whether the probe  
+catches it ornot
+Conditional independence
+6◼There are equivalent forms of conditional  
+independence
+◼A and B are conditionally independent given C iff
+❑P(A, B | C) = P(A | C) P(B | C)
+❑P(A | B, C) = P(A | C)
+❑P(B | A, C) = P(B |C)
+❑Proof: ?
+◼Conditional independence is our most basic  
+form of knowledge about stochastic  
+environments
+Cautions
+7◼P(A,B) = P(A) P(B) means that it holds for all  
+assignments of A andB
+◼For example, if A and B are binary random variables, then
+❑P(A=T,B=T) = P(A=T) P(B=T) (orP(a ∧     b)=P(a)P(b) )
+❑P(A=T,B=F) = P(A=T) P(B=F) (orP(a ∧~b)=P(a)P(~b) )
+❑P(A=F,B=T) = P(A=F) P(B=T) (orP(~a ∧     b)=P(~a)P(b) )
+❑P(A=F,B=F) = P(A=F) P(B=F) (orP(~a ∧~b) = P(~a)P(~b) )
+◼Is a much stronger claim than P(a ∧ b) = P(a) P(b)
+❑It can also be mixed: P(A, b) = P(A) P(b)
+❑The convention applies to all other equations
+Combining evidence with conditional  
+independence
+◼Suppose dentists knows
+𝑃𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒𝑐𝑎𝑣𝑖𝑡𝑦,𝑃𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒~𝑐𝑎𝑣𝑖𝑡𝑦
+𝑃𝑐𝑎𝑡𝑐ℎ𝑐𝑎𝑣𝑖𝑡𝑦,𝑃𝑐𝑎𝑡𝑐ℎ~𝑐𝑎𝑣𝑖𝑡𝑦
+𝑃(𝑐𝑎𝑣𝑖𝑡𝑦)
+◼and that
+𝑃𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒, 𝑐𝑎𝑡𝑐ℎ𝑐𝑎𝑣𝑖𝑡𝑦=𝑃𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒𝑐𝑎𝑣𝑖𝑡𝑦
+x𝑃𝑐𝑎𝑡𝑐ℎ𝑐𝑎𝑣𝑖𝑡𝑦
+◼What is theposterior𝑃𝑐𝑎𝑣𝑖𝑡𝑦𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒,𝑐𝑎𝑡𝑐ℎ?
+8
+Combining evidence with conditional  
+independence
+◼Follow the definitions
+𝑃𝑐𝑎𝑣𝑖𝑡𝑦𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒,𝑐𝑎𝑡𝑐ℎ
+= 𝑃(𝑐𝑎𝑣𝑖𝑡𝑦, 𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒,𝑐𝑎𝑡𝑐ℎ)
+𝑃(𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒,𝑐𝑎𝑡𝑐ℎ)
+=𝑃𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒,𝑐𝑎𝑡𝑐ℎ𝑐𝑎𝑣𝑖𝑡𝑦𝑃(𝑐𝑎𝑣𝑖𝑡𝑦)
+𝑃(𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒,𝑐𝑎𝑡𝑐ℎ)
+=𝑃𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒𝑐𝑎𝑣𝑖𝑡𝑦𝑃𝑐𝑎𝑡𝑐ℎ𝑐𝑎𝑣𝑖𝑡𝑦𝑃(𝑐𝑎𝑣𝑖𝑡𝑦)
+𝑃(𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒,𝑐𝑎𝑡𝑐ℎ)
+9
+Combining evidence with conditional  
+independence
+◼Numerator: plug-in the values of
+𝑃𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒𝑐𝑎𝑣𝑖𝑡𝑦,𝑃𝑐𝑎𝑡𝑐ℎ𝑐𝑎𝑣𝑖𝑡𝑦,𝑃(𝑐𝑎𝑣𝑖𝑡𝑦)
+◼Denominator: a bit more computation required
+◼Direct approach:
+𝑃(𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒,𝑐𝑎𝑡𝑐ℎ)
+=𝐶𝑎𝑣𝑖𝑡𝑦𝑃(𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒, 𝑐𝑎𝑡𝑐ℎ,𝐶𝑎𝑣𝑖𝑡𝑦)
+=𝐶𝑎𝑣𝑖𝑡𝑦𝑃𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒𝐶𝑎𝑣𝑖𝑡𝑦𝑃𝑐𝑎𝑡𝑐ℎ𝐶𝑎𝑣𝑖𝑡𝑦𝑃(𝐶𝑎𝑣𝑖𝑡𝑦)
+=𝐶𝑎𝑣𝑖𝑡𝑦𝑛𝑢𝑚𝑒𝑟𝑎𝑡𝑜𝑟
+10
+Combining evidence with conditional  
+independence
+◼Normalization approach: avoid computing the  
+denominator
+𝑃𝑐𝑎𝑣𝑖𝑡𝑦𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒,𝑐𝑎𝑡𝑐ℎ
+=𝑃 (𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒| 𝑐𝑎𝑣𝑖𝑡𝑦) 𝑃(𝑐𝑎𝑡𝑐ℎ|c𝑎𝑣𝑖𝑡𝑦) 𝑃(𝑐𝑎𝑣𝑖𝑡𝑦)
+𝐶𝑎𝑣𝑖𝑡𝑦𝑃(𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒|𝐶𝑎𝑣𝑖𝑡𝑦) 𝑃(𝑐𝑎𝑡𝑐ℎ|C𝑎𝑣𝑖𝑡𝑦)𝑃(𝐶𝑎𝑣𝑖𝑡𝑦)
+=α𝑃𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒𝑐𝑎𝑣𝑖𝑡𝑦𝑃𝑐𝑎𝑡𝑐ℎ𝑐𝑎𝑣𝑖𝑡𝑦𝑃(𝑐𝑎𝑣𝑖𝑡𝑦)
+Here α (= 1/denominator) is called anormalizing
+constant
+11
+Combining evidence with conditional  
+independence
+◼How to compute α?
+◼From the probability axioms:
+𝑃𝑐𝑎𝑣𝑖𝑡𝑦 𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒, 𝑐𝑎𝑡𝑐ℎ +𝑃~𝑐𝑎𝑣𝑖𝑡𝑦𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒, 𝑐𝑎𝑡𝑐ℎ=1
+◼Since
+𝑃𝐶𝑎𝑣𝑖𝑡𝑦𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒,𝑐𝑎𝑡𝑐ℎ=
+α𝑃𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒𝐶𝑎𝑣𝑖𝑡𝑦𝑃𝑐𝑎𝑡𝑐ℎ𝐶𝑎𝑣𝑖𝑡𝑦𝑃(𝐶𝑎𝑣𝑖𝑡𝑦),
+we have
+α𝑃𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒𝑐𝑎𝑣𝑖𝑡𝑦𝑃𝑐𝑎𝑡𝑐ℎ𝑐𝑎𝑣𝑖𝑡𝑦𝑃𝑐𝑎𝑣𝑖𝑡𝑦+
+α𝑃𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒~𝑐𝑎𝑣𝑖𝑡𝑦  𝑃  𝑐𝑎𝑡𝑐ℎ~𝑐𝑎𝑣𝑖𝑡𝑦  𝑃  ~𝑐𝑎𝑣𝑖𝑡𝑦 =1
+◼Plug-in the probabilities, solve for α, and finally get
+𝑃𝑐𝑎𝑣𝑖𝑡𝑦𝑡𝑜𝑜𝑡ℎ𝑎𝑐ℎ𝑒,𝑐𝑎𝑡𝑐ℎ
+12
+Naï ve Bayes (optional)
+◼This type of pattern is known as naï ve Bayes:
+𝑃𝐶𝑎𝑢𝑠𝑒,𝐸1,…,𝐸𝑛 = 𝑃(𝐶𝑎𝑢𝑠𝑒)𝑃(𝐸𝑖|𝐶𝑎𝑢𝑠𝑒)
+𝑖
+Orequivalently:
+𝑃𝐶𝑎𝑢𝑠𝑒|𝐸1,…,𝐸𝑛=𝑃(𝐶𝑎𝑢𝑠𝑒)𝑖𝑃(𝐸𝑖|𝐶𝑎𝑢𝑠𝑒)
+𝐶𝑎𝑢𝑠𝑒𝑃(𝐶𝑎𝑢𝑠𝑒)𝑖𝑃(𝐸𝑖|𝐶𝑎𝑢𝑠𝑒)
+❑Naï ve because it is often used as a simplifying  
+assumption in places where the Effect variables are  
+not actually conditionally independent
+◼And yet it works surprisingly well in practice anyway
+13
+Naï ve Bayes Example
+◼Bayesian spam filter
+❑An e-mail may be a spam or ham (Spam=T orF)
+𝑃𝑆𝑝𝑎𝑚|𝐹1,…,𝐹𝑛=𝑃(𝑆𝑝𝑎𝑚)𝑖𝑃(𝐹𝑖|𝑆𝑝𝑎𝑚)
+𝑆𝑝𝑎𝑚𝑃(𝑆𝑝𝑎𝑚)𝑖𝑃(𝐹𝑖|𝑆𝑝𝑎𝑚)
+❑Here the “effect” terms are features from the
+underlying email
+◼Words used in the email (“Dear Sir/Ma’am, I’m a prince from  
+Nigeria …”)
+◼Sender information (blacklist)
+◼Contents: images, attachments etc.
+◼CC’ed to everybody
+14
+Naï ve Bayes Example
+𝑃𝑆𝑝𝑎𝑚|𝐹1,…,𝐹𝑛=𝑃(𝑆𝑝𝑎𝑚)𝑖𝑃(𝐹𝑖|𝑆𝑝𝑎𝑚)
+𝑆𝑝𝑎𝑚𝑃(𝑆𝑝𝑎𝑚)𝑖𝑃(𝐹𝑖|𝑆𝑝𝑎𝑚)
+❑Building a spam filter (=machine learning)
+◼Collect statistics of the co -occurrence of features and true  
+spam/ham labels from many emails
+◼Compute scores 𝑃(𝐹𝑖|𝑆𝑝𝑎𝑚) for all features
+( How often does a feature show up in spam vs ham? )
+❑Using a spam filter given a mail
+◼Compute the posterior 𝑃𝑆𝑝𝑎𝑚|𝐹1, … ,𝐹𝑛
+◼If 𝑃𝑆𝑝𝑎𝑚= 𝑇|𝐹1, …,𝐹𝑛≥ 𝑃𝑆𝑝𝑎𝑚= 𝐹|𝐹1, …,𝐹𝑛, then it’sa  
+spam. Otherwise, it’s aham
+15
+Naï ve Bayes Example
+𝑃𝑆𝑝𝑎𝑚|𝐹1,…,𝐹𝑛=𝑃(𝑆𝑝𝑎𝑚)𝑖𝑃(𝐹𝑖|𝑆𝑝𝑎𝑚)
+𝑆𝑝𝑎𝑚𝑃(𝑆𝑝𝑎𝑚)𝑖𝑃(𝐹𝑖|𝑆𝑝𝑎𝑚)
+= α 𝑃(𝑆𝑝𝑎𝑚)𝑃(𝐹𝑖|𝑆𝑝𝑎𝑚)
+𝑖
+❑Notice thatwedon’t actually need thenormalization
+term (=α),ifweareonly interested indeciding spam
+vsham
+❑Still need to compute α, if we want the actual  
+probability of a mail being aspam/ham
+16
+8/8. Probabilistic Wumpus world
+◼An agent has explored [1,1], [1,2],
+and[2,1]
+◼Observed breeze at [1,2] and[2,1]
+◼Breeze is felt adjacent to squares  
+withpits
+◼Stochastic task environment:
+❑Each square can independently have a pit with 0.8probability
+(therefore no pit with probability 0.2)
+◼Query: which square is better, [1,3] or[2,2]?
+17
+8/8. Probabilistic Wumpus world
+◼Random variables
+❑Pi,j = true iff [i,j] contains a pit
+❑Bi,j = true iff [i,j] isbreezy
+◼Consider variables P1,1,…, P4,4, 
+and B1,1, B1,2, B2,1only
+18
+Specifying the probability model
+19◼Full joint distribution
+❑P(P1,1, …,P4,4,B1,1,B1,2,B2,1)
+1,1 4,4❑P(P ,…,P)= P(Pi,j)◼Use product rule
+❑P(joint) = P(B1,1,B1,2,B2,1| P1,1, … ,P4,4) P(P1,1, …,P4,4)
+❑First term: 1 if pits are adjacent to breezes, 0 otherwise
+❑Second term: pits are placed randomly, probability 0.2 per
+square:
+4,4
+𝑖,𝑗=1,1
+❑If there are n pits at fixed locations, then P = 0.2n x0.816-n
+❑What if we wrote P(joint) = P(P1,1, … ,P4,4|B1,1,B1,2,B2,1)x  
+P(B1,1,B1,2,B2,1)?
+Observation andquery
+20◼Define symbols for what we already know
+❑known ≡~p1,1 ∧ ~p1,2 ∧~p2,1
+❑b ≡~b1,1∧b1,2∧b2,1
+◼Query: P(P1,3 | known, b)
+◼How toproceed?
+❑Rewrite the posterior as
+❑P(P1,3 | known, b) = α ∑Unknown P(P1,3, known, Unknown, b)
+❑“Unknown” means all Pi,j’s except for P1,3 and“known”
+❑# of terms in the summation equals 2^(# of unknown squares)
+◼Grows exponentially with number ofsquares!
+Using conditional independence
+◼Basic insight: Bi,j (=breeze at [i,j]) is,  
+given the presence/absence pits in  
+adjacent squares, conditionally  
+independent of other squares
+◼We are only concerned with 
+b ≡ ~b1,1  ∧ b1,2∧b2,1
+◼Group “Unknown” pits as “Frontier(or fringe)” or “Other”
+◼P(b|P1,3,Known,Unknown) =P(b|P1,3,Known,Frontier)
+◼Use this to answer thequery!
+21
+22
+◼P(p1,3 | known, b)
+◼= α’ P(p1,3) ∑f P(b | k,p1,3,f)P(f)
+◼= α’ 0.2*(0.04+0.16+0.16) = α’0.072
+◼P(~p1,3 | known, b) = α’ P(~p1,3) ∑f P(b | k,~p1,3,f)P(f)
+◼= α’ 0.8*(0.04+0.16) = α’0.16
+23
+◼From P(p1,3 | known, b) + P(~p1,3 | known, b)
+= α’ 0.072 + α’ 0.16 = α’ 0.232 =1,weget
+P(~p1,3 | known, b) = α’ 0.072 =0.31
+◼Similarly, P(p2,2 |known, b)=0.86
+◼Agent will choose [1,3] over [2,2]
+24

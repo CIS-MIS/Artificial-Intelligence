@@ -1,0 +1,703 @@
+ARTIFICIAL INTELLIGENCE NOTES: HUMAN-AI COLLABORATION
+
+1. INTRODUCTION: HUMANS AND AI WORKING TOGETHER
+
+Artificial intelligence (AI) is often discussed in terms of automation and the possibility that machines will replace human workers. However, AI does not have to compete with humans. It can also work alongside people to improve decision-making, solve complex problems, and enhance human abilities.
+
+Human-AI collaboration occurs when humans and AI systems work together, combining their different strengths to achieve a goal.
+
+Rather than expecting AI to perform every task independently, humans can guide AI systems, interpret their results, and provide the judgment needed to make good decisions.
+
+Examples of human-AI collaboration include:
+- Doctors using AI to help evaluate medical information.
+- Engineers using AI to explore possible designs.
+- Customer service representatives working with virtual assistants.
+- Rescue workers directing AI-enabled robots.
+- Chess players combining human intuition with computer analysis.
+
+KEY IDEA:
+The goal of human-AI collaboration is to combine the strengths of humans and machines while compensating for each other's limitations.
+
+2. COMPARING HUMAN AND AI STRENGTHS
+
+Humans and AI systems process information differently. Understanding these differences helps determine which tasks are best suited for each.
+
+A. Strengths of AI
+
+AI systems can be particularly effective at:
+- Processing large amounts of data quickly.
+- Searching through many possible solutions.
+- Identifying patterns in data.
+- Performing repetitive tasks consistently.
+- Applying rules to structured problems.
+- Making rapid calculations.
+- Producing predictions based on learned patterns.
+
+For example, an AI system may be able to analyze thousands of medical records much faster than a person could manually review them.
+
+However, AI systems can still make errors, reflect biases in their training data, or produce misleading results. They are not automatically reliable simply because they process information quickly.
+
+B. Strengths of Humans
+
+Humans can contribute:
+- Creativity and original thinking.
+- Contextual understanding.
+- Social awareness and empathy.
+- Moral and ethical judgment.
+- Experience-based intuition.
+- Understanding of cultural and situational nuances.
+- The ability to reconsider goals and question assumptions.
+
+For example, a doctor may use personal experience, knowledge of a patient's circumstances, and communication with the patient to interpret information produced by an AI system.
+
+Human judgment is not perfect either. People can make mistakes because of fatigue, limited knowledge, stress, or personal biases.
+
+C. Complementary Strengths
+
+Complementary strengths are abilities that work well together because they compensate for one another's limitations.
+
+A human-AI team might work as follows:
+
+1. AI processes a large amount of information.
+2. AI identifies patterns or suggests possible solutions.
+3. A human reviews the suggestions.
+4. The human considers context, experience, and ethical concerns.
+5. The human and AI contribute to a more informed decision.
+
+The best division of work depends on the task. Humans should not automatically make every final decision, and AI should not automatically be trusted with every calculation or recommendation.
+
+The important point is to assign responsibilities according to each participant's capabilities and limitations.
+
+3. CENTAUR CHESS: A CLASSIC EXAMPLE OF HUMAN-AI COLLABORATION
+
+Chess provides a useful example of how humans and AI can work together.
+
+A human player may understand strategic ideas, recognize patterns, and anticipate an opponent's behavior. A chess engine can calculate possible moves and evaluate future board positions.
+
+When these abilities are combined, the result is often called centaur chess, cyborg chess, or advanced chess.
+
+A. What Is Centaur Chess?
+
+Centaur chess is a form of chess in which a human player works with a computer program to make decisions.
+
+The computer can:
+- Search possible future moves.
+- Evaluate different board positions.
+- Identify promising strategies.
+- Calculate tactical possibilities.
+
+The human can:
+- Interpret the computer's suggestions.
+- Consider the opponent's tendencies.
+- Use intuition and experience.
+- Decide which strategic approach is most appropriate.
+- Question or reject a computer recommendation.
+
+B. How the Collaboration Works
+
+Imagine a complicated chess position.
+
+The computer evaluates several possible moves and identifies three promising options.
+
+The human then considers:
+- Which move best fits the overall strategy?
+- What kind of position might the opponent prefer?
+- Is there a practical reason to choose one move over another?
+- Are there weaknesses in the computer's evaluation?
+
+The human can use the computer's analysis as a source of information without blindly following every recommendation.
+
+C. Why Is It Effective?
+
+The computer is good at calculating many possibilities, while the human can contribute broader strategic judgment and knowledge of the opponent.
+
+This can make the combined team more effective than either participant working alone.
+
+The broader lesson is that the best human-AI team is not necessarily the one in which AI makes every decision. It is the one that uses the strengths of both participants effectively.
+
+4. HUMAN-AI COLLABORATION OUTSIDE GAMES
+
+The same principles used in chess can be applied to medicine, engineering, customer service, and physical work.
+
+A. Medical Diagnosis
+
+Doctors often need to interpret symptoms, medical histories, test results, and published research.
+
+AI can assist by:
+- Identifying patterns in medical records.
+- Highlighting possible diagnoses.
+- Summarizing relevant medical information.
+- Helping prioritize cases for further investigation.
+
+The doctor can then evaluate these suggestions using clinical expertise, patient history, physical examinations, and knowledge of the patient's circumstances.
+
+Example:
+
+An AI system identifies several possible explanations for a patient's symptoms. The doctor reviews those possibilities, conducts further examinations, and determines which diagnosis is most appropriate.
+
+Important limitation:
+An AI-generated suggestion is not automatically correct. Medical AI requires appropriate validation, and clinicians must consider uncertainty, patient safety, and the limitations of the system.
+
+B. Engineering and Design
+
+Engineers often need to create structures or products that satisfy many constraints.
+
+These constraints might include:
+- Maximum weight.
+- Material costs.
+- Strength requirements.
+- Safety standards.
+- Energy efficiency.
+- Environmental conditions.
+
+AI can explore numerous possible designs and identify candidates that satisfy specified requirements.
+
+Human engineers can then evaluate practicality, safety, manufacturability, and other factors that may be difficult to represent fully in an optimization model.
+
+For example, an AI system might generate several lightweight structural designs that meet a strength requirement. Engineers can inspect the options and choose or modify the design that best fits the real-world application.
+
+C. Customer Service
+
+AI-powered virtual assistants can handle repetitive tasks, such as:
+- Checking order status.
+- Answering common questions.
+- Explaining return procedures.
+- Directing customers to relevant resources.
+
+This can allow human customer service representatives to focus on complicated problems requiring judgment, empathy, or negotiation.
+
+However, automated systems sometimes misunderstand questions or fail to resolve a customer's issue.
+
+An effective system should allow customers to reach a human representative when necessary.
+
+D. AI-Enabled Robots
+
+Robots can extend human capabilities by providing strength, endurance, precision, or access to dangerous environments.
+
+Examples include:
+
+1. Robotic exosuits
+   Wearable devices that can assist people with physical tasks, depending on their design and application.
+
+2. Search-and-rescue robots
+   Robots that can enter hazardous environments to help locate people or gather information.
+
+3. Remotely operated robots
+   Machines controlled by human operators, sometimes with AI assisting movement, navigation, or obstacle avoidance.
+
+In these situations, AI may handle certain technical tasks while humans provide goals, oversight, and important decisions.
+
+KEY IDEA:
+AI can support both intellectual work and physical work. Its role may range from providing recommendations to controlling parts of a robot under human supervision.
+
+5. HUMAN-COMPUTER INTERACTION AND HUMAN-ROBOT INTERACTION
+
+Researchers study how humans and intelligent systems can communicate and work together effectively.
+
+Two important research fields are Human-Computer Interaction (HCI) and Human-Robot Interaction (HRI).
+
+A. Human-Computer Interaction (HCI)
+
+Human-Computer Interaction studies how people interact with computers and digital systems.
+
+It considers questions such as:
+- Is the system easy to use?
+- Can users understand the information it provides?
+- Does the interface help people complete tasks?
+- How can errors and confusion be reduced?
+- How can a system support human decision-making?
+
+In AI applications, HCI can help ensure that AI recommendations are presented in a useful and understandable way.
+
+B. Human-Robot Interaction (HRI)
+
+Human-Robot Interaction studies how people interact with robots.
+
+Researchers investigate:
+- How humans communicate instructions to robots.
+- How robots communicate their actions and intentions.
+- How people trust or misunderstand robotic systems.
+- How robots can safely operate around people.
+- How humans and robots can coordinate their work.
+
+For example, a warehouse robot may transport items while a human worker handles exceptions, makes decisions, or completes tasks that require more flexible judgment.
+
+The robot's usefulness depends not only on its technical capabilities but also on how safely and effectively it works with people.
+
+6. HUMANS ALSO HELP AI SYSTEMS SUCCEED
+
+Human-AI collaboration is not a one-way relationship in which AI helps humans. Humans also provide essential information, feedback, oversight, and guidance that help AI systems function effectively.
+
+There are several important ways humans contribute to AI.
+
+7. HUMANS PROVIDE DATA, LABELS, AND MEANING
+
+AI systems often learn from data collected through human activity.
+
+People create, organize, label, and interact with information in ways that can help AI systems identify patterns.
+
+A. Data
+
+Data are recorded observations or information used by computer systems.
+
+Examples include:
+- Text messages.
+- Images.
+- Search queries.
+- Website interactions.
+- Driving and traffic information.
+- Product ratings.
+- Medical records.
+
+Depending on the system and its data practices, some of these interactions may contribute to improving AI models or other algorithms.
+
+B. Labels
+
+Labels provide information about what data represent.
+
+For example:
+- An image may be labeled "dog."
+- A message may be labeled "spam."
+- A medical image may be annotated to identify a particular feature.
+
+Human labeling can help a model learn relationships between inputs and desired outputs.
+
+C. Meaning and Relationships
+
+Humans also organize information in ways that help computers represent relationships between concepts.
+
+For example, an organized knowledge resource might represent these relationships:
+
+Elephant → is a → Mammal
+Mammal → is a → Animal
+Paris → is the capital of → France
+
+These relationships can help a computer system connect related concepts.
+
+D. Wikipedia and Knowledge Graphs
+
+Wikipedia organizes articles and links between topics. Structured relationships and information extracted from resources like Wikipedia can support knowledge-based algorithms.
+
+A knowledge graph represents entities and their relationships in a structured form.
+
+For example:
+
+Entity 1: Elephant
+Relationship: is a
+Entity 2: Mammal
+
+A collection of these relationships can help a system identify connections between subjects.
+
+However, merely linking two articles does not guarantee that a system understands their full meaning. The quality of the representation and the algorithms using it still matter.
+
+8. EVERYDAY DIGITAL ACTIVITIES CAN SUPPORT ALGORITHMS
+
+When people interact with digital technology, they may provide information that helps algorithms make predictions or recommendations.
+
+Examples include:
+
+A. Video Recommendations
+
+Watching videos, searching for topics, and interacting with content can provide signals that recommendation systems use to predict what someone may want to watch.
+
+B. Predictive Text
+
+Typing messages can provide contextual information used by text-prediction systems to suggest likely words or phrases.
+
+C. Navigation and Traffic
+
+Navigation applications may use traffic reports, location information, road conditions, and other available data to estimate travel times and suggest routes.
+
+D. Online Ratings and Feedback
+
+Ratings, reviews, and feedback can help recommendation systems identify products or services that users may find useful.
+
+Important privacy consideration:
+
+Providing data can improve some systems, but it can also create risks.
+
+These risks may include:
+- Loss of privacy.
+- Unauthorized data collection.
+- Misuse of personal information.
+- Security breaches.
+- Unfair treatment based on data.
+- Unclear consent about how information is used.
+
+Data practices differ across systems. Not every interaction is used to train an AI model, and users should not assume that every digital action has the same effect.
+
+KEY IDEA:
+Human activity can provide valuable information to algorithms, but the collection and use of that information should be transparent, secure, and appropriately governed.
+
+9. EXPLAINING AI DECISIONS TO HUMANS
+
+Many AI systems, particularly complex neural networks, can produce predictions that are difficult to explain in simple terms.
+
+A system may accept a large number of inputs and produce an output, but understanding exactly how each input contributed to that result can be challenging.
+
+This creates a need for explainability and effective communication.
+
+A. What Is Explainable AI?
+
+Explainable AI refers to methods that help people understand how an AI system produces or supports a prediction or decision.
+
+Explanations may include:
+- Which inputs influenced a prediction.
+- Which factors were most important.
+- How confident the system is.
+- What assumptions or limitations apply.
+- How changing certain inputs might change the result.
+
+Not every explanation fully reveals the internal reasoning of a model. Some explanations are approximations or summaries of the system's behavior.
+
+B. Example: Loan Decisions
+
+Imagine that an AI system recommends denying a customer's loan application.
+
+A loan officer may need to understand:
+- Which information was considered.
+- Which factors contributed to the recommendation.
+- Whether the information was accurate.
+- Whether the system treated the applicant fairly.
+- Whether the decision complies with applicable law and policy.
+
+The loan officer must be able to investigate the recommendation rather than simply accepting it because a computer produced it.
+
+C. Why Explanations Matter
+
+Explanations can help people:
+- Detect errors.
+- Identify possible bias.
+- Understand the limits of an AI system.
+- Communicate decisions to affected individuals.
+- Decide when human review is necessary.
+- Hold organizations accountable.
+
+An explanation alone does not guarantee that a decision is correct or fair. It must be supported by appropriate evidence and meaningful oversight.
+
+10. HUMAN OVERSIGHT AND ALGORITHMIC FAIRNESS
+
+AI systems learn from data and follow objectives established through their design and deployment. If the data or objectives contain problems, the system may produce unfair or harmful results.
+
+Human experts can help identify and address these problems.
+
+A. What Is Algorithmic Bias?
+
+Algorithmic bias occurs when a system produces systematically distorted or unfair results.
+
+Bias can arise from:
+- Unrepresentative training data.
+- Historical inequalities reflected in the data.
+- Incorrect labels.
+- Poorly chosen objectives.
+- Inappropriate assumptions.
+- Errors in measurement.
+- The way a system is deployed.
+
+For example, a hiring system trained on historical hiring data might reproduce patterns that unfairly disadvantage qualified candidates from certain groups.
+
+B. How Humans Can Help
+
+Human experts can:
+- Examine training data.
+- Test performance across different groups.
+- Check whether labels are appropriate.
+- Evaluate the system's assumptions.
+- Investigate unexpected outcomes.
+- Recommend changes to the model or its deployment.
+- Monitor results after the system is introduced.
+
+C. Why Fairness Is Difficult
+
+Fairness is not always captured by a single numerical measure.
+
+Different definitions of fairness may conflict, and the appropriate approach can depend on the application, the people affected, and legal or ethical requirements.
+
+Human review therefore needs to be thoughtful and evidence-based.
+
+IMPORTANT:
+Human oversight can reduce the risk of unfair outcomes, but humans themselves can also be biased. Effective oversight requires clear procedures, appropriate expertise, and accountability.
+
+11. ETHICS, VALUES, AND RESPONSIBLE AI
+
+AI systems optimize objectives and follow the mechanisms built into them. They do not automatically understand the full moral significance of their actions.
+
+A system may achieve a specified goal while producing consequences that people consider unacceptable.
+
+A. The Problem of Poorly Defined Goals
+
+Imagine a fictional AI instructed to minimize suffering.
+
+If the objective is interpreted too literally and without meaningful constraints, a badly designed system might pursue a harmful solution that technically satisfies its simplified objective.
+
+The problem is not that the system has independently developed human moral understanding. Rather, the objective does not adequately represent the intentions and values that people wanted it to follow.
+
+This illustrates a central challenge in AI safety: translating human intentions into objectives and constraints that lead to acceptable behavior.
+
+B. Why Human Oversight Matters
+
+People need to determine:
+- Which goals should an AI system pursue?
+- Which actions should be prohibited?
+- What risks are acceptable?
+- Who is responsible if something goes wrong?
+- When should the system stop or request human intervention?
+- How should conflicts between objectives be resolved?
+
+C. Responsible AI Principles
+
+Responsible AI development often emphasizes:
+
+1. Safety: Reduce the likelihood of harmful outcomes.
+2. Fairness: Identify and address unjustified disparities.
+3. Transparency: Make relevant information about the system available.
+4. Accountability: Establish who is responsible for decisions and outcomes.
+5. Privacy: Protect personal information.
+6. Human oversight: Provide meaningful ways for people to monitor and intervene.
+7. Reliability: Test whether the system performs as intended.
+
+These principles help ensure that AI systems serve human needs rather than simply maximizing a narrow technical objective.
+
+12. THE RELATIONSHIP BETWEEN AUTOMATION AND EMPLOYMENT
+
+One major concern about AI is that automation can replace human jobs.
+
+This concern is real. When machines perform tasks that people previously completed, some positions may disappear or change substantially.
+
+However, technological change can also create new jobs and transform existing ones.
+
+A. Automation of Repetitive Tasks
+
+Computers are often effective at repetitive tasks with clear rules.
+
+For example, spreadsheets automated many calculations that previously required manual bookkeeping.
+
+This reduced the need for some types of routine work while also changing accounting and business practices.
+
+B. New Forms of Human-Computer Collaboration
+
+As routine calculations became easier to automate, many accounting professionals could focus more on:
+- Interpreting financial information.
+- Advising clients.
+- Investigating unusual transactions.
+- Making judgments about complex situations.
+- Communicating recommendations.
+
+This example illustrates how technology can change the division of work between humans and computers.
+
+C. AI's Impact on Jobs
+
+AI and automation can:
+- Eliminate some tasks and jobs.
+- Change the skills required in existing occupations.
+- Increase productivity.
+- Create new types of work.
+- Shift responsibilities between humans and machines.
+- Disrupt workers, organizations, and communities.
+
+The effects are not automatically positive for everyone. Workers may face unemployment, retraining costs, wage changes, and uncertainty during transitions.
+
+D. Preparing for Change
+
+Understanding AI can help workers and organizations identify:
+- Which tasks can be automated.
+- Which tasks benefit from human judgment.
+- Which new skills are needed.
+- How to redesign workflows.
+- Where human-AI collaboration can improve results.
+
+The goal should not be to ignore the costs of automation. Instead, society must consider how to distribute its benefits, support affected workers, and reduce harm.
+
+KEY IDEA:
+AI changes how work is performed. The outcome depends on technical capabilities, organizational choices, economic conditions, and the decisions society makes about implementation.
+
+13. HOW TO DESIGN AN EFFECTIVE HUMAN-AI TEAM
+
+An effective human-AI team requires more than placing a person next to an AI system.
+
+The team must be designed so that each participant contributes where they are most useful.
+
+A practical process includes the following steps.
+
+Step 1: Define the goal.
+Determine what the team is trying to accomplish.
+
+Step 2: Identify the task requirements.
+Break the work into smaller tasks, such as gathering information, recognizing patterns, interpreting context, and making decisions.
+
+Step 3: Identify AI strengths and limitations.
+Determine which tasks the AI can perform reliably and where it is likely to struggle.
+
+Step 4: Identify human responsibilities.
+Determine where expertise, communication, contextual understanding, and ethical judgment are especially important.
+
+Step 5: Establish communication.
+Ensure that the AI's recommendations, uncertainty, and limitations can be understood by the human user.
+
+Step 6: Provide appropriate oversight.
+Allow people to review important decisions, correct errors, and intervene when needed.
+
+Step 7: Evaluate the combined system.
+Measure not only the AI's performance but also the quality of the overall human-AI team's results.
+
+Step 8: Monitor and improve.
+Collect feedback, investigate failures, and update the workflow as needed.
+
+The most effective division of responsibilities depends on the context. Some tasks may require substantial human control, while others can safely be automated with limited intervention.
+
+14. IMPORTANT VOCABULARY
+
+Human-AI Collaboration:
+A process in which humans and AI systems work together to accomplish a goal.
+
+Complementary Strengths:
+Abilities that work well together because they compensate for one another's limitations.
+
+Centaur Chess:
+A form of chess in which a human and a computer program collaborate to make decisions.
+
+Human-Computer Interaction (HCI):
+The study of how people interact with computers and digital systems.
+
+Human-Robot Interaction (HRI):
+The study of how humans communicate and work with robots.
+
+Data:
+Recorded information that can be stored, processed, analyzed, or used by computer systems.
+
+Label:
+A tag or category associated with a data example to identify what it represents.
+
+Knowledge Graph:
+A structured representation of entities and the relationships between them.
+
+Explainable AI:
+Methods designed to help people understand the factors or processes associated with an AI system's outputs.
+
+Algorithmic Bias:
+Systematic distortion or unfairness in the results produced by an algorithmic system.
+
+Human Oversight:
+The process of monitoring, reviewing, guiding, or intervening in a system's operation.
+
+Responsible AI:
+The development and use of AI with attention to safety, fairness, privacy, accountability, and other human values.
+
+Automation:
+The use of technology to perform tasks with reduced direct human effort.
+
+Human-AI Team:
+A working arrangement in which humans and AI systems contribute different capabilities toward a shared objective.
+
+15. KEY TAKEAWAYS
+
+1. Humans and AI have different strengths that can complement each other.
+
+2. AI can process large amounts of information and evaluate many possibilities, while humans can contribute contextual judgment, social understanding, and ethical reasoning.
+
+3. Centaur chess demonstrates how human intuition and computer analysis can be combined.
+
+4. Human-AI collaboration can support medical diagnosis, engineering design, customer service, and physical work.
+
+5. Human-Computer Interaction and Human-Robot Interaction study how people can work effectively with intelligent systems.
+
+6. Humans contribute to AI by providing data, labels, feedback, and structured information.
+
+7. Everyday digital activities can generate information that supports recommendation, prediction, and navigation systems, depending on how the data are collected and used.
+
+8. Explainability helps people investigate AI recommendations, communicate decisions, and identify possible errors.
+
+9. Human experts can help identify bias and evaluate whether AI systems treat people fairly.
+
+10. AI systems do not automatically understand human values or the full consequences of their actions. Their objectives and constraints must be carefully designed.
+
+11. Automation can eliminate or change jobs, but it can also create new roles and opportunities for human-computer collaboration.
+
+12. Effective human-AI teams require appropriate task allocation, clear communication, oversight, and evaluation.
+
+13. AI should not simply be trusted because it produces a numerical score or recommendation.
+
+14. Society must decide how AI is used, how its benefits are distributed, and how its risks and costs are managed.
+
+16. REVIEW QUESTIONS
+
+1. What is human-AI collaboration?
+
+2. Give three examples of tasks at which AI systems can be effective.
+
+3. What are three strengths humans can contribute to an AI-assisted task?
+
+4. What is centaur chess, and why can it be effective?
+
+5. How might an AI system assist a doctor without replacing the doctor's professional judgment?
+
+6. How can AI help engineers design new products or structures?
+
+7. What are Human-Computer Interaction and Human-Robot Interaction?
+
+8. How can people contribute data or labels that help AI systems?
+
+9. What is a knowledge graph, and how can it help a computer system represent relationships?
+
+10. Why might an AI recommendation need to be explained to a human decision-maker?
+
+11. What is algorithmic bias, and how can it arise?
+
+12. How can human experts help identify unfair AI outcomes?
+
+13. Why is human oversight important when AI systems make consequential decisions?
+
+14. What can happen when an AI system is given a poorly defined objective?
+
+15. How can automation change employment opportunities?
+
+16. What are two possible benefits and two possible risks of AI-driven automation?
+
+17. What steps can help an organization build an effective human-AI team?
+
+18. Why should an AI system's recommendations be evaluated rather than automatically accepted?
+
+17. PRACTICE ACTIVITY: DESIGN A HUMAN-AI TEAM
+
+Scenario:
+
+A hospital wants to use AI to help doctors review patient information and identify possible diagnoses.
+
+Complete the following activity.
+
+A. Define the goal.
+- What problem is the hospital trying to solve?
+- What would count as a successful outcome?
+
+B. Identify AI responsibilities.
+- What information could the AI process?
+- What patterns or possible diagnoses could it identify?
+- How could it help prioritize cases?
+
+C. Identify human responsibilities.
+- What should the doctor verify?
+- What additional information might be needed?
+- How should the doctor account for the patient's circumstances?
+
+D. Consider risks.
+- What could happen if the AI is incorrect?
+- Could the training data contain bias?
+- What happens if the doctor trusts the recommendation without reviewing it?
+
+E. Design oversight.
+- When should a human review be required?
+- How should uncertainty be communicated?
+- How should errors be reported and investigated?
+
+F. Evaluate the team.
+- Does the combined approach improve decision quality?
+- Does it introduce new risks?
+- How can the hospital determine whether the system is safe and effective?
+
+FINAL CONCEPT
+
+Human-AI collaboration is about more than making machines perform tasks faster. It is about designing systems in which people and AI contribute their different capabilities toward shared goals.
+
+AI can help people process information, explore possibilities, and automate repetitive tasks. Humans can provide context, judgment, accountability, and guidance. At the same time, humans must consider the privacy, fairness, safety, and employment consequences of AI.
+
+The future of AI will depend not only on what machines can do, but also on how people choose to build, govern, and work with them.

@@ -1,0 +1,969 @@
+ARTIFICIAL INTELLIGENCE NOTES
+Topic: Symbolic AI, Logic, Knowledge Bases, and Expert Systems
+
+============================================================
+1. INTRODUCTION TO SYMBOLIC AI
+============================================================
+
+Symbolic AI is an approach to artificial intelligence that represents knowledge using symbols and uses logic to solve problems, make decisions, and draw conclusions.
+
+Instead of learning patterns primarily from large datasets, traditional Symbolic AI systems rely on explicitly represented facts, relationships, and logical rules.
+
+For example, a symbolic AI system might store these facts:
+
+- A car is a machine.
+- A car is old.
+- A car is smelly.
+
+The system can use these facts and logical rules to answer questions about the car.
+
+Symbolic AI is sometimes called "Good Old-Fashioned AI" (GOFAI).
+
+The central idea is that computers can represent information symbolically and use formal reasoning to determine what follows from that information.
+
+------------------------------------------------------------
+2. HISTORY OF SYMBOLIC AI
+------------------------------------------------------------
+
+In 1959, three researchers worked together to develop a program called the General Problem Solver (GPS).
+
+The researchers were:
+
+- Allen Newell: A researcher interested in modeling human thinking and problem-solving.
+- Herbert Simon: A researcher whose work covered human decision-making, economics, and problem-solving. He later received the Nobel Prize in Economic Sciences.
+- Cliff Shaw: A programmer at the RAND Corporation who helped implement the system.
+
+Their goal was to develop a computer program that simulated aspects of human problem-solving.
+
+One of their important ideas was to separate two things:
+
+1. The problem itself: What information describes the situation?
+2. The problem-solving method: What logical process can be used to solve it?
+
+For example, planning a route to school and planning a route to work involve different destinations, but both problems can use similar reasoning strategies.
+
+This separation between knowledge about a problem and the method used to solve it became an important idea in AI.
+
+============================================================
+3. SYMBOLIC AI VS. NEURAL NETWORKS
+============================================================
+
+Symbolic AI and neural networks represent two different approaches to building intelligent systems.
+
+A. Symbolic AI
+
+- Represents information using symbols, facts, and relationships.
+- Uses explicit rules and logical reasoning.
+- Can work without training a statistical model on a large dataset.
+- Often requires humans to define the relevant facts and rules.
+- Can explain a conclusion by identifying the rules and facts used.
+
+Example:
+IF a customer meets the bank's lending requirements, THEN the system may approve the loan.
+
+B. Neural Networks
+
+- Learn patterns from training data.
+- Adjust internal model parameters during training.
+- Often produce predictions using learned statistical relationships.
+- Can work with complex data such as images, audio, and natural language.
+- May be difficult to interpret because their internal computations are complex.
+
+Example:
+A neural network learns to recognize cats by training on many images of cats and other objects.
+
+C. Main Difference
+
+Symbolic AI primarily reasons with explicitly represented knowledge and rules, while neural networks learn representations and patterns from data.
+
+Neither approach is universally better. Each has strengths and weaknesses depending on the task.
+
+Note: Modern AI systems can combine symbolic reasoning with neural networks. This is often called neuro-symbolic AI.
+
+============================================================
+4. SYMBOLS: REPRESENTING KNOWLEDGE
+============================================================
+
+A symbol is a representation of an object, person, concept, or other entity.
+
+Symbols can represent almost anything relevant to a problem, including:
+
+- People
+- Animals
+- Objects
+- Numbers
+- Locations
+- Machines
+- Events
+- Concepts
+
+Examples of symbols:
+- Jabril
+- John-Green-bot
+- donut
+- car
+- toaster
+- robot
+
+Symbols allow a computer to represent aspects of the world in a structured way.
+
+For example, instead of directly representing a physical donut, a program can use the symbol:
+
+(donut)
+
+Similarly, it can represent a person using:
+
+(Jabril)
+
+These symbols are not the real-world objects themselves. They are representations that a computer can manipulate.
+
+============================================================
+5. RELATIONS: DESCRIBING SYMBOLS
+============================================================
+
+A relation describes a property of a symbol or a connection between symbols.
+
+Relations allow a symbolic system to represent facts about how things are related.
+
+A. Properties of a Symbol
+
+A property describes a characteristic of an object.
+
+For example:
+
+chocolate(donut)
+
+This represents the idea that the donut is chocolate-flavored.
+
+Other examples:
+
+old(car)
+
+smelly(car)
+
+robot(John-Green-bot)
+
+These expressions associate properties with symbols.
+
+B. Relations Between Symbols
+
+A relation can also describe how two or more entities interact.
+
+For example:
+
+eat(Jabril, donut)
+
+This represents the idea that Jabril eats a donut.
+
+Another example:
+
+sidekick(John-Green-bot, Jabril)
+
+This represents a relationship between John-Green-bot and Jabril.
+
+Additional examples:
+
+drives(John-Green-bot, car)
+
+wears(John-Green-bot, polo)
+
+is(John-Green-bot, robot)
+
+C. Symbols and Relations
+
+A useful way to remember the difference is:
+
+- Symbols identify the entities being discussed.
+- Relations describe properties of those entities or connections between them.
+
+In simple terms, symbols often behave like nouns, while relations often behave like verbs or descriptive properties.
+
+The exact representation depends on the formal system being used.
+
+D. Relations Can Have Different Numbers of Arguments
+
+A relation does not have to involve only two symbols.
+
+For example:
+
+between(meat, bread)
+
+uses two arguments to describe a relationship.
+
+Other relations may involve three or more arguments. For instance, a system might represent the fact that a person gives an object to another person:
+
+gives(Alice, book, Bob)
+
+The number and meaning of the arguments depend on how the relation is defined.
+
+============================================================
+6. KNOWLEDGE BASES
+============================================================
+
+A knowledge base is a collection of facts, relationships, and rules that a system uses to reason about a particular domain.
+
+A symbolic AI system uses its knowledge base to answer questions, evaluate situations, and derive conclusions.
+
+For example, a simple knowledge base might contain:
+
+1. person(Jabril)
+2. machine(John-Green-bot)
+3. machine(car)
+4. old(car)
+5. smelly(car)
+6. drives(John-Green-bot, car)
+7. not(person(John-Green-bot))
+8. not(machine(Jabril))
+9. machine(toaster)
+
+The knowledge base stores information about the entities and relationships in the system.
+
+A knowledge base can contain:
+- Facts about objects.
+- Relationships between objects.
+- Rules that connect facts.
+- Constraints that determine which conclusions are valid.
+
+Important point:
+A knowledge base is only as reliable and complete as the information and rules it contains. If important facts are missing or incorrect, the system's conclusions may also be incomplete or incorrect.
+
+------------------------------------------------------------
+7. HOW SYMBOLIC AI USES A KNOWLEDGE BASE
+------------------------------------------------------------
+
+A symbolic AI system can follow a process such as:
+
+1. Receive a question or problem.
+2. Identify the relevant symbols and relations.
+3. Search the knowledge base for matching facts.
+4. Apply logical rules to those facts.
+5. Determine what conclusions follow.
+6. Return an answer based on the available information.
+
+For example, suppose a system contains these facts:
+
+- machine(car)
+- old(car)
+
+A question asks:
+
+"Is the car a machine?"
+
+The system can find the fact machine(car) and answer yes, assuming the knowledge base treats that fact as true.
+
+A more advanced system can combine several facts and rules to derive conclusions that were not explicitly stored.
+
+This process is called inference.
+
+============================================================
+8. LOGIC AND PROPOSITIONS
+============================================================
+
+Logic is the formal study of reasoning. Symbolic AI uses logical rules to determine which conclusions follow from known information.
+
+A proposition is a statement that can be assigned a truth value, such as TRUE or FALSE.
+
+Examples of propositions:
+
+- The car is old.
+- The car is smelly.
+- John-Green-bot drives the car.
+
+For a basic logical system, each proposition is assigned one of two truth values:
+
+TRUE = 1
+FALSE = 0
+
+A proposition can be combined with other propositions using logical connectives.
+
+Important logical connectives include:
+
+- AND
+- OR
+- NOT
+- IMPLIES
+
+These connectives allow a symbolic AI system to build more complex statements from simpler ones.
+
+============================================================
+9. PROPOSITIONAL LOGIC
+============================================================
+
+Propositional logic is a formal system for reasoning about propositions and their truth values.
+
+It is closely related to Boolean logic, which is widely used in computer science.
+
+Consider three propositions:
+
+P = The car is smelly.
+Q = The car is old.
+R = John-Green-bot drives the car.
+
+We can combine these propositions to create more complex statements.
+
+For example:
+
+P AND Q AND R
+
+This means:
+
+"The car is smelly, the car is old, and John-Green-bot drives the car."
+
+For the entire statement to be true, all three propositions must be true.
+
+If even one proposition is false, the complete AND statement is false.
+
+This makes propositional logic useful for checking whether a collection of conditions has been satisfied.
+
+============================================================
+10. THE AND CONNECTIVE
+============================================================
+
+The AND connective is true only when every proposition connected by AND is true.
+
+It is commonly represented by:
+
+AND
+∧
+
+For two propositions, the truth table is:
+
+P       Q       P AND Q
+TRUE    TRUE    TRUE
+TRUE    FALSE   FALSE
+FALSE   TRUE    FALSE
+FALSE   FALSE   FALSE
+
+Using numerical values:
+
+TRUE = 1
+FALSE = 0
+
+For basic Boolean values, AND can be represented using multiplication:
+
+1 × 1 = 1
+1 × 0 = 0
+0 × 1 = 0
+0 × 0 = 0
+
+Example:
+
+P = The car is smelly. (TRUE)
+Q = The car is old. (FALSE)
+R = John-Green-bot drives the car. (TRUE)
+
+The combined statement is:
+
+P AND Q AND R
+
+Substituting the truth values:
+
+1 × 0 × 1 = 0
+
+Therefore, the combined proposition is FALSE.
+
+Even though two statements are true, the complete AND statement is false because one required condition is false.
+
+============================================================
+11. THE OR CONNECTIVE
+============================================================
+
+The OR connective is true when at least one of the connected propositions is true.
+
+It is commonly represented by:
+
+OR
+∨
+
+In standard propositional logic, OR is inclusive. This means the statement is also true when both propositions are true.
+
+Truth table:
+
+P       Q       P OR Q
+TRUE    TRUE    TRUE
+TRUE    FALSE   TRUE
+FALSE   TRUE    TRUE
+FALSE   FALSE   FALSE
+
+Using Boolean values, OR can be calculated using:
+
+P OR Q = max(P, Q)
+
+Another numerical representation for Boolean values is:
+
+P OR Q = P + Q - (P × Q)
+
+This produces a result of either 0 or 1.
+
+Important clarification:
+Adding Boolean values directly can produce 2 when both values are 1. That result is not itself a standard Boolean truth value. It simply indicates that at least one proposition is true. A system must interpret or normalize the result accordingly.
+
+Example:
+
+P = The car is smelly. (TRUE)
+Q = The car is old. (FALSE)
+R = John-Green-bot drives the car. (TRUE)
+
+Consider:
+
+(P OR Q) AND R
+
+Substitute the values:
+
+(1 OR 0) AND 1
+
+First evaluate the OR:
+
+1 OR 0 = 1
+
+Then evaluate the AND:
+
+1 AND 1 = 1
+
+The complete proposition is TRUE.
+
+============================================================
+12. THE NOT CONNECTIVE
+============================================================
+
+The NOT connective reverses the truth value of a proposition.
+
+It is commonly represented by:
+
+NOT
+¬
+
+Truth table:
+
+P       NOT P
+TRUE    FALSE
+FALSE   TRUE
+
+Examples:
+
+P = The car is old.
+
+If P is TRUE, then NOT P is FALSE.
+
+If P is FALSE, then NOT P is TRUE.
+
+NOT is useful when representing negative facts or conditions.
+
+For example:
+
+NOT(machine(Jabril))
+
+This represents the claim that Jabril is not a machine.
+
+Whether that statement is accepted depends on the facts and logical rules in the knowledge base.
+
+============================================================
+13. TRUTH TABLES
+============================================================
+
+A truth table lists the possible truth values of the propositions in a logical expression and shows the resulting truth value.
+
+Truth tables are useful for:
+- Testing logical expressions.
+- Checking whether a rule is valid.
+- Identifying combinations of conditions that produce TRUE or FALSE.
+- Understanding how logical connectives work.
+
+For example, consider:
+
+P AND Q
+
+There are four possible combinations of truth values for P and Q. A truth table evaluates all four combinations.
+
+For three propositions, there are eight possible combinations because each proposition can be TRUE or FALSE:
+
+2³ = 8
+
+In general, a truth table involving n independent Boolean propositions contains:
+
+2ⁿ rows
+
+Truth tables provide a systematic way to evaluate propositions rather than relying on intuition alone.
+
+============================================================
+14. LOGICAL IMPLICATION: IF-THEN RULES
+============================================================
+
+Implication is one of the most important logical connectives used in symbolic reasoning.
+
+An implication has the form:
+
+IF P, THEN Q
+
+It is also written:
+
+P → Q
+
+P is called the antecedent, or condition.
+
+Q is called the consequent, or result.
+
+Example:
+
+IF I am cold, THEN I wear a jacket.
+
+Here:
+P = I am cold.
+Q = I wear a jacket.
+
+The rule says that whenever P is true, Q must also be true.
+
+However, if P is false, the implication is considered true in classical propositional logic, regardless of whether Q is true or false.
+
+Truth table:
+
+P       Q       P → Q
+TRUE    TRUE    TRUE
+TRUE    FALSE   FALSE
+FALSE   TRUE    TRUE
+FALSE   FALSE   TRUE
+
+The only case in which an implication is false is when the IF-side is true and the THEN-side is false.
+
+Example 1:
+I am cold, and I wear a jacket.
+
+P = TRUE
+Q = TRUE
+
+The implication is TRUE.
+
+Example 2:
+I am cold, but I do not wear a jacket.
+
+P = TRUE
+Q = FALSE
+
+The implication is FALSE because the stated rule has been violated.
+
+Example 3:
+I am not cold, but I wear a jacket.
+
+P = FALSE
+Q = TRUE
+
+The implication is TRUE. The rule does not prohibit wearing a jacket when it is not cold.
+
+Example 4:
+I am not cold, and I do not wear a jacket.
+
+P = FALSE
+Q = FALSE
+
+The implication is also TRUE.
+
+IMPORTANT:
+An implication does not necessarily mean that P causes Q. It expresses a logical relationship: if P is true, Q must be true according to the rule.
+
+============================================================
+15. BUILDING RULES INTO A KNOWLEDGE BASE
+============================================================
+
+Once facts and logical rules are represented, a system can use them to reason about situations.
+
+For example, a knowledge base might contain:
+
+- person(Jabril)
+- machine(John-Green-bot)
+- old(car)
+- smelly(car)
+
+It can also contain rules such as:
+
+IF machine(X), THEN manufactured_object(X).
+
+Here, X is a variable representing an entity.
+
+If machine(car) is true, the system can use the rule to infer:
+
+manufactured_object(car)
+
+This is a simple example of deriving a new fact from an existing fact and a general rule.
+
+Rules can be used repeatedly to build chains of reasoning.
+
+For example:
+
+1. Every robot is a machine.
+2. John-Green-bot is a robot.
+3. Therefore, John-Green-bot is a machine.
+
+The third statement follows from the first two.
+
+This is an example of deductive reasoning: reaching a conclusion that follows logically from accepted premises and rules.
+
+============================================================
+16. INFERENCE
+============================================================
+
+Inference is the process of deriving new conclusions from existing facts and logical rules.
+
+A system does not need to store every possible conclusion in advance if it can derive those conclusions when needed.
+
+Example:
+
+Known facts:
+1. John-Green-bot is a robot.
+2. Every robot is a machine.
+
+Rule:
+If something is a robot, then it is a machine.
+
+Inference:
+John-Green-bot is a machine.
+
+The conclusion is not simply copied from the original facts. It is derived by applying the rule.
+
+Inference allows symbolic AI to:
+- Answer questions.
+- Derive new facts.
+- Check whether conditions are satisfied.
+- Detect inconsistencies.
+- Apply general rules to specific situations.
+
+A knowledge base becomes more useful when its rules allow the system to derive conclusions beyond the facts explicitly entered by a human.
+
+============================================================
+17. EXAMPLE: SANDWICHES AND HOT DOGS
+============================================================
+
+Consider a grocery store that uses a symbolic AI system to manage product categories and discounts.
+
+Suppose the knowledge base contains these rules:
+
+1. If something is a sandwich, then it has meat between bread.
+2. If something is a hot dog, then it has meat between bread.
+
+Using a simplified logical representation:
+
+sandwich(X) → between(meat, bread)
+
+hotdog(X) → between(meat, bread)
+
+These rules express a shared property.
+
+However, sharing one property does not logically prove that two categories are identical.
+
+For example, both a sandwich and a hot dog might have meat between bread, but this alone does not establish that every hot dog is a sandwich.
+
+To infer that hot dogs qualify for a sandwich discount, the system would need an additional rule, such as:
+
+IF something is a hot dog, THEN it qualifies for the sandwich discount.
+
+Alternatively, the business could define a category that explicitly includes both sandwiches and hot dogs.
+
+This example highlights an important principle of symbolic AI:
+
+A system can only derive conclusions that follow from its knowledge base and rules. If the rules are incomplete or poorly designed, the conclusions may not match what humans intend.
+
+============================================================
+18. EXPERT SYSTEMS
+============================================================
+
+An expert system is a type of AI system that uses a knowledge base and reasoning rules to solve problems in a specialized domain.
+
+Expert systems were designed to reproduce aspects of the decision-making process of human experts.
+
+They have been used in areas such as:
+- Banking and loan evaluation.
+- Insurance decisions.
+- Medical decision support.
+- Troubleshooting technical problems.
+- Business rule management.
+- Product classification.
+
+Example: Loan evaluation
+
+A bank might define rules involving:
+- Credit score.
+- Income.
+- Existing debt.
+- Account history.
+- Employment information.
+
+A simplified rule might be:
+
+IF credit_score meets the required threshold
+AND income meets the required threshold,
+THEN the applicant satisfies these two eligibility conditions.
+
+The system can evaluate the available information against the rules.
+
+In a real lending system, additional conditions, legal requirements, exceptions, and human review may be necessary. A simple rule is not enough to represent every lending decision.
+
+Expert systems are especially useful when the rules of a domain can be clearly described and maintained.
+
+============================================================
+19. ADVANTAGES OF SYMBOLIC AI AND EXPERT SYSTEMS
+============================================================
+
+A. Explicit Rules
+
+Humans can inspect and modify the rules in the knowledge base.
+
+For example, a bank can update its lending criteria when its policies change, subject to applicable laws and regulations.
+
+B. Logical Reasoning
+
+The system can derive conclusions by applying rules to known facts rather than relying entirely on statistical predictions.
+
+C. Explainability
+
+A symbolic system can often explain a decision by showing:
+- The facts it used.
+- The rules it applied.
+- The conditions that were satisfied.
+- The logical steps leading to the conclusion.
+
+For example, a system could explain that an application failed a specified eligibility condition.
+
+D. Consistency
+
+If the same facts and rules are evaluated under the same conditions, a deterministic symbolic system will generally produce the same logical result.
+
+E. No Large Training Dataset Required for Basic Rule-Based Reasoning
+
+A traditional rule-based expert system can operate using facts and rules supplied by humans without first training a neural network on a large dataset.
+
+However, building and maintaining the knowledge base can require substantial human effort.
+
+============================================================
+20. LIMITATIONS OF SYMBOLIC AI
+============================================================
+
+Despite its advantages, Symbolic AI has several important limitations.
+
+A. Knowledge Engineering
+
+Humans must determine which facts, categories, and rules are relevant and encode them correctly.
+
+Large real-world domains can contain enormous amounts of information.
+
+It may be impractical to manually specify every object, relationship, and situation.
+
+B. Difficulty With Images and Perception
+
+Representing a hand-drawn number 2 as symbols can be difficult because the same number may look different depending on handwriting, angle, size, or image quality.
+
+A traditional rule-based system may struggle to recognize such variation without a separate perception method.
+
+Neural networks are often useful for learning patterns in images, audio, and other complex data.
+
+C. Uncertainty and Ambiguity
+
+Classical propositional logic generally represents statements as TRUE or FALSE.
+
+However, many real-world situations involve uncertainty.
+
+For example:
+- A road may be probably dangerous rather than definitely dangerous.
+- A medical symptom may suggest several possible conditions.
+- A blurry image may resemble more than one object.
+
+Other approaches, including probabilistic reasoning and fuzzy logic, can help represent different kinds of uncertainty.
+
+D. Changing Facts
+
+Facts about the world can change over time.
+
+For example:
+- A road may be closed tomorrow.
+- A person may change jobs.
+- A product may become unavailable.
+- A customer's financial situation may change.
+
+A symbolic system needs mechanisms to update its knowledge and avoid relying on outdated facts.
+
+E. Context and Common Sense
+
+Humans often use background knowledge that is difficult to express as explicit rules.
+
+For example, understanding a joke, interpreting sarcasm, or recognizing an unusual situation may require context beyond a simple list of facts.
+
+A symbolic system may struggle when important knowledge has not been represented.
+
+F. Rules Can Be Incorrect or Incomplete
+
+A system can apply its rules correctly and still produce a bad result if the rules themselves are wrong or fail to cover an important case.
+
+Logical correctness does not automatically guarantee real-world correctness.
+
+============================================================
+21. SYMBOLIC AI AND MODERN AI
+============================================================
+
+Symbolic AI and neural networks have different strengths.
+
+Symbolic AI is often effective when:
+- Rules are clear.
+- The domain is structured.
+- Decisions must follow explicit constraints.
+- People need to inspect the reasoning process.
+
+Neural networks are often effective when:
+- The input contains images, audio, or natural language.
+- The relevant patterns are difficult to write as explicit rules.
+- A sufficiently useful training dataset is available.
+
+Modern AI can combine both approaches.
+
+For example, a system could use a neural network to recognize objects in an image and then use symbolic rules to reason about those objects.
+
+This can combine the perception strengths of neural networks with the structured reasoning capabilities of symbolic systems.
+
+Neither approach solves every AI problem on its own.
+
+============================================================
+22. IMPORTANT DISTINCTIONS TO REMEMBER
+============================================================
+
+SYMBOL vs. RELATION
+
+A symbol represents an entity or concept.
+
+A relation describes a property or connection involving one or more entities.
+
+PROPOSITION vs. RULE
+
+A proposition is a statement that can be evaluated as true or false.
+
+A rule describes a logical relationship that can be used to derive conclusions.
+
+KNOWLEDGE BASE vs. INFERENCE
+
+A knowledge base stores facts and rules.
+
+Inference applies those facts and rules to derive conclusions.
+
+SYMBOLIC AI vs. NEURAL NETWORKS
+
+Symbolic AI uses explicit symbols and rules for reasoning.
+
+Neural networks learn patterns from data by adjusting model parameters during training.
+
+REWARD vs. LOGICAL TRUTH
+
+A reinforcement learning reward is a numerical feedback signal.
+
+A proposition in classical propositional logic is evaluated as true or false.
+
+These concepts belong to different approaches to AI and should not be treated as interchangeable.
+
+============================================================
+23. KEY TAKEAWAYS
+============================================================
+
+- Symbolic AI represents knowledge using symbols, facts, relationships, and logical rules.
+- The General Problem Solver was developed by Allen Newell, Herbert Simon, and Cliff Shaw.
+- Symbols represent entities or concepts, while relations describe their properties and connections.
+- A knowledge base contains facts and rules about a particular domain.
+- Propositional logic combines statements using connectives such as AND, OR, and NOT.
+- Truth tables systematically show the truth value of logical expressions.
+- An implication has the form IF P, THEN Q, and is false only when P is true and Q is false.
+- Inference derives new conclusions from existing facts and rules.
+- Expert systems use knowledge bases and reasoning rules to solve specialized problems.
+- Symbolic systems can often explain decisions by showing the rules and facts used.
+- Symbolic AI can struggle with perception, uncertainty, incomplete knowledge, and changing real-world conditions.
+- Neural networks and symbolic AI have different strengths and can be combined in hybrid systems.
+- Correct reasoning does not guarantee a correct real-world outcome if the underlying facts or rules are inaccurate.
+
+============================================================
+24. REVIEW QUESTIONS
+============================================================
+
+1. What is Symbolic AI?
+
+2. Who developed the General Problem Solver, and what was its purpose?
+
+3. What is the difference between representing a problem and solving a problem?
+
+4. What is a symbol? Give two examples.
+
+5. What is a relation? Give one example involving two symbols.
+
+6. What is a knowledge base, and why is it important?
+
+7. What is a proposition?
+
+8. When is an AND statement true?
+
+9. When is an OR statement false?
+
+10. What does the NOT connective do?
+
+11. Under what conditions is an implication false?
+
+12. What is a truth table, and what is it used for?
+
+13. What is inference? Provide an example.
+
+14. What is an expert system, and where might one be used?
+
+15. Identify two advantages of Symbolic AI.
+
+16. Identify three limitations of Symbolic AI.
+
+17. Why does sharing one property not necessarily mean that two categories are identical?
+
+18. How might a neural network and a symbolic reasoning system work together?
+
+============================================================
+25. PRACTICE EXERCISE
+============================================================
+
+Scenario:
+
+A library uses a symbolic AI system to manage book information.
+
+The knowledge base contains these facts:
+
+1. book(HistoryTextbook)
+2. nonfiction(HistoryTextbook)
+3. book(ScienceTextbook)
+4. nonfiction(ScienceTextbook)
+5. borrowed(Alex, HistoryTextbook)
+
+The system also contains this rule:
+
+IF something is a nonfiction book, THEN it belongs to the nonfiction category.
+
+Answer the following questions:
+
+A. Identify two symbols in the knowledge base.
+
+B. Identify one relation involving two symbols.
+
+C. What information does borrowed(Alex, HistoryTextbook) represent?
+
+D. What is the purpose of a knowledge base?
+
+E. If the system knows that ScienceTextbook is a nonfiction book, what can it conclude using the rule?
+
+F. Why might the system be unable to answer whether a book is overdue if no borrowing date or due date is recorded?
+
+G. Explain one advantage of using explicit rules in this library system.
+
+H. Explain one limitation of relying entirely on predefined rules.
+
+POSSIBLE ANSWERS:
+
+A. HistoryTextbook and ScienceTextbook are symbols.
+
+B. borrowed(Alex, HistoryTextbook) represents a relationship between Alex and the history textbook.
+
+C. It represents the fact that Alex has borrowed the history textbook.
+
+D. A knowledge base stores facts and rules that the system uses to answer questions and derive conclusions.
+
+E. The system can conclude that ScienceTextbook belongs to the nonfiction category, assuming the rule applies to the given facts.
+
+F. The system lacks the information required to determine whether the book is overdue.
+
+G. A librarian can inspect and update the rules used to classify books.
+
+H. The system may fail when information is missing, a situation is unexpected, or the rules do not cover the case.

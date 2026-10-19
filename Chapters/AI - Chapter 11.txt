@@ -1,0 +1,435 @@
+1CS 4400 : Artificial Intelligence
+First -order logic1
+Propositional logic lacks expressivity
+2◼Axioms of the wumpus world
+◼Lt+1[1,1] (Lt[1,1] ∧ (~Forwardt Bumpt+1))
+(Lt[1,2] ∧ (SouthtForwardt))
+(Lt[2,1] ∧ (Westt Forwardt))
+❑… repeat for all locations, all time steps, and all other fluents
+◼Can we generalize this in more compact ways?
+◼“This holds for allvariables”
+◼Yes, with the first-order logic, and it’s much more than  
+justcompact.
+Problem of Propositional logic
+3 Propositional logic has very limited expressive 
+power
+•E.g., cannot say "pits cause breezes in adjacent squares“ 
+except by writing one sentence for each square.
+•We want to be able to say this in one single sentence:“for  
+all squares and pits, pits cause breezes in adjacent squares.
+•First order logic will provide this flexibility.
+Contents
+41.First order logic –objects andrelations
+2.Symbols andinterpretation
+3.Syntax and semantics
+❑Sentences
+❑Variables
+❑Quantifiers
+4.Examples
+❑Kinship domain
+❑Wumpus world
+Formal Languages
+5
+
+1/4. First order logic
+6◼Entities in FOL: objects andrelations
+❑More expressive than PL and is also closer toNL
+◼Objects: people, houses, numbers, Ronald McDonald,  
+colors, baseball games
+◼Relations
+❑Unary relation (=property): red, round, bogus, prime
+❑N-ary: is a brother of, is bigger than, comes between
+❑Functions: father of, best friend, beginning of
+◼Almost any assertion can be expressed with
+objects and relations
+Examples
+7◼“One plus two equals three.”
+❑Objects: one, two, three
+❑Binary relation: equals
+❑Function: plus
+◼“Squares neighboring the wumpus are smelly.”
+❑Objects: wumpus, squares
+❑Unary relation: smelly
+❑Binary relation: neighboring
+A domain for first order logic
+◼5 objects, 2 binary relations, 2 unary relations, 1 unary function
+8
+A model 
+containing five 
+objects, two 
+binary relations, 
+three unary 
+relations
+(indicated by 
+labels on the 
+objects), and one 
+unary function, 
+left-leg.
+◼Objects:
+❑Richard the Lionheart, King of England, 1189 -1199
+❑Richard’s younger brother, the evil King John, 1199 -
+1215
+❑Left legs of Richard and John
+❑Acrown
+◼Unary relations: person, king
+◼Binary relations: brother, on-head
+◼Unary function: left leg
+9
+2/4. Symbols andinterpretation
+10◼Symbols represent entities (=objects and relations) and  
+are basic syntactic elements
+◼Constant symbols: objects
+❑Richard ,John
+◼Predicate symbols: unary/binary/n -aryrelations
+❑Brother(A,B) , OnHead(A,B) , Person(A) ,King(A)
+◼Function symbols
+❑LeftLegOf(A), SqrtOf(A)
+Inter pretation
+11◼Interpretation: mapping of symbols to objects  
+andrelations
+◼Suppose we have symbols R, J, Bro( , ), L()
+❑In one interpretation,
+◼R refers to “Richard the Lionheart”
+◼J refers to “John the evilKing”
+◼Bro( , ) refers to the “brotherhood relation”
+◼L( ) refers to the function “left legof”
+❑In another interpretation,
+◼R refers to the “crown”, J to “King John’s leftleg”?
+Inter pretation
+◼PL/FOL: a sentence is true/false for each model
+❑PL: model = assignment of true/false to allsymbols
+❑FOL: model = assignment of objects & relation to all  
+symbols (=interpretation)
+◼Example: two constant symbols and a binary relation
+❑In FOL, inference by enumeration is notfeasible
+12
+The interpretation of 
+each constant symbol 
+is shown by a gray 
+arrow. Within each 
+model, the related 
+objects are connected 
+by arrows
+3/4. FOL syntax /semantics
+13◼Terms
+◼Atomic sentences
+◼Complex sentences
+◼Variables
+◼Universal quantifiers
+◼Existential quantifiers
+◼Equality
+Terms
+14◼Term is a logical expression to refer to objects
+Term = Constant symbol | Variable |Function(term,…)
+◼Examples
+❑KingJohn
+❑x,y
+❑LeftLegOf
+◼Why use function? it is not always convenient to have a 
+distinct symbol to name every object
+❑We can use LeftLeg(Richard) instead of calling John’s left leg .
+we might use the expression “King John’s left leg” rather than giving a name
+to his leg. This is what function symbols are for: instead of using a constant symbol, we
+use LeftLeg (John)
+Atomic sentences
+15◼Sentences in logic state facts that are true or false
+Sentence = AtomicSentence  | ComplexSentence
+Atomic sentence = predicate |predicate(term,…)
+| term = term
+◼Examples
+❑Brother(KingJohn, RichardTheLionheart)
+❑Married(FatherOf(Richard), MotherOf(John))
+❑>(Length(LeftLegOf(Richard)),Length(LeftLegOf(KingJohn)))
+◼Semantics: an atomic sentence is true in a model, if the  
+relations referred to by the predicate symbol holds  
+among the objects referred to by theargument
+Now that we have both terms for referring to objects and predicate symbols for 
+referring to relations , we can put them together to make atomic sentences that state 
+facts
+Complex sentences
+16◼ComplexSentence = (Sentence ) |[Sentence ]
+:negation
+:conjunction
+:disjunction
+:implication
+:biconditional|~Sentence
+|(Sentence Sentence )
+|(Sentence Sentence)
+|(Sentence Sentence )
+| (Sentence Sentence )
+| Quantifier variable, …Sentence
+◼Example
+❑~Brother(LeftLegOf(Richard), John)
+❑King(Richard) King(John)
+❑Sibling(KingJohn,Richard) Sibling(Richard,KingJohn)
+Complex sentences
+17❖We make complex sentences with connectives (just like in 
+proposition logic).
+( ( ), ) ( ( )) Brother LeftLeg Richard John Democrat Bush
+binary 
+relationfunctionproperty
+objects
+connectives
+Variables &Quantifiers
+18◼Variables appear as arguments topredicates
+❑Professor(y), King(x), BobbleHeadDoll(z)
+◼Variables are meaningful only when used with  
+quantifiers
+❑A predicate is true for allinstances of avariable
+❑A predicate is true for at least one instance of a  
+variable
+❑A predicate is true for noinstances of a variable
+Quantifiers allow us to express properties of a collection of objects
+instead of enumerating them by name.
+Universal quantifier
+19◼∀ : reads “for all” or “forany”
+◼Meaning: true if all instantiations of variables make the
+enclosed sentence true
+◼Example
+❑∀ x (King(x) ⇒ Person(x )): means “all kings arepersons”
+❑It is asserting the five sentences in Richard and John domain
+◼Richard is a king ⇒ Richard is aperson
+◼King John is a king ⇒ King John is aperson
+◼Richard’s left leg is a king ⇒ Richard’s left leg is aperson
+◼John’s left leg is a king ⇒ John’s left leg is aperson
+◼The crown is a king ⇒ The crown is aperson
+❑Since only the premise of 2nd sentence is true, it doesn’t care  
+about therest
+Universal quantifier
+20◼Example
+❑∀ x (King(x) ⇒ Person(x )): means “all kings arepersons”
+❑It is asserting the five sentences in Richard and John domain
+◼Richard is a king ⇒ Richard is aperson
+◼King John is a king ⇒ King John is aperson
+◼Richard’s left leg is a king ⇒ Richard’s left leg is aperson
+◼John’s left leg is a king ⇒ John’s left leg is aperson
+◼The crown is a king ⇒ The crown is aperson
+
+Existential quantifier
+21◼∃ : reads “there exists”, “forsome”
+◼Meaning: there is at least one instantiation thatsatisfies
+theproposition
+◼Example
+❑∃ x (Crown(x) ⋀ OnHead (x,John)) : means there’s (at least) one
+crown on John’s head
+❑It is asserting that at least one of the five sentences istrue
+◼Richard is a crown ⋀ Richard is on John’s head
+◼King John is a crown ⋀ King John is on John’s head
+◼Richard’s left leg is a crown ⋀ Richard’s left leg is on John’s head
+◼John’s left leg is a crown ⋀ John’s left leg is on John’s head
+◼The crown is a crown ⋀ the crown is on John’s head
+❑Note: ∃ x (Crown(x) ⇒ OnHead (x,John)) is not veryuseful
+Existential quantifier
+22◼Example
+❑∃ x (Crown(x) ⋀ OnHead (x,John)) : means there’s (at least) one
+crown on John’s head
+❑It is asserting that at least one of the five sentences istrue
+◼Richard is a crown ⋀ Richard is on John’s head
+◼King John is a crown ⋀ King John is on John’s head
+◼Richard’s left leg is a crown ⋀ Richard’s left leg is on John’s head
+◼John’s left leg is a crown ⋀ John’s left leg is on John’s head
+◼The crown is a crown ⋀ the crown is on John’s head
+❑Note: ∃ x (Crown(x) ⇒ OnHead (x,John)) is not veryuseful
+
+Common mistakes to avoid
+23 is the main connective with 
+      is the main connective with 
+, ( ) ( ) { , , }
+, ( ) ( )
+, ( ) ( )
+, ( ) ( )x King x Person x x Pete Mary tablespoon
+x King x Person x
+x King x Person x
+x King x Person x  =
+
+
+
+
+
+All of these must be true!
+King(Pete) AND Person(Pete)
+King(Mary) AND Person(Mary)
+King(Tablespoon) AND Person(Tablespoon)
+                                                                 False!One of these should be true!
+if King(Pete) then Person(Pete)
+if King(Mary) then Person(Mary)
+If King(Tablespoon) then Person(Tablespoon) True!too strong
+too weak
+Combining quantifiers
+24◼Nested quantifiers
+❑“Brothers are siblings”: ∀x∀yBrother(x,y) ⇒Sibling(x,y)
+❑∀x∀yBrother(x,y) Brother (y,x)
+❑Order matters (sometimes)
+◼∀x∀y   is same as ∀y∀x   (or∀yx)
+◼∃x∃y   is same as ∃y∃x   (or∃yx)
+◼Q: ∀x∃yLoves(x,y) ≡ ? ∃y∀xLoves(x,y)
+◼Negation rule (cfDeMorgan’s)
+❑∀ x ~Likes(x,Exams) is equivalent to ~ ∃ xLikes(x,Exams)
+❑∀ x   P(x) ≡~∃x~P(x), ∃ x P(x) ≡ ~∀x~P(x),
+◼All variables must be bound to aquantifier:
+∃ x Dog(x) ⋁ Cat(y) isillegal
+*As asserting that everyone dislikes exam is 
+the same asserting there does not exist 
+someone who likes them
+*Everyone agree P ≡ There is no one who 
+does not agree P
+De Morgan’s Law for Quantifiers
+25
+()
+()
+()
+()x P x P
+x P x P
+x P x P
+x P x P  
+  
+  
+  
+()
+()
+()
+()P Q P Q
+P Q P Q
+P Q P Q
+P Q P Q    
+    
+    
+    De Morgan’s Rule Generalized De Morgan’s Rule
+Rule is simple: if you bring a negation inside a disjunction or a conjunction,
+always switch between them (or →and, and → or).
+De Morgan’s Law for Quantifiers
+26¬∀𝑥 𝑃(𝑥) ≡ ∃𝑥 ¬𝑃(𝑥)
+¬∃𝑥 𝑃𝑥 ≡ ∀𝑥 ¬𝑃(𝑥)
+¬∀𝑥∃𝑦∃𝑧∀𝑠∀𝑡 𝑃(𝑥,𝑦,𝑧,𝑠,𝑡) ≡ ∃𝑥¬∃𝑦∃𝑧∀𝑠∀𝑡 𝑃(𝑥,𝑦,𝑧,𝑠,𝑡)
+≡ ∃𝑥∀𝑦¬∃𝑧∀𝑠∀𝑡 𝑃(𝑥,𝑦,𝑧,𝑠,𝑡)
+≡ ∃𝑥∀𝑦∀𝑧¬∀𝑠∀𝑡 𝑃(𝑥,𝑦,𝑧,𝑠,𝑡)
+≡ ∃𝑥∀𝑦∀𝑧∃𝑠¬∀𝑡 𝑃(𝑥,𝑦,𝑧,𝑠,𝑡)
+≡ ∃𝑥∀𝑦∀𝑧∃𝑠∃𝑡 ¬𝑃(𝑥,𝑦,𝑧,𝑠,𝑡)Move negation inward, flipping the quantifiers:
+Equality
+27◼“Term = Term” is an atomic sentence
+❑FatherOf(John) =Henry
+❑Meaning: the object referred to by FatherOf(John )and  
+the object referred to by Henry are thesame
+❑Examples
+◼“Richard has at least twobrothers”
+∃x,y Brother(x,Richard) ⋀ Brother(y ,Richard) ⋀~(x=y)
+◼“Richard has exactly twobrothers”
+∃x,y [ Brother(x,Richard) ⋀ Brother(y ,Richard) ⋀~(x=y)
+⋀ ( ∀z Brother  (z,Richard) ⇒ (z=x z=y)) ]
+*Equality symbol to signify that two terms refer to the same object
+4/4. Kinship domain example
+28◼Objects: people
+◼Relations
+❑Unary: Male, Female
+❑Binary: Parent, Sibling, Brother, Sister, Child, Daughter, Son,  
+Spouse, Wife, Husband, Grandparent, Grandchild, Cousin, Aunt,  
+Uncle
+❑Function: MotherOf, FatherOf
+◼Remember how are functions different from predicates?
+Kinship domain axioms
+29◼One’s mother is one’s female parent (in a traditional sense)
+∀       m,c[  ]
+◼One’s husband is one’s male spouse (in a traditional sense)
+∀   w,h[  ]
+◼Male and female are disjoint categories (in a traditional sense)
+] ∀x[ 
+◼Parent and Child are inverse relations
+] ∀p,c[ 
+◼A grandparent is a parent of one’s parent
+] ∀g,c[ ∃p
+◼A sibling is another child of one’s parent
+∀x,y[ x≠y ⋀∃p ]
+Kinship domain axioms
+30◼One’s mother is one’s female parent
+∀m,c (m= Mother(c) Female(m) ⋀ Parent(m,c))
+◼One’s husband is one’s male spouse
+∀w,h (Husband(h,w) Male(h) ⋀Spouse(h,w))
+◼Male and female are disjoint categories
+∀ x (Male(x) ~Female(x) )
+◼Parent and Child are inverse relations
+∀p,c (Parent(p,c) Child(c,p) )
+◼A grandparent is a parent of one’s parent
+∀g,c (Grandparent(g,c) ∃p Parent(g,p) ⋀Parent(p,c))
+◼A sibling is another child of one’s parent
+∀x,y (Sibling(x,y) x≠y ⋀ ∃p Parent(p,x) ⋀Parent(p,y))
+◼Axioms
+❑Basic factual information from which other conclusions can be
+derived
+❑Plain facts: Male(Jim), Spouse(Jim,Laura)
+❑Definitions: define other functions and predicates
+◼A core set of predicates
+❑{Child, Spouse, Female}: vertical, horizontal, gender
+❑All the other axioms can be defined from it
+◼Theorems are useful (but not necessary) sentences  
+already entailed by the axioms
+❑∀xy Sibling(x,y) Sibling(y,x)
+31
+Wumpus domain example
+32◼Objects (symbols)
+❑Agent, Wumpus, Squares, Gold, … ,Stench, Breeze,
+Glitter, … , Left, Right,…
+◼Relations (predicates)
+❑Facts: Stench(t), Breeze(t), Pit(r), HaveArrow(t), …
+❑Perceptions: Percept([ s,Breeze,g,m,c ,t)
+❑Actions: Turn(Left), Forward, Shoot,…
+❑At(Agent or Wumpus, s,t)
+❑Adjacent([a,b],[c,d])
+Wumpus world example
+33◼Axioms (partial)
+❑∀t,s,g,m,c Percept([s,Breeze,g,m,c],t) ⇒Breeze(t)
+❑∀t,s,b,m,c Percept([s,b,Glitter,m,c],t) ⇒Glitter(t)
+❑∀t HaveArrow(t+1) (HaveArrow(t) ⋀ ~Action(Shoot, t))
+❑∀x,s1,s2,tAt(x,s 1,t) ⋀ At(x,s 2,t) ⇒s1=s2
+❑∀a,b,c,d Adjacent([a,b],[c,d]) (a=c ⋀   (b=d-1b=d+1)) (b=d
+⋀ (a=c-1 a=c+1))
+❑∀s Breezy(s) ∃r Adjacent(r,s) ⋀Pit(r)
+❑Locations, orientation ,…
+◼Building a KB for a specific domain is called  
+knowledge engineering
+Knowledge engineering
+34◼Knowledge -base in a specific domain has to be  
+designed by knowledge engineering
+◼Knowledge engineering represents information about the world in a 
+form that can be utilized by a computer to solve complex tasks
+◼Steps of knowledge -engineering process
+❑Identify the task -PEAS
+❑Assemble relevant knowledge
+❑Decide predicates, functions, constants
+❑Encode general knowledge about the domain
+❑Encode the specific problem instance
+❑Test/debug with agents: ASK
+Using FOL
+35oWe want to TELL things to the KB, e.g.
+   TELL(KB,                                        )
+oWe also want to ASK things to the KB,
+   ASK(KB,                          ) 
+oThe KB should return the list of x’s for which Person(x) is 
+true: {x/John,x /Richard,...}
+, ( ) ( )x King x Person x
+, ( )x Person x
+Examples
+36The kinship domain:
+Brothers are siblings
+x,y Brother( x,y) => Sibling( x,y)
+One's mother is one's female parent
+m,c Mother(c)  = m  (Female(m)  Parent( m,c))
+“Sibling” is symmetric
+x,y Sibling( x,y)  Sibling( y,x)
+Some may be considered axioms, others as theorems which can be derived 
+from the axioms.
+Translating English to FOL
+37Every gardener likes the sun.
+(Ax) gardener(x) => likes( x,Sun) 
+You can fool some of the people all of  the time.
+(Ex) person(x) ^ ((At) time(t)) => can -fool(x,t)) 
+You can fool all of  the people some of the time.
+(Ax) person(x) => ((Et) time(t) ^ can -fool(x,t))
+All purple mushrooms are poisonous.
+(Ax) (mushroom(x) ^ purple(x)) => poisonous(x)
+No purple mushroom is poisonous.
+~(Ex) purple(x) ^ mushroom(x) ^ poisonous(x) 
+or, equivalently,
+(Ax) (mushroom(x) ^ purple(x)) => ~poisonous(x) 
+There are exactly two purple mushrooms.
+(Ex)(Ey) mushroom(x) ^ purple(x) ^ mushroom(y) ^ purple(y) ^ ~(x=y) ^ (Az) 
+(mushroom(z) ^ purple(z)) => ((x=z) v (y=z))

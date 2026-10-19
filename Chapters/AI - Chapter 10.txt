@@ -1,0 +1,507 @@
+1CS4400:ArtificialIntell igence
+Prop ositional Logic
+Conte nts
+21.Knowl edge-basedagents
+2.TheWump usworld
+3.Logicalsystems
+4.Prop ositionallogic
+5.Theo remproving
+6.Resolution
+7.PLagent
+4/7.Prop ositiona llogic
+3◼Prop ositionallogicisoneofthesimplestand
+intuitivelogicalsystems (Ch8)
+◼Therearemorepowerfullogicalsystems such
+asfirst-orderlogic(Ch9)
+◼Prop ositionallogic
+❑Syntax:howtowriteasentence asasymbolora
+comb inationofsymbo ls
+❑Semantics: whetherasentence istrueorfalse
+Propositiona llogic
+4•Propositional logic is the simplest logic –illustrates 
+basic ideas
+•The proposition symbols P1, P2etc are sentences
+–If S is a sentence, S is a sentence ( negation )
+–If S1and S2are sentences, S1S2is a sentence ( conjunction )
+–If S1and S2are sentences, S1S2is a sentence ( disjunction )
+–If S1and S2are sentences, S1S2is a sentence ( implication )
+–If S1and S2are sentences, S1S2is a sentence ( biconditional )
+Syntax ofpropositiona llogic
+5◼Sentenc e=AtomicSentenc e|ComplexSentence
+◼AtomicSentenc e=True |False|P |Q|R |…
+◼ComplexSentence =(sentenc e)|[Sentence ]
+|~Sentence
+|(Sentenc eSentence )
+|(SentenceSentence)
+|(Sentenc eSentence )
+|(Sentenc eSentence ):negation
+:conjunction
+:disjuncti on
+:implication
+:biconditional
+◼Inα β,αiscalledpremis eoranteced ent,βiscalled
+conc lusionorconsequent
+◼~,,,,arelogicalconnective sofPL
+Sema ntics
+6◼Thesyntaxofasentence saysnothingaboutits
+truthvalue
+❑P:“Ihave 10dollarsinmy pock et”
+❑IsPtrue?Maybe yes, maybe no
+◼Sema nticsspecifyhowtocompute thetruth
+valueofanysentence givenamodel
+Sema ntics
+7Each model/world specifies true or false for each proposition symbol
+E.g. P1,2 P2,2 P3,1
+false true false
+With these symbols, 8 possible models, can be enumerated automatically.
+Rules for evaluating truth with respect to a model m:
+S is true iff S is false  
+S1S2is true iff S1is true and S2is true
+S1S2is true iff S1is true or S2is true
+S1S2is true iff S1is false or S2is true
+i.e., is false iff S1is true and S2 is false
+S1S2is true iff S1S2is true andS2S1is true
+Simple recursive process evaluates an arbitrary sentence, e.g.,
+P1,2 (P2,2 P3,1) = true (true false ) =  true true = true
+Sema ntics
+◼Atomic sentences: assigneddirectlybymodel
+❑“P” is trueinmode lswhereP≡True
+◼Comp lexsentences:truth assignedbyrules
+❑Fulltruthtable forlogicalconnectives
+❑Rowsaremodels,columns aresentences
+❑Previewoflogicalequivalents
+◼PQ≡~PQ
+◼PQ≡(PQ)(QP)
+8Implication is always true
+when the premises are False!
+Wumpu sworld inpropositionallogic
+9◼Symbo ls
+❑P[x,y]istrueiffthere isapitin[x,y]
+❑W[x,y]istrueiffthere isawumpus in[x,y],deadoralive
+❑B[x,y]istrueifftheagentperceivesabreezein[x,y]
+❑S[x,y]istrueifftheagentperceivesastenchin[x,y]
+◼Knowledgebase
+❑R1:There isnopitin[1,1]:
+❑Asquareisbreezyiffthere isapitinadjacentsquares
+◼R2:B[1,1]
+R3:B[2,1] ◼
+❑Percepts:nobreezein[1,1],breezein[2,1]
+◼R4: andR5:
+Wumpu sworld inpropositionallogic
+10◼Symbo ls
+❑P[x,y]istrueiffthere isapitin[x,y]
+❑W[x,y]istrueiffthere isawumpus in[x,y],deadoralive
+❑B[x,y]istrueifftheagentperceivesabreezein[x,y]
+❑S[x,y]istrueifftheagentperceivesastenchin[x,y]
+◼Knowledgebase
+❑R1:There isnopitin[1,1]:~P[1,1]
+❑Asquareisbreezyiffthere isapitinadjacentsquares
+◼R2:B[1,1](P[1,2]P[2,1])
+R3:B[2,1](P[1,1]P[2,2]P[3,1]) ◼
+❑Percepts:nobreezein[1,1],breezein[2,1]
+◼R4:~B[1,1]andR5:B[2,1]
+
+Simple inference byenumeration
+11◼Query:“Isthere apitin[1,2]?”
+❑KB⊧P[1,2]?
+◼Simplest inference:enumeration
+❑Enumera teallmode ls
+❑Checkifα istrueineverymodel inwhichKBistrue
+◼Prop ositionallogicforwump usworld
+❑7symbols(B[1,1],B[2,1],P[1,1],P[1,2],P[2,1],P[2,2],P[3,1]):
+27poss iblemode ls
+❑Compute thefulltruthtableKB =𝑅1,𝑅2,𝑅3,𝑅4,𝑅5
+Truth table forwumpus world
+12
+KB=𝑅1,𝑅2,𝑅3,𝑅4,𝑅5is true in only 3 models.
+¬𝑃1,2is true in all 3.KB⊨¬𝑃1,2
+𝑃2,2is true in only 2 of 3. No inference of KB⊨𝑃2,2
+128
+rows
+Bad News
+13Suppose 𝐾𝐵and 𝛼have 𝑛symbols. 2𝑛models!
+The propositional entailment problem of showing KB⊨𝛼by truth table 
+enumeration requires 
+Θ(2𝑛𝑛)time
+The problem is co NP -complete (likely not easier than NP -complete).𝑂(𝑛)space (not bad)
+Inference byenumeration
+14•Enumeration of all models is sound and complete.
+•For nsymbols, time complexity is O(2n)...
+•We need a smarter way to do inference!
+•In particular, we are going to infer new logical sentences from 
+the data -base and see if they match a query.
+5/7.Theo remproving
+15◼Inferencebytheoremproving
+❑More efficientapproach
+❑Reliesonlogicalequivalence:(α≡ β)
+◼Def1:truth values forα and βarethesameforagivenmodel
+◼Def2:M(α) =M(β)
+◼Example: α∧β≡β∧α
+Theorem proving : Apply rules of inference directly to the sentences 
+in KB to construct a proof of a sentence without consulting models. 
+Logical equivalences
+16•Two sentences are logically equivalent iffthey are true in 
+same models: α ≡ ß iffα╞ βand β╞ α
+You need to 
+know these !
+Validit yandsatisfiability
+17◼Valid:thesentence isalwaystrueinallmode ls
+❑Example :α∨~α
+❑Anyvalidsenten ceislogicallyequivalenttoTrue
+◼Satisfiab le:thesentence istrueinatleastonemodel
+❑Example :α
+◼Unsatisfiable:thesentence cannotbetrueinanymodel
+❑Example: α∧~α
+❑Anyunsatisfiabl esentenceislogicallyequivalenttoFalse
+◼Relations hip:valid,satisfia ble,unsatisfiab le
+❑αisvalid iff~αisunsatifiable
+❑α issatisfiable iff~αisnotvalid
+◼Entailment,validity,satisfiability,unsatisfiability
+18◼α ⊧βiff
+❑(αβ)isvalid(=trueinallmode ls)
+❑~(α β)isunsatisfiab le(=false inallmode ls)
+❑~(~αvβ)isunsatisfiable(=falseinallmodels)
+❑(α∧~β)isunsatisfiab le(=false inallmode ls)
+Validity is connected to inference via the Deduction Theorem:
+KB ╞ α if and only if (KB α) is valid
+Satisfiability is connected to inference via the following:
+KB ╞ α if and only if (KB α) is unsatisfiable
+(there is no model for which KB=true and α is false) 
+◼LetUbetheuniverse=thesetofallmodels
+19◼Lemma syouneedfortheproofs
+❑M(~α) =U\M(α)
+❑M(α)⊆M(β)iffM(~β)⊆M(~α)
+❑M(α∧β)=M(α) ∩ M(β)
+❑M(αvβ)=M(α) UM(β)
+❑LetA,B,C besome sets. IfA⊆Bthen
+A∩C⊆B∩C,andalsoAUC⊆BUC
+Inference rules
+20◼Thereareseve ralinferencerules fromthe
+logicalequivalences
+◼Generallywritteninthisform:
+antecedent(orpremise)
+consequen t(orconc lusion)
+◼IftheKBcontai nstheantecedent,wecanadd
+theconsequen ttoKB
+Inference rules
+◼ModusPonens(MP)
+α⇒β, α
+β
+◼ModusTolens(MT)
+α⇒β, ~β
+~α
+◼UnitResolution(UR)
+α∨β, ~β
+α◼AND introduction(AI)
+α,β
+α∧β
+◼ORintroduction(OI)
+α
+α∨β
+◼AND elimination(AE)
+α∧β
+α,β
+Note1:αandβ can becomplexsentence
+Note2:AIjoinstwosentencesintoone,AEbreaksasentenceintotwo.
+21
+Inference rules
+22Modus Ponens
+𝛼⇒𝛽,𝛼
+𝛽If today is Tuesday , then John will go to campus .
+Today is Tuesday .
+Therefore, John will go to campus .𝛼⇒𝛽
+¬𝛽
+¬(𝛼∨𝛽)
+¬𝛼∧¬𝛽De Morgan
+and-elimination
+Inference rules:practice
+◼Modus Ponens:
+α ⇒β,α 
+β
+◼Modus Tolens:
+α ⇒β, ~β
+~α
+◼UnitReso lution:
+α ∨β, ~β
+α◼ANDintroduction
+α, β
+α ∧β
+◼ORintroduction:
+α
+α ∨β
+◼ANDeliminati on:
+α ∧β
+α,β
+23◼KB:
+1.P∧Q⇒R
+2.Q∨S
+3.~S
+4.P∧N
+◼KB⊧R?
+Wumpu sworld inpropositionallogic
+24◼Knowl edgebase
+❑R1:~P[1,1]
+R2:B[1,1](P[1,2]P[2,1])
+R3:B[2,1](P[1,1]P[2,2]P[3,1])
+R4:~B[1,1]
+R5:B[2,1]❑
+❑
+❑
+❑
+◼KB⊧~P[1,2]?
+Wumpu sworld
+25◼Goal: useR1… R5toprove~P[1,2]
+◼Biconditional inB[1,1](P[1,2]P[2,1])
+R6:(B[1,1]⇒(P[1,2]P[2,1]))∧((P[1,2]P[2,1])⇒B[1,1])
+◼And-Elimination toR6
+R7:((P[1,2]P[2,1])⇒B[1,1])
+◼Contrap ositiveofR7
+R8:~B[1,1]⇒~(P[1,2]P[2,1])
+◼Modus Ponens withR8andperceptR4(~B[1,1])
+R9:~(P[1,2]P[2,1])
+◼DeMorgan’s rule
+R10:~P[1,2]~P[2,1]
+◼And-Elimination: ~P[1,2]
+6/7.Resolution
+26◼Recallunitresolution:
+A ∨B, ~B
+A
+◼Canbegeneralizedinto:
+A ∨B vC … v Fv G, ~Gv H v I v… vZ
+AvBvC…vFvHvIv…vZ
+◼Example :wumpus world
+P[1,1]∨P[3,1], ~P[1,1]v~P[2,2]
+P[3,1]v~P[2,2]
+◼Factoring: remove multiplecopiesofliterals
+❑(AB),(A~B)≡(AA)≡AResolution: inference rule for CNF: 
+sound and complete!
+Conjunctiv enormalform
+27◼ResolutionrequiressentencesinCNF
+❑Writeasentenceasaconjunctionofclauses
+❑Clauseisadisjunction ofliterals
+❑EverysentenceinPLcanbewritten inCNF
+◼Example :writeB[1,1](P[1,2]P[2,1])inCNF
+❑Eliminatebiconditional:
+(B[1,1]⇒(P[1,2]P[2,1]))∧((P[1,2]P[2,1])⇒B[1,1])
+❑ReplaceA⇒Bwith~AB:
+(~B[1,1]P[1,2]P[2,1])∧(~(P[1,2]P[2,1])B[1,1])
+❑DeMorg an’srule:
+(~B[1,1]P[1,2]P[2,1])∧((~P[1,2]∧~P[2,1])B[1,1])
+❑Distributeover∧
+(~B[1,1]P[1,2]P[2,1])∧(~P[1,2]B[1,1])∧(~P[2,1]B[1,1])
+Proo fbyresolution
+28◼Resolutionrulealonecanbeusedforinferenc e(without
+MP,MP,AI,OI,orAE)
+❑Sound andcompleteinferen ce
+◼Resolutionalgorithm
+❑Toshow KB⊧α,show(KB∧~α)isunsatisfiable
+❑Proofbycontra diction
+❑Firstconvert(KB∧~α)intoCNF
+❑Apply resolutio ntoeachpair:addthenewclausetotheset
+❑Processstops when
+◼When nonewclauseiscreated :KBdoesnotentai lα
+◼Or,iftwoclausesresolvetotheempt yclause:KBentailsα
+◼Why?Empt yclauseisFalse:P,~P,therefore (KB∧~α)isunsatisfiable
+Proo fbyresolution
+29We first rewrite                  into conjunctive normal form (CNF).
+|
+:KB
+equivalent to KB unsatifiable
+=
+We like to prove:
+KB
+A “conjunction of disjunctions”
+(A B) (B C D)
+Clause Clauseliterals
+•Any KB can be converted into CNF.
+•In fact, any KB can be converted into CNF -3 using clauses with at 
+most 3 literals.
+Asimpleresolution algorit hmforPL
+30
+Resolution algorit hmforPL
+31•The resolution algorithm tries to prove:
+•Generate all new sentences from KB and the query.
+•One of two things can happen:
+1.We find                         which is unsatisfiable. I.e.we can entail the query.
+2.We find no contradiction: there is a model that satisfies the sentence
+(non -trivial) and hence we cannot entail the query.
+|KB equivalent to
+KB unsatisfiable
+=
+
+PP
+KB
+◼PL-resolu tioninthewump usworld
+32
+We can apply the resolution procedure to a very simple inference in the wumpus world. When the agent is in [1,1], there is no 
+breeze, so there can be no pits in neighboring squares. The relevant knowledge base is 
+and we wish to prove α  which is, say, 
+When we convert  (KB ^ ¬a) into CNF, we obtain the clauses shown at the top of the above figure . The second row of the figur e 
+shows clauses obtained by resolving pairs in the first row.KB= (B1,1(P1,2P2,1)) B1,1 
+α = P1,2
+◼PL-resolu tioninthewump usworld
+33
+We can apply the resolution procedure to a very simple inference in the wumpus world. When the agent is in [1,1], there is no 
+breeze, so there can be no pits in neighboring squares. The relevant knowledge base is 
+and we wish to prove α  which is, say, 
+When we convert  (KB ^ ¬a) into CNF, we obtain the clauses shown at the top of the above figure . The second row of the figur e 
+shows clauses obtained by resolving pairs in the first row.KB= (B1,1(P1,2P2,1)) B1,1 
+α = P1,2
+◼PL-resolu tioninthewump usworld
+34
+We can apply the resolution procedure to a very simple inference in the wumpus world. When the agent is in [1,1], there is no 
+breeze, so there can be no pits in neighboring squares. The relevant knowledge base is 
+and we wish to prove α  which is, say, 
+When we convert  (KB ^ ¬a) into CNF, we obtain the clauses shown at the top of the above figure . The second row of the figur e 
+shows clauses obtained by resolving pairs in the first row.KB= (B1,1(P1,2P2,1)) B1,1 
+α = P1,2
+◼PL-resolu tioninthewump usworld
+❑ResolveP[1,2],~P[1,2]:{}=False
+❑Conclude:KB⊧~P[1,2]
+35
+Resolution practice
+◼KB:
+1.PvQvY
+2.QvJ
+3.~JvC
+4.~Q
+5.~Yv~CvP
+◼KB⊧P?
+❑CheckCNF
+❑Add~PtoKB
+36
+Resolution practice
+37◼KB:
+1.PvQvY
+2.QvJ
+3.~JvC
+4.~Q
+5.~Yv~CvP
+6.~P6.~P(given)
+7.PvY(1and4)
+8.~CvP(7and5)
+9.~C(6and8)
+10.~J(9and3)
+11.Q(2and10)
+Contradi ction! 11and4!
+Q∧~Q
+Forward/ backward chaining(option al)
+38◼Two otherinferencealgorithms(optional)
+❑Forward chaining:incrementa llyinsertsentencesinto
+theset,andderiv eallposs iblecons equences
+❑Backward chaining:workback wardfromthe
+conc lusionbychecki ngifantece dentsaretrue
+❑More efficientthanresolution,withrestrictions
+◼Allsentenceshastobewrittenindefiniteclauses
+◼Defs:
+❑Definiteclause:disjunctionofliteralsofwhichexactly oneis
+positive
+❑Hornclause:disjunctionofliteralsofwhichatmost oneispositive
+Forward/ backward chaining(option al)
+◼AND-ORgraphforforward/ back wardchaining
+◼KBinHornclauses.DoesKB⊧Q?
+39OR gateAND gate
+Forward chaining(option al)
+◼AND-ORgraphforforward
+◼Idea: fire any rule whose premises are satisfied in the KB,
+◼add its conclusion to the KB, until query is found
+40OR gateAND gate
+* (a) shows a simple 
+knowledge base of Horn 
+clauses with A and B as 
+known fact. (b) shows 
+the same knowledge 
+base drawn as an AND -
+OR graph . Multiple links 
+joined by an arc indicate 
+a conjunction -every link 
+must be proved -while 
+multiple links without an 
+arc indicate a 
+disjunction -any link can 
+be proved.
+* The known leaves 
+(here, A & B) are set, 
+and inference 
+propagates up the graph 
+as far as possible
+Forward chaining example
+“AND” gate“OR” Gate
+Forward chaining example
+Forward chaining example
+Forward chaining example
+Forward chaining example
+Forward chaining example
+Forward chaining example
+Back ward chaining(option al)
+48Idea: work backwards from the query q
+• check if qis known already, or
+• prove by BC all premises of some rule concluding q
+• Hence BC maintains a stack of sub -goals that need to be proved 
+to get to q.
+Avoid loops: check if new sub -goal is already on the goal stack
+Avoid repeated work: check if new sub -goal
+1. has already been proved true, or
+2. has already failed
+Backward chaining example
+
+Backward chaining example
+
+Backward chaining example
+
+Backward chaining example
+we need P to prove
+L and L to prove P.
+Backward chaining example
+
+Backward chaining example
+
+Backward chaining example
+
+Backward chaining example
+
+Backward chaining example
+
+Backward chaining example
+
+7/7.PLagent sforwumpus world
+59◼Axioms oftheenvironment
+❑Nopitorwumpus at[1,1]: ~P[1,1],~W[1,1],
+❑B[1,1](P[1,2]P[2,1])
+S[1,1](W[1,2]W[2,1]) ❑
+❑….repeat for all squ ares
+❑Exactlyonewumpus
+◼Atleastonewumpu s:W[1,1]W[1,2] ….W[4,3]W[4,4]
+◼Atmostonewumpu s:foranypair,atleastoneofthem hasto
+bewumpu s-free.
+(~W[1,1]~W[1,2])∧…∧(~W[4,3]~W[4,4])
+
+PLagent sforwumpus world
+60◼Transiti on(=effect)axioms:whatchangesbyactions
+❑Lt[x,y]:agen tisin[x,y]attimet
+❑L0[1,1]∧FacingEas t0∧Forward0⇒L1[2,1]∧~L1[1,1]
+❑…repeat forall squares, all time steps, allactions suchas
+(Grab,Shoot, Climb ,TurnLeft,TurnRight)
+◼Frame problem:wealso havetospecify w hat doe sn’t
+changebyactions
+❑WhathappenstoHaveArrow1?
+❑Forwardt⇒(HaveArrowtHaveArrowt+1)
+❑Forwardt⇒(Wump usAlivetWump usAlivet+1)
+❑…repeat forall fluents andatempor alstates
+❑Fluents: states thatchangeovertime,atempor al:thatdoesn’t.
+◼Success-stateaxioms: foreachfluent
+61◼Ft+1ActionCaus esFt(Ft∧~ActionCaus esNotFt)
+◼Ex:HaveArrowt+1(HaveArrowt∧~Shoo tt)
+◼Lt+1[1,1] (Lt[1,1]∧(~ForwardtBumpt+1))
+(Lt[1,2]∧(Sou thtForwardt))
+(Lt[2,1]∧(WesttForwar dt))
+❑…repeat forall location s,alltimesteps,andall otherfluents
+◼Finall y,
+❑Agent canASKitsKBwhethercertain squaresaresafetomove,
+contains gold,etc
+❑OKt+1[x,y]~P[x,y]∧~(W[x,y]∧Wump usAlivet)
+❑Solving thewumpus problem withPL isextremely inconvenient! 
+62
+
+Announcement
+63

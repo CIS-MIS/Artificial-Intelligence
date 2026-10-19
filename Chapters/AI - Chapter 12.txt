@@ -1,0 +1,399 @@
+1CS 4400: Artificial Intelligence
+First-order logic 2
+Contents
+21.Inference by propositionalization
+2.New inference rules
+❑Unification
+❑Generalized Modus Ponens
+❑Resolution
+3.Forward -and backward -chaining
+1/3. Inference inFOL
+3◼In propositional logic, we had several inference  
+rules
+❑Modus Ponens, Modus Tolens, etc.
+❑Resolution (single rule)
+◼Good news: These apply to FOL!
+◼Bad news: Need to figure out how to deal with  
+quantifiers
+Universal Instantiation
+4◼We are allowed to substitute any term for a  
+universally quantified variable
+∀ x  α
+SUBST({x/g}, α)
+where SUBST({x/g}, α) is the result of substituting g for x  
+in sentence α
+◼Example:
+❑∀ x  Duck(x) ⇒Bird(x)
+: Duck(Howard) ⇒   Bird(Howard) {x/Howard}
+: Duck(G.Washington) ⇒ Bird(G.Washington) {x/GW}
+Existential Instantiation
+5◼For an existential quantifier, we are allowed to  
+introduce one new constant into our KB
+∃xα 
+SUBST({x/k}, α)
+◼Example:
+❑∃xDuck(x)
+:Duck(Howard123) {x/How ard123}
+❑∃x Crown(x) ⋀OnHead(x,John)
+:Crown(C1)⋀OnHea d(C1,John) {x/C1}
+Existential Instantiation
+6◼Universal Instantiation can be applied many  
+times to infer different things
+◼Existential Instantiation need only be applied  
+once
+◼Existential instantiation is also called
+Skolemization
+❑The constant is known as a Skolem constant
+Example
+7given
+given◼KB
+❑Duck(Howard)
+❑∀ x  Duck(x) ⇒Bird(x)
+◼Prove Howard is a Bird
+◼Proof:
+❑Duck(Howard) ⇒Bird(Howard)
+❑Bird(Howard)UI{x/Howard}  
+Modus Ponens
+Propositionalization
+8◼We can “propositionalize” the FOL sentences by  
+instantiation, and use propositional inference rules
+◼A problem: functions can generate an infinite number of  
+sentences
+❑Duck(Howard) ⇒Bird(Howard)
+❑Duck(FatherOf(Howard)) ⇒Bird(FatherOf(Howard))
+❑Duck(FatherOf(FatherOf(Howard))) ⇒Bird(FatherOf(FatherOf(Howard)))
+◼Herbrand(1930): we only need a finite depth of nesting to  
+prove entailments
+❑When the query is not entailed, nesting doesn’t stop….
+◼The question of entailment for first -order logic is  
+semidecidable
+Reduction to propositional form
+9Suppose the KB contains the following:
+x King(x)  Greedy(x)  Evil(x)
+King(John)
+Greedy(John)
+Brother( Richard,John )
+•Instantiating the universal sentence in all possible ways, we have:
+     (there are only two ground terms: John and Richard)
+King(John)  Greedy(John)  Evil(John)
+King(Richard)  Greedy(Richard)  Evil(Richard)
+King(John)
+Greedy(John)
+Brother( Richard,John )
+•The new KB is propositionalized  with “propositions”:
+ King(John), Greedy(John), Evil(John), King(Richard), etc.
+Reduction continued
+10•Every FOL KB can be propositionalized so as to preserve 
+entailment
+–A ground sentence is entailed by new KB iff entailed by original KB
+•Idea for doing inference in FOL:
+–propositionalize KB and query
+–apply resolution -based inference
+– return result
+•Problem: with function symbols, there are infinitely many 
+ground terms,
+–e.g., Father (Father (Father (John))), etc
+Reduction continued
+11Theorem: Herbrand  (1930). If a sentence α is entailed by a FOL 
+KB, it is entailed by a finite subset of the propositionalized KB
+Idea: For n = 0 to ∞ do
+    create a propositional KB by instantiating with depth n terms
+    see if α is entailed by this KB
+Problem: works if α is entailed, loops if α is not entailed.
+              → The problem of semi -decidable: algorithms exist
+                  to prove entailment, but no algorithm
+                  exists to prove non -entailment for every
+                   non-entailed sentence.
+ 
+Other Problems with Propositionalization
+12•Propositionalization  generates lots of irrelevant sentences  
+–So inference may be very inefficient
+•e.g., from:
+x King(x)  Greedy(x)  Evil(x)
+King(John)
+y Greedy(y)
+Brother( Richard,John )
+•it seems obvious that Evil(John) is entailed, but 
+propositionalization  produces lots of facts such as 
+Greedy (Richard ) that are irrelevant
+•With p k-ary predicates and n constants, there are p·nk 
+instantiations
+•Lets see if we can do inference directly with FOL sentences
+2/3. New inference rules
+13◼Unification
+◼Generalized Modus Ponens
+◼Generalized Resolution
+Unification
+14◼Unification is the process of finding substitutions  
+to make two sentences the same ondemand
+❑If SUBST({x/z},p) = SUBST({y/z},q), then
+❑UNIFY(p,q) = {x/z, y/z} : common constant/variable  
+that makes two sentences the same after substitution
+◼Example:
+❑UNIFY(Duck(y),Duck(Howard) )={y/Howard}
+❑UNIFY(Duck(Donald),Duck(Howard)) =FAIL
+More examples
+15◼KB:
+❑Knows(John,James)
+❑Loves(John,Mary)
+❑Knows(John,Mary)
+❑∀xKnows(Fred,x)
+◼Query
+❑∃xKnows(x,Mary)
+◼Ignore quantifiers
+◼Predicate names must match
+◼Proceed stepwise, left toright
+◼Constants match exact  
+constants or a variable
+◼Variable can be substituted for  
+another variable◼KB:
+❑Knows(John,James)
+❑Loves(John,Mary)
+❑Knows(John,Mary)
+❑∀xKnows(Fred,x)
+◼Query
+❑∃xKnows(x,Mary)
+16
+◼Ignore quantifiers
+◼Predicate names must match
+◼Proceed stepwise, left toright
+◼Constants match exact  
+constants or a variable
+◼Variable can be substituted for  
+another variable◼KB:
+❑Knows(John,James)
+❑Loves(John,Mary)
+❑Knows(John,Mary)
+❑∀xKnows(Fred,x)
+◼Query
+❑∃xKnows(x,Mary)
+1.UNIFY(Knows(x,Mary), Knows(John,James)) = FAIL
+2.UNIFY(Knows(x,Mary), Loves(John,Mary)) = FAIL
+3.UNIFY(Knows(x,Mary), Knows(John,Mary)) = {x/John}
+4.UNIFY(Knows(Fred,x), Knows(x,Mary)) = FAIL
+17
+◼UNIFY(Knows(Fred,x), Knows(x,Mary)) = FAIL, because
+x cannot take on two values at once
+◼A simple fix to solve this problem: “standardizing apart”
+❑Rewrite variables with the same name but in different  
+sentences to be different “on the fly” for unification
+◼UNIFY(Knows(Fred,x), Knows(x99,Mary)) = {x/Mary,  
+x99/Fred}
+❑Make sure you keep variables in a sentence consistent!
+◼∀ x  Knows(Fred,x) ⇒Hates(Fred,x)
+:∀x99 Knows(Fred,x99) ⇒ Hates(Fred,x99) –Good!
+:∀ x  Knows(Fred,x99) ⇒ Hates(Fred,x) –Bad!
+18
+One more examples
+19• simple example: query = Knows( John,x ), i.e., who does John know?
+p   q   θ  
+Knows( John,x ) Knows( John,Jane )  {x/Jane}
+Knows( John,x ) Knows( y,OJ)   {x/OJ,y/John}
+Knows( John,x ) Knows( y,Mother (y))  {y/John,x /Mother(John)}
+Knows( John,x ) Knows( x,OJ)   {fail}
+•Last unification fails: only because x can’t take values John and OJ at 
+the same time
+–But we know that if John knows x, and everyone (x) knows OJ, we should be 
+able to infer that John knows OJ
+•Problem is due to use of same variable x in both sentences
+•Simple solution: Standardizing apart eliminates overlap of variables, 
+e.g., Knows( z,OJ)
+Generalized Modus Ponens
+20◼Generalized Modus Ponens in PL
+A ⇒ B,A
+B
+◼Generalized Modus Ponens in FOL 
+p1 ⋀     p2 ⋀     … ⋀     pn⇒   B,q1, q2, … , qn 
+SUBST({ …/x},B)
+where for each pair of sentences (pi, qi),
+1.pi and qi have the same predicates
+2.UNIFY(pi, qi) is successful
+Generalized Modus Ponens
+21◼Query: Evil(John)?
+◼If you can UNIFY the symbols in the antecedent with other facts …
+◼… then you can conclude the consequent with UNIFICATION applied◼KB:
+1.∀x King(x) ⋀ Greedy(x) ⇒Evil(x)
+2.King(John)
+3.∀yGreedy(y)
+Generalized Modus Ponens
+22◼KB:
+1.∀x King(x) ⋀ Greedy(x) ⇒Evil(x)
+2.King(John)
+3.∀yGreedy(y)
+4.∀ y  King(John) ⋀Greedy(y)
+5.Evil(John)2,3 And Introduction
+1,4, GMP, {x/John, y/John)
+◼Query: Evil(John)?
+◼If you can UNIFY the symbols in the antecedent with other facts …
+◼… then you can conclude the consequent with UNIFICATION applied
+Generalized Modus Ponens
+23◼Query: ∃z Evil(z) ?◼KB:
+1.∀x King(x) ⋀ Greedy(x) ⇒Evil(x)
+2.∃y King(y) ⋀Greedy(y)
+Generalized Modus Ponens
+24◼Query: ∃z Evil(z) ?
+◼2 tells us some person who is a King and is Greedy exists
+◼Use EI to introduce a symbol for this person (i.e. “Person99”)
+◼Use GMP on 1 and 3 to conclude that Person99 is Evil◼KB:
+1.∀x King(x) ⋀ Greedy(x) ⇒Evil(x)
+2.∃y King(y) ⋀Greedy(y)
+3.King(Person99) ⋀Greedy(Person99)
+4.Evil(Person99)2, EI{y/Person99}
+1, 3, GMP {x/Person99}
+Generalized Resolution
+25◼Resolution in PL:
+A ∨     B v … v F vG, ~G v H v… vZ
+A v B v … v F v H v … v Z
+◼Generalized resolution in FOL: 
+A ∨     B v … v F vG, ~G’ v H v … v Z 
+SUBST({…/x}, A v B v … v F v H v … vZ)
+where UNIFY(G,G’) =x
+Generalized Resolution
+26◼KB:
+1.∀x,y Sibling(x,y) ⋀ Male(x) ⇒Brother(x,y)
+2.∀x,y Sibling(x,y) ⋀ ~Male(x) ⇒Sister(x,y)
+3.∀x,y Sibling(x,y) ⇒Sibling(y,x)
+4.Male(John)
+5.~Male(Mary)
+6.Sibling(Mary,John)
+❑Query: Brother(John,Mary) ?
+Generalized Resolution
+27given (1 -Impl. Elim.)
+given (2-IE)
+given (3-IE)
+given
+given  
+givenChange KB toCNF
+1.∀x,y ~Sibling(x,y) ∨ ~Male(x) ∨Brother(x,y)
+2.∀x,y ~Sibling(x,y) ∨ Male(x) ∨Sister(x,y)
+3.∀x,y ~Sibling(x,y) ∨Sibling(y,x)
+4.Male(John)
+5.~Male(Mary)
+6.Sibling(Mary,John)
+Introduce ~conclusion
+7.~Brother(John,Mary) ASSUMPTION
+8.Sibling(John,Mary)
+9.~Male(John) ∨Brother(John,Mary)
+10.Brother(John,Mary)
+11.CONTRADICTION !3,6,UR,{x/Mary, y/John}
+1,8,UR,{x/John, y/Mary}
+4,9,UR
+7,10
+3/3. Forward and backward chaining
+28◼Similar to forward/backward chaining in  
+propositional logic
+◼Example: Colonel West domain
+❑KB
+“The law says that it is a crime for an American to sell weapons  
+to hostile nations. The country Nono, an enemy of America, has  
+some missiles, and all of its missiles were sold to it by Colonel  
+West, who is American.”
+❑Query: Is Colonel West acriminal?
+Colonel West domain
+29◼Constants: Nono, West, America
+◼Predicates:
+❑Unary: American(x), Weapon(x), Missile(x), Hostile(x), Criminal(x)
+❑Binary: Owns(x,y), Enemy(x,y)
+❑Tertiary: Sells(x,y,z)
+1.Implicit knowledge -missiles are weapons:
+2.Implicit knowledge -an enemy of America counts as  
+“hostile”:
+3.“West, who is American . . .”:
+4.“The country Nono, an enemy of America . ..”:
+◼Missiles are weapons:
+❑∀ x  Missile(x) ⇒Weapon(x)
+◼An enemy of America counts as “hostile”:
+❑∀ x  Enemy(x, America) ⇒Hostile(x)
+◼“West, who is American . . .”:
+❑American(West)
+◼“The country Nono, an enemy of America . . .”:
+❑Enemy(Nono, America)
+30
+Colo nelWestdomain inFOL
+31◼Domain
+❑Constants: Nono, West, America
+❑Predicates:
+◼Unary: American(x), Weapon(x), Missile(x), Hostile(x), Criminal(x)
+◼Binary: Owns(x,y), Enemy(x,y)
+◼Tertiary: Sells(x,y,z)
+◼KB
+5.“. . . it is a crime for an American to sell weapons to  
+hostile nations”:
+6.“Nono . . . has some missiles.” :
+7.“All of its missiles were sold to it by Colonel West”:
+◼“. . . it is a crime for an American to sell weapons to  
+hostile nations”:
+❑∀ x  y z American(x) ∧ Weapon(y) ∧ Sells(x,y,z) ∧ Hostile(z) ⇒
+Criminal(x)
+◼“Nono . . . has some missiles.”
+❑∃x Owns(Nono, x) ∧Missile(x)
+❑Owns(Nono, M1), Missile(M1) : existential instantiation
+◼“All of its missiles were sold to it by Colonel West”:
+❑∀ x  Missile(x) ∧ Owns(Nono, x) ⇒ Sells(West, x, Nono)
+32
+Forward chaininginPL
+◼AND -OR graph for forward chaining
+Horn clauses
+33
+Forward chaininginFOL
+34◼Starting from known facts, try to satisfy the premises by  
+unification, and use Modus Ponens
+◼Simple facts
+❑Owns(Nono, M1), Missile(M1), American(West), Enemy(Nono, America)
+◼Implications
+❑∀xyz American(x) ∧ Weapon(y) ∧ Sells(x,y,z) ∧ Hostile(z) ⇒Criminal(x)
+❑∀x Missile(x) ∧ Owns(Nono, x) ⇒ Sells(West, x,Nono)
+❑∀x Missile(x) ⇒Weapon(x)
+❑∀x Enemy(x, America) ⇒Hostile(x)
+35
+◼Cf. Backward chaining: start from Criminal(West)
+36
+Resolution
+37◼Conjunctive normal form
+❑American(x) ∧ Weapon(y) ∧ Sells(x,y,z) ∧ Hostile(z) ⇒Criminal(x):
+❑Missile(x) ∧ Owns(Nono, x) ⇒ Sells(West, x,Nono):
+❑Missile(x) ⇒Weapon(x):
+❑Enemy(x, America) ⇒Hostile(x):
+❑Owns(Nono, M1), Missile(M1), American(West), Enemy(Nono, America)
+Resolution
+38◼Conjunctive normal form
+❑American(x) ∧ Weapon(y) ∧ Sells(x,y,z) ∧ Hostile(z) ⇒Criminal(x):
+◼~American(x) ∨ ~ Weapon(y) ∨ ~ Sells(x, y, z) ∨ ~Hostile(z) ∨
+Criminal(x)
+❑Missile(x) ∧ Owns(Nono, x) ⇒ Sells(West, x,Nono):
+◼~Missile(x) ∨ ~Owns(Nono, x) ∨ Sells(West, x,Nono)
+❑Missile(x) ⇒Weapon(x):
+◼~Missile(x) ∨Weapon(x)
+❑Enemy(x, America) ⇒Hostile(x):
+◼~Enemy(x, America) ∨Hostile(x)
+❑Owns(Nono, M1), Missile(M1), American(West), Enemy(Nono, America)
+◼KB
+❑~American(x) ∨ ~ Weapon(y) ∨ ~ Sells(x, y, z) ∨ ~Hostile(z) ∨Criminal(x)
+❑~Missile(x) ∨ ~Owns(Nono, x) ∨ Sells(West, x,Nono)
+❑~Missile(x) ∨Weapon(x)
+❑~Enemy(x, America) ∨Hostile(x)
+❑Owns(Nono, M1), Missile(M1), American(West), Enemy(Nono, America)
+◼Query: Is Colonel West a criminal?
+❑Add~Criminal(West)
+◼Resolution in backward -chaining
+❑Start by resolving ~Criminal(West)
+❑Try to resolve the leftmost literal in the newly generated sentence
+39
+40The crime example:
+¬American (𝑥) ∨ ¬Weapon (𝑦) ∨ ¬Sells (𝑥, 𝑦, 𝑧) ∨ ¬Hostile (𝑧) ∨Criminal (𝑥) Owns (Nono ,𝑀1)
+Missile (𝑀1)¬ Missile (𝑥)∨ ¬Owns (Nono ,𝑥)∨Sells (West ,𝑥,Nono )
+¬Missile (𝑥) ∨Weapon (𝑥)American(West)
+Enemy (Nono ,America )¬Enemy (𝑥, America ) ∨Hostile (𝑥)
+We prove Criminal (West ) byadding
+¬Criminal (West )
+and deriving the empty clause ∅.
+Resolution by backward chaining in FOL
+41
+∅
+ Like backward chaining  on the main spine .{𝑥/West }
+{𝑥/y}
+{𝑦/𝑀1 }
+{𝑥/𝑀1, 𝑧/Nono }
+{𝑥/Nono }
+ Always resolve with a clause containing a positive literal that unifies with the
+   leftmost literal of the “current” clause on the spine .

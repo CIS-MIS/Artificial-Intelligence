@@ -1,0 +1,630 @@
+CS 4400: Artificial Intelligence  
+Informed Search
+1
+Contents
+21.Informed search and heuristic function
+2.Greedy best-first search
+3.A*search
+4.Properties of A* search
+5.Memory -bounded heuristic search
+6.Heuristics
+Review
+3◼Solving problem bysearching
+◼Tree/graph search, definitions
+◼Uninformed searching
+❑Tree-search/graph -search
+❑Breadth -first search
+❑Depth -firstsearch
+❑Depth -limited search
+❑Iterative -deepening search
+◼Performance measures: completeness,
+optimality, space/time complexity
+1/6. Informed Search
+◼Uninformed search used problem formulation as  
+only information about theworld
+❑It can only tell if the current state is the goal or not
+❑A.k.a. naï ve search, brute -force search, blind search
+◼Problem -specific knowledge may be useful
+❑The Romanian roadmap is not an arbitrary state -
+space graph, it is a representation of a physical map
+Arad Fagaras
+Sibiu
+Rimnicu Vilcea Bucharest
+4
+Informed search
+5◼The strategy of a search algorithm
+❑= order of choosing a node from the frontier queue
+❑Priority: least depth (BFS), least path cost (UCS),  
+most depth (DFS), etc.
+❑In general, priority can be a function f(n), called an  
+evaluation function, that may be given or computable
+◼Evaluation function f(n), isanassignment ofa
+realnumber toeach node, anddetermines the
+search strategy
+◼What function should we choose for f(n)?
+Heuristic function
+6◼A heuristic function h(n)
+❑Def: An assignment of a real number to each node,
+such that h(n)≥0, and h(n)=0 only if n is a goal state
+❑means: estimated lowest cost from the state at node n
+to a goal state (= estimated cost -to-go)
+◼Use additional knowledge of the problem to  
+determine h(n)
+❑Example: straight -line distance from each city to  
+Bucharest inRomania
+Romania
+7
+2/6. Greedy best-firstsearch
+8◼Use heuristic function as evaluation function
+❑f(n) = h(n)
+◼Expands the node th atlooks most promising
+❑minimum estimated distance to the goal
+❑Greedy best -first search expands the node that 
+appears  to be closest to goal
+◼May run into dead -ends
+❑Depends on what the state space looks like
+◼Often works well
+Best-firstsearch
+9◼Idea: use an evaluation function  f(n) for each node
+◼f(n) provides an estimate for the total cost.
+→Expand the node n with smallest f(n).
+◼Implementation :
+ Order the nodes in Queue increasing order of cost.
+◼Special cases:
+◼greedy best -first search
+◼A* search
+Example
+10
+
+11
+
+12
+
+13
+
+GBFS is not complete
+14gc
+b
+ad
+start stategoal state
+f(n) = straightline distance
+GBFS is not optimal
+15
+Greedy solution:  Arad – Sibiu – Fagaras  – Bucharest   (450) 
+Optimal solution:  Arad – Sibiu – Rimnicu  Vilcea  – Pitesti – Bucharest  (418) 
+This greedy strategy does not account for the cost to get to the current state. 
+Properties of greedy best-firstsearch
+16◼Complete?  No – can get stuck in loops.
+◼Time?  O(bm), but a good heuristic can give 
+dramatic improvement
+◼Space?  O(bm) - keeps all nodes in memory
+◼Optimal?  No
+   e.g. Arad→Sibiu→Rimnicu 
+Virea→Pitesti→Bucharest is shorter!
+3/6. A*Search
+17◼Incorporates both path cost and heuristic cost
+❑Evaluation function for UCS = cost up to now
+◼f(n) = g(n) : path cost
+❑Evaluation function for GBFS = estimated cost to go
+◼f(n) = h(n) : estimated cost-to-go
+◼A node with the least estimated cost to go may have a high  
+path cost leading to the node
+❑A* search takes both into account
+◼f(n) = g(n) + h(n) : path cost + estimated cost-to-go
+3/6. A*Search
+18P. E. Hart, N. J. Nilsson, and B. Raphael (1968)
+𝑓𝑛=𝑔𝑛+ℎ(𝑛)
+initial
+state 𝑛goal
+stateestimated cost 
+from 𝑛 to goalactual cost 
+from start to 𝑛
+𝑓(𝑛): estimated cost of the best path that continues from 𝑛 to a goal. 
+Example: Romanian map
+19
+
+20
+
+21
+
+22
+
+23
+
+24
+4/6. Properties of A*search
+25◼A* search is complete and optimal if
+❑h(n) is admissible (for tree search)
+❑h(n) is consistent (for graph search)
+◼Def: h(n) admissible if
+❑h(n) always underestimates the cost to the goal
+❑i.e.h(n) ≤ h*(n) for all n, where h*(n) is the (true) least cost to the
+Goal
+•An admissible heuristic never overestimates  the cost to reach the 
+goal, i.e., it is optimistic
+◼Def: h(n) consistent if
+❑h(n) ≤ c(n,a,n’) + h(n’), where n’ is a child of n
+❑~ triangle inequality
+◼If h(n) consistent then h(n)admissible
+Consistent heuristics
+26
+A heuristic ℎ is consistent  if for every two nodes 𝑛 and 𝑛′ such that 
+𝑛′ is generated from 𝑛 by some action 𝑎, the following inequality holds:
+ℎ𝑛≤𝑐𝑛,𝑎,𝑛′+ℎ(𝑛′)
+(triangle inequality )
+ Every consistent heuristic is admissible.
+ A* with a consistent heuristic is cost -optimal.ℎ𝑛=ℎ𝑛0≤𝑐𝑛0,𝑎1,𝑛1+ℎ𝑛1
+(goal)Optimal path𝑛0=𝑛
+𝑛1
+𝑛𝑘𝑎1≤𝑐𝑛0,𝑎1,𝑛1+𝑐𝑛1,𝑎2,𝑛2+ℎ𝑛2
+≤෍
+𝑖=1𝑘
+𝑐𝑛𝑖−1,𝑎𝑖,𝑛𝑖+ℎ𝑛𝑘⋮
+=0=ℎ∗(𝑛)Consider the optimal path 𝑛0=𝑛,𝑛1,…,𝑛𝑘 (goal). 
+Straight linedistance heuristic
+◼In Romanian navigation problem, is the straight  
+linedistance heuristic admissible ?
+❑Yes
+❑Why? Straight line distance is the shortest distance  
+between twopoints
+❑hSLD(n) ≤ h*(n) for alln
+h*(n)
+hSLD(n)
+27ℎ𝑆𝐿𝐷 is admissible because
+the actual distance to Bucharest
+cannot be less than the straight -
+line distance. 
+Proof of the optimality of A* -1
+28◼Let’s prove that A* is optimal if h(n) is consistent  
+for graph search
+◼Lemma 1: if h(n) is consistent, then f(n) along  
+any path is nondecreasing
+◼Proof:
+❑Let n’ is a child of n, then g(n’) = g(n) + c(n,a,n’) for  
+some action a, and wehave
+❑f(n’) = g(n’) + h(n’) = g(n) + c(n,a,n’) +h(n’)
+≥ g(n) + h(n) =f(n)
+Proof of the optimality of A* -2
+29◼Whenever a node is selected for expansion, the  
+optimal path to that node has been found by A*
+◼Proof:
+❑Suppose the lemma were not true, i.e., then there is a  
+frontier node n’ on the optimal path from the root to n
+❑By lemma 1, f(n’)<f(n) , and n’ must have been  
+selected before n
+→Contradiction!
+◼As a result, if a goal is found, then the current  
+path to the goal is an optimal one
+Visualization: search contour
+◼Nodes expanded in A*  
+have increasing f(n)’s
+❑Search “contour”
+❑All nodes inside the contour  
+have smaller f and are  
+expanded
+◼Good heuristic creates  
+“narrow” contours
+❑cf. concentric circles for
+uniform -cost search
+30
+Properties of A*search
+31◼Effect of narrow contours: A* search “prunes”  
+subtrees (e.g., Timisoara) that are unlikely to be  
+the optimal path
+◼Time and space complexity
+❑Depends on the heuristic function
+❑Time complexity is exponential in relative error xdepth
+❑Space complexity is worse: keep all nodes in memory
+❑For a practical use, memory usage need to be  
+bounded
+Iterative deepening A*search
+32◼A situation somewhat similar toDFS
+❑DFS: linear space complexity, but not optimal
+❑Cure: from DFS to IDDFS
+◼Iterative deepening A* search
+❑Perform A* with a cutoff on f(n)
+❑Increase cutoff to the next smallest f(n) from all nodes  
+encountered during search
+❑Repeat
+IDA*
+Arad
+33366fmax=366
+IDA*
+Arad
+366
+Zerind
+449Sibiu
+393Timisora
+44775140 118fmax=366
+34
+IDA*
+Arad
+366
+Zerind
+449Sibiu
+393Timisora
+44775140 118fmax=366 
+fmax=393
+35
+IDA*
+Arad
+366
+Zerind
+449Sibiu
+393Timisora
+44775140 118fmax=366 
+fmax=393
+36
+IDA*
+Arad
+366
+Zerind
+449Sibiu
+393Timisora
+447
+Arad
+646Oradea
+526Fagaras
+417Rimnicu  
+Vilcea
+41375140 118
+140 99151 80fmax=366 
+fmax=393
+37
+IDA*
+Arad
+366
+Zerind
+449Sibiu
+393Timisora
+447
+Arad
+646Oradea
+526Fagaras
+417Rimnicu  
+Vilcea
+41375140 118
+140 99151 80fmax=366
+fmax=393
+fmax=413
+38
+IDA*
+Arad
+366
+Zerind
+449Sibiu
+393Timisora
+447
+Arad
+646Oradea
+526Fagaras
+417Rimnicu  
+Vilcea
+41375140 118
+140 99151 80fmax=366
+fmax=393
+fmax=413
+39
+IDA*
+Arad
+366
+Zerind
+449Sibiu
+393Timisora
+447
+Arad
+646Oradea
+526Fagaras
+417Rimnicu  
+Vilcea
+413
+Craiova
+526Pitesti
+415Sibiu
+55375140 118
+140 99151 80
+1469780fmax=366
+fmax=393
+fmax=413
+40
+IDA*
+Arad
+366
+Zerind
+449Sibiu
+393Timisora
+447
+Arad
+646Oradea
+526Fagaras
+417Rimnicu  
+Vilcea
+413
+Craiova
+526Pitesti
+415Sibiu
+55375140 118
+140 99151 80
+1469780fmax=366
+fmax=393
+fmax=413
+fmax=415
+41
+IDA*
+Arad
+366
+Zerind
+449Sibiu
+393Timisora
+447
+Arad
+646Oradea
+526Fagaras
+417Rimnicu  
+Vilcea
+413
+Craiova
+526Pitesti
+415Sibiu
+55375140 118
+140 99151 80
+1469780fmax=366
+fmax=393
+fmax=413
+fmax=415
+42
+IDA*
+Arad
+366
+Zerind
+449Sibiu
+393Timisora
+447
+Arad
+646Oradea
+526Fagaras
+417Rimnicu  
+Vilcea
+413
+Craiova
+526Pitesti
+415Sibiu
+553
+Rimnicu  
+Vilcea
+607Craiova
+615Bucharest
+41875140 118
+140 99151 80
+1469780
+97138 101fmax=366
+fmax=393
+fmax=413
+fmax=415
+What is fmaxnow?
+43
+IDA*
+Arad
+366
+Zerind
+449Sibiu
+393Timisora
+447
+Arad
+646Oradea
+526Fagaras
+417Rimnicu  
+Vilcea
+413
+Craiova
+526Pitesti
+415Sibiu
+553
+Rimnicu  
+Vilcea
+607Craiova
+615Bucharest
+41875140 118
+140 99151 80
+1469780
+97138 101fmax=366
+fmax=393
+fmax=413
+fmax=415fmax=417
+44
+IDA*
+Arad
+366
+Zerind
+449Sibiu
+393Timisora
+447
+Arad
+646Oradea
+526Fagaras
+417Rimnicu  
+Vilcea
+413
+Sibiu
+591Bucharest
+450Craiova
+526Pitesti
+415Sibiu
+553
+Rimnicu  
+Vilcea
+607Craiova
+615Bucharest
+41875140 118
+140 99151 80
+992111469780
+97138 101fmax=366
+fmax=393
+fmax=413
+fmax=415fmax=417
+45
+IDA*
+Arad
+366
+Zerind
+449Sibiu
+393Timisora
+447
+Arad
+646Oradea
+526Fagaras
+417Rimnicu  
+Vilcea
+413
+Sibiu
+591Bucharest
+450Craiova
+526Pitesti
+415Sibiu
+553
+Rimnicu  
+Vilcea
+607Craiova
+615Bucharest
+41875140 118
+140 99151 80
+992111469780
+97138 101fmax=366
+fmax=393
+fmax=413
+fmax=415fmax=417  
+fmax=418
+46
+IDA*
+Arad
+366
+Zerind
+449Sibiu
+393Timisora
+447
+Arad
+646Oradea
+526Fagaras
+417Rimnicu  
+Vilcea
+413
+Sibiu
+591Bucharest
+450Craiova
+526Pitesti
+415Sibiu
+553
+Rimnicu  
+Vilcea
+607Craiova
+615Bucharest
+41875140 118
+140 99151 80
+992111469780
+97138 101fmax=366
+fmax=393
+fmax=413
+fmax=415fmax=417  
+fmax=418
+47
+Memory -bounded heuristic search 2
+48◼Recursive Best First Search (RBFS)
+❑Like DFS, only stop when your current path costs
+more than some alternative
+❑Each node keeps flimit kept at each node
+❑If search is stopped, update f-costs of parents with  
+children’s scores
+◼(Simple) Memory bounded A*: MA*, SMA*
+❑When out of memory, throw out node with highest f-
+cost
+Recursive best-first search (optional)
+49
+Example (optional)
+> 415𝑓𝑙𝑖𝑚𝑖𝑡 (Arad )
+𝑓𝑙𝑖𝑚𝑖𝑡 (Sibiu )
+> 417140 ×2+366 =
+=140 +90+176
+(backed -up value from Pitesti)415
+
+Example (optional)
+> 415𝑓𝑙𝑖𝑚𝑖𝑡 (Arad )
+𝑓𝑙𝑖𝑚𝑖𝑡 (Sibiu )
+> 417140 ×2+366 =
+=140 +90+176
+(backed -up value from Pitesti)415
+
+RBFS Summary
+ Optimal with admissible heuristic function ℎ(𝑛).
+ Space complexity 𝑂(𝑏𝑑).
+ Time complexity difficult to analyze, depending on
+ accuracy of ℎ(𝑛)
+ how often the best path changes
+ Slightly more efficient than IDA*.  
+ Both IDA* and RBFS suffering from using too little memory
+    and may explore the same state multiple times. branching factor depth
+6/6. More about heuristics
+53Quality of a heuristic is often measured by the effective branching factor.
+If A* generates 𝑁 nodes to find a solution at depth 𝑑, then its 
+effective branching factor 𝑏∗ is the root of the following equation: 
+𝑁+1=1+ 𝑏∗+(𝑏∗)2+⋯+(𝑏∗)𝑑
+Intuitively, the 𝑁+1 nodes handled by A* 
+would fill a tree of height 𝑑 in which every 
+node at depth <𝑑 has exactly 𝑏∗children. 
+e.g. A* finds a solution at depth 5 using 52 nodes has 𝑏∗=1.92.⋯𝑑
+𝑏∗𝑏∗𝑑+1−𝑁+1𝑏∗+𝑁=0=1−𝑏∗𝑑+1/1−𝑏∗
+Performance Comparison on 8 -Puzzle
+54
+
+Good heuristics
+55◼Good heuristic: b* is close to1
+◼Good heuristic: domination
+❑h2 dominates h1 if h1(n) ≤ h2(n) ≤ h*(n) for alln
+❑The closer a heuristic is to h*, the fewer nodes it will  
+expand
+❑Less time andspace
+Heuristics from relaxation
+◼The 8 -puzzle problem
+❑Tile can move from square A to square B
+◼if A and B are horizontally or vertically adjacent, and
+◼if B isblank
+❑Relaxed versions: tile can move from A to B
+◼if A and B are adjacent
+◼if B isblank
+◼always
+56
+
+◼Can always move from A to B
+❑Optimal cost = # of tiles out of place
+❑h1 =8
+◼Can move from A to B if adjacent
+❑Optimal cost = Manhattan distance of all tiles from their goal
+❑h2 = 3 + 1 + 2 + 2 + 2 + 3 + 3 + 2 = 18
+❑true cost = 26
+57◼If h2(n) ≥ h1(n) for all n (both admissible), then h2 dominates  h1 
+◼h2 is better for search: it is guaranteed to expand less or equal # of nodes.
+◼Typical search costs (average number of nodes expanded):
+◼d=12  ➔ BFS = 2,67 2 nodes, A*(h1) = 279 nodes  ,A*(h2) = 84 nodes 
+◼d=24 ➔ BFS = too many nodes, A*(h1) = 53,03 9 nodes, A*(h2) = 5,73 3 nodes 
+
+Heuristics from subproblems
+◼A subproblem is part of the overall problem that must be  
+solved
+❑1-2-3-4 or5-6-7-8
+❑or anything 2-4-6-8
+❑Different from relaxation
+◼Pattern database approach: store the exact costs of
+every possible subproblem instance
+➔ then compute an admissible heuristic hDB for each complete 
+state encountered during a search simply by looking up the 
+corresponding subproblem configuration in the DB
+58
+Combining heuristics
+59◼What if you have 2 heuristics, and neither one  
+dominates?
+◼Combine: h(n)= max{ h1(n),h 2(n)}
+◼Example
+❑h1= 1-2-3-4subproblem
+❑h2= 5-6-7-8subproblem
+◼Can generalize to any number of heuristics
+◼Can we add? h(n) = c1 h1(n) + c2h2(n)
+❑May be able to learn c’s, without aguarantee

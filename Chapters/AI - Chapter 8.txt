@@ -1,0 +1,438 @@
+1CS4400:ArtificialIntell igence
+Adve rsarial Search
+Conte nts
+21.Games
+2.Optimal decisionbyMinimax
+3.Speedupbyalpha-betapruning
+4.Imperfectreal-time decisionbyH-Minimax
+5.Stochasticgames
+6.Partiallyobservablegames
+7.State-of-the-artsingames
+1/7. Games
+◼Inmany games someonewins,some oneloses
+◼Thesetypesofgamesarecompetitiveor
+adversarial
+❑Zero-sum game :complete lyadversarial
+◼Agamecanbeneithercomple telyadversarial
+norcomplete lycooperative
+A
+3B
+Adversa rialsearch
+4◼Classic algames :Chess,Checkers ,Othello,Go
+◼Taskenvironme nt:
+❑Fully observable orpartially observable?
+❑Deterministic orstochastic?Known orunknown?
+❑Sequential orepisodic?Static(turn-taking )ordynamic?
+❑Two-agent s:adversarialorcoop erative?
+◼Prob lem-solvingbyadversarialsearch ing
+❑Goal: findasequenceofactions thatwillwinthegame
+❑Takeintoaccountthemoves oftheopponent,whowillbe
+workingagainstthegoal
+❑Canbeexpande dinton-playe rzero-sum games
+Two-playe rgames
+5◼Proble mformulation
+❑States.E.g.,chess,checkers:astate=location sofallpieces
+❑Actions (s):legalmoves
+❑s’ =Result(s,a):transition
+❑Goal-test(s)orTermina l-test(s):isitgameover?
+◼What’snew
+❑Player(s):whoseturnitistomove
+❑Utility(s):final payof fforplaye r1whenthegameendsinstates
+◼Chess:+1(win),0(draw),-1(loss) (zero-sum)
+◼Chess:+1(win),1/2(draw),0(loss) (constant-sum)
+❑Utilityneednotbesimple winorloss: e.g., #ofplayer 1’s
+pieces left 
+Tic-Tac-Toe
+◼3x3board,x(playe r1)ando(player2)
+◼Rules:
+◼Let’scalltheplayer1MAX,andplayer2MIN
+❑playerMAX willtrytomaximizeutility
+❑playerMINwilltrytominimize utility
+6
+7
+8
+9
+▪#ofstates, game s,terminal states
+▪Lessnumbe rifcounte duptorotationandreflectionHow do we search this tree to find the optimal move?
+2/7.Optima ldecisio nsbyMinimax
+◼MAX’spointofview
+❑Ateveryturn,MAX willtrytomaximizetheutility,
+expecti ngthatMINwilltrytominimize theutility
+◼Minimax(s):expectedutility(forMAX) ofbeingin
+state s,assuming bothplayersplayrationally
+❑Cf.Utility(s)isdefinedonlyforgoalstates
+10
+Asamplegame tree
+4 10 5 3 1 16 6 2 11MAX
+11MINa1a2a3
+Minimaxinaction
+4 10 5 3 1 16 6 2 11MAX
+MINa1a2a3
+12
+Minimaxinaction
+4 10 5 3 1 16 6 2 11MAX
+MINa1a2a3
+4
+13
+Minimaxinaction
+4 10 5 3 1 16 6 2 11MAX
+MINa1a2a3
+4 1
+14
+Minimaxinaction
+4 10 5 3 1 16 6 2 11MAX
+MINa1a2a3
+4 1 2
+15
+Minimaxinaction
+4 10 5 3 1 16 6 2 11MAX
+MINa1a2a3
+4 1 2
+164
+Minimaxinaction
+4 10 5 3 1 16 6 2 11MAX
+MINa1a2a3
+4 1 24
+17
+Another Example
+18
+Depth -first search with backed -up value on return from a node.
+∞1452
+Minimaxalgorit hm
+19
+Minimaxalgorit hm(detailed version)
+20
+
+Minimaxalgorit hm
+21◼Minimax performsdepth-firstsearchwithvalue
+back-up
+❑Complete? Yes,forafinitetree
+❑What iftheopponentisnotrationa l?
+◼It’sokay-minimax istheworst-casesolution.
+❑Time comple xity:O(bm)
+❑Spacecomple xity:O(bm)(depth -first exploration)
+❑For chess, b ≈ 35, m ≈100 for "reasonable" games
+exact solution completely infeasible
+Optima ldecision inmultiplayer games
+22◼AssumethreeplayersA,B,C
+◼Utility vecto r<va,vb,vc>(s)insteadofutilityvalue
+❑va:finalpayoffforplayerawhengameendsinstates
+❑vb:finalpayoffforplayerb…
+❑vc: finalpayoffforplayerc…
+◼Minimax decisionforn-playergame
+❑Eachplayerchoosesanactio nthatmaximizesthe
+minimax valueforthatplayer
+23
+24
+25
+26
+The first three plies of a game tree 
+with three players (A, B, C). 
+3/7.Speed upbyalpha-betapruning
+27◼State spaceishugeinrealgames
+❑Chess:branc hingfactor of~35,50moves byeach
+player→Time comple xity~10154nodes
+❑Exactdecision-making byminimax isinfeasi ble
+◼How toavoidevaluatingafulltree?
+❑Stop evaluatingapathwhenitbecomes obviousthatit
+iswors ethan apreviou spath
+◼Keep trackofbest/worstvaluesateverynode
+❑[α,β]:MAX cangetatleastαandatmost βcurrently
+atanode
+Alpha and Beta Values
+28Alpha -beta pruning gets its name from two extra parameters 𝛼,𝛽
+𝛼=the highest -value (i.e., the best choice) so far along a path 
+for the player M AX.  // MAX’s best score so far.
+eventual value ≥𝛼
+𝛽=the lowest -value (i.e., the best choice) so far along a path 
+for the player M IN. // MIN’s best score so far.
+eventual value ≤𝛽“at least”
+“at most”
+Update the values of 𝛼and 𝛽as the search goes along.  
+Prune the remaining branches 
+●at a M INnode with current value ≤𝛼(because its parent, a M AX
+node, has from another child or is passed on the value 𝛼already). 
+●at a M AXnode with current value ≥𝛽(because its parent, a M IN
+node, has or is passed on the value 𝛽already). 
+α-β pruning example
+MAX knows that it can at least 
+get “3” by playing this branch
+MIN will choose “3”, because it minimizes the 
+utility (which is good for MIN)
+α-β pruning example
+MIN can certainly do as good as
+2, but maybe better (= smaller)MAX knows that the new branch 
+will never be better than 2 for him.
+He can ignore it.
+α-β pruning example
+MIN will do at least as good as 14 in this branch
+(which is very good for MAX!) so MAX will want
+to explore this branch more.
+α-β pruning example
+MIN will do at least as good as 5 in this branch
+(which is still good for MAX) so MAX will want
+to explore this branch more.
+α-β pruning example
+Bummer (for MAX): MIN will be able
+to play this last branch and get 2. This 
+is worse than 3, so MAX will play 3.
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+
+48
+𝛼,𝛽=MINnode returns 
+a value ≤3
+[−∞,∞]Fig. 5.5 in the 4thedition of the textbook incorrectly executes the 
+algorithm ALPHA -BETA -SEARCH in Fig. 5.7.
+possible range of 
+the returned value
+(−∞,3](−∞,∞) (−∞,∞)
+(−∞,∞)(−∞,3]
+49
+[−∞,3][−∞,∞]
+[3,∞)
+pruned[−∞,3] (−∞,3][3,∞) (−∞,∞)
+(−∞,3][3,∞)
+2<3
+(no change 
+in 𝛽value) 
+50
+[−∞,∞] [3,∞][3,5]MINIMAX(root)=max(min(3,12,8),min(2,𝑥,𝑦),min(14,5,2))
+=max(3,min(2,𝑥,𝑦),2)
+=max(3,𝑧,2) where 𝑧= min(2,𝑥,𝑦)≤2
+=3.
+[3,∞] [3,∞]
+[3,∞) [3,∞] [3,14][3,∞) [3,∞)
+[3,∞)[3,14][3,∞) (−∞,3] (−∞,3]2<3
+(no change
+in 𝛽value)
+A Larger Example (Wikipedia)
+Current min value (4) <current 
+max value (5) at parent; no 
+need for further exploration Current min (5) at 
+node <current max 
+(6) at parent
+Exercise (suggested): Trace the execution of ALPHA-BETA-SEARCH (next page) 
+and dynamically update the [𝛼,𝛽]value of every expanded node. 
+Alpha -Beta Search Algorithm (3rd Edition)
+52function MIN-VALUE (state,𝛼,𝛽) returns a utility value
+ifTERMINAL -TEST(state ) then return UTILITY (state )
+𝑣←+∞
+for each 𝑎in A CTIONS (state ) do
+𝑣←MIN(𝑣,MAX-VALUE(RESULT (𝑠,𝑎),𝛼,𝛽))
+if 𝑣≤𝛼then return 𝑣
+𝛽←MIN(𝛽,𝑣)
+return𝑣function MAX-VALUE (state,𝛼,𝛽) returns a utility value
+ifTERMINAL -TEST(state ) then return UTILITY (state )
+𝑣←−∞
+for each 𝑎in A CTIONS (state ) do
+𝑣←MAX(𝑣,MIN-VALUE(RESULT (𝑠,𝑎),𝛼,𝛽))
+if 𝑣≥𝛽then return 𝑣
+𝛼←MAX(𝛼,𝑣)
+return𝑣
+// pruning (no change will occur to parent’s 𝛼value).// pruning (returned 𝑣will not affect parent’s 𝛽value).
+// 𝑣<𝛽:new 𝛼passed on to the remaining M IN-VALUE calls within the for loop.
+// no change of 𝜶value within M IN-VALUE ()// no change of 𝜷value within M AX-VALUE()
+// 𝑣>𝛼:new 𝛽passed on to the rest M IN-VALUE calls within the for loop.function ALPHA-BETA-SEARCH (state ) returns an action
+𝑣←MAX-VALUE(state , −∞,+∞)
+return the action in A CTIONS (state ) with value 𝑣
+𝑣
+𝑣𝑠:[𝛼,𝛽] MINMAX𝑠′:[𝛼,𝛽]
+𝑣≤𝛼𝑣≥𝛽𝑠′:[𝛼,𝛽]
+𝑠:[𝑣′,𝛽] MAXMIN
+𝑣′𝛼<𝑣′<𝛽
+// maximum value of all children if none are pruned
+// minimum value of all children if none are pruned.
+◼Alpha -betapruningcanbeappliedtotreesof
+anydepth
+❑Canprunetheentiresubtree
+53
+Prop erties ofalpha-betasearch
+54◼Alpha-betaproduc esthesame optima lmove asminimax
+❑Alpha-betaisanexactsearch,notanapproxi matesearch
+◼Good ordering:
+❑Action withahighe rutilityforMAX (and alowerutilityforMIN)
+comes first
+❑Itcanimpro veeffectivenessofpruning
+◼With ‘perfect orderi ng’,time comple xity=O(bm/2)
+❑Cansearchtwice asdeepforthesametimeamount
+❑Effectbranchingfactorisb1/2
+❑Unfortunatel y,3550isstillinfeasi bleforchess
+4/7.Impe rfectreal-time decisio ns
+◼Resources arelimite dinreality:time, mem ory,etc
+❑chess:you’re expected tomake a moveina fewminu tes
+◼Heuristi cMinimax (ClaudeShannon,1950)
+◼Make adecisionusing
+◼cutofftest(instead ofterminal test)
+◼heuri sticevaluat ionfunct ion(instead ofutility)
+55
+1)Replace the utility function by a heuristic evaluation function 
+EVAL, which estimates the position’s utility. 2) replace the terminal 
+test by a cutoff test that decides when to apply EVAL. 
+: s (state), d (maximum depth)
+Cut off the search early by applying a heuristic evaluation function
+Evaluatio nfunction
+56◼Conditions
+❑Shouldbeeasytocomp ute
+❑Interminalstates: eval(“win”)> eval(“draw”) >
+eval(“loss”)
+❑Innon-terminal states, goodevalshouldcorrel ate
+stronglywiththeactua lchanceofwinning
+◼Exam ple1.expectedutilityfrompastrecords
+❑Intwo-pawnvsone-pawnsituati on
+◼72%win,20%loss,8%draw
+◼Utility:1win,1/2draw,0loss
+◼Expectedutility =0.72 x1+0.08 x ½+0.20 x 0=0.76
+◼Exam ple2.featu res
+❑Inchess
+◼ Define material values ofpiecesinchess:
+Pawn (1),knight/bishop(3 ),rook(5),queen(9),etc
+◼Compute thecurrenttotalvalue bysumming
+1x#ofPawns +3x#ofknights/bis hops+....
+❑More generally
+◼fi(s)isafeatur eofthestate s(#ofpieces)
+◼wi:value ofi-thfeature
+57
+Cutti ngoff
+58◼Insteadoftheterminaltestinalpha-beta,use
+i.e.,returnifitexceedsthedepthcut-off
+◼How tohandletimecut-off?(e.g.,3mins)
+❑Iterativ edeepeningsearch:
+◼searchwithdepthcut-offsof1,2,3,…..
+◼Whentimeruns out,return thebestmove from thedeepest
+completed search
+◼Simple cutoffbydepthlimitdoesnotalways
+work
+Moretricksforchess
+59◼Forward pruning
+❑PROBCUT(1995):Alpha-betasearchprunesany
+nodethatisprovabl yandproba blyoutsi de
+(alpha,bet a)
+◼PuttingthesetogetherforPCchessagent
+❑Supposewecangenerate/evalu ate200millionnodes
+inthreeminutes
+❑Minimax →5 plies(355=50mil)
+❑Alpha-beta→10plies
+❑Othertricks→14plies
+The branching factor for chess is about 35, on 
+average, and 355 is about 50 million, so if we 
+used minimax, we could look ahead only about 
+5 plies ,
+Search vslookup
+60◼Look -upapproach
+❑Good openingandendgames areoftenknown
+❑Creat elookuptablesfrom,huma nexpertis eora
+databas eofprevious lyplayedgames
+◼Switchbetweensearchandlookup
+◼Endgames
+❑King-bishop-knight -versus -king:(3,494,568) positions
+❑Allendgameswithuptofivepiecesandsome six
+pieces
+❑Checkers :allendgame sknownNear the end of the game there are fewer possible positions, and 
+thus more chance to do lookup; A computer can completely solve 
+the endgame by producing policy, which is a mapping from every 
+possible state to the best move in that state
+
+5/7.Stochastic games
+61Some games (e.g., backgammon) have randomness due to throwing 
+of dice.  They combine both luck and skill.
+Include chance nodes in addition to M AX
+and M INnodes. 
+Throwing two dice (unordered):
+1-1,…,6 -6: probability 1/36each  
+1-2,…,1 -6, 2-3,…, 5 -6: probability 1/18each  
+15
+Calculate expected value (called 
+expectiminimax value) of a position. 
+◼Backgammon
+❑White:clock-wise
+❑Black:counter-clock
+❑Videodemo
+(https://www.youtube.com/watch?v=xXE5Awz
+NQ2s )
+❑White:6and5
+◼(5-10,5-11),(5-11,19-24),(5-10,10-16),(5-11,11-16)
+62A typical backgammon position. The goal of the game is to move all one’s pieces off the board. White moves clockwise 
+toward 25, and Black moves counterclockwise toward 0. A piece can move to any position unless multiple opponent pieces 
+are there; if there is one opponent, it is captured and must start over. In the position shown, White has rolled 6 –5 and 
+must choose among four legal moves: (5 –10,5 –11), (5 –11,19 –24), (5 –10,10 –16),and (5 –11,11 –16), where the notation (5 –
+11,11 –16) means move one piece from position 5 to 11, and then move a piece from 11 to 16.62
+Games incorporating unpredictability by 
+including a random element, s.t the 
+throwing of dice
+
+◼After dicearerolled,Whiteknowspossible
+actions
+63◼WhitedoesnotknowwhatBlack isgoingtoroll
+andwhatactionitwillchoose
+◼CHANCENODESarerequiredinthegametree
+❑It’sa game search version of AND-ORsearch
+The branch leading from each chance node denote the possible dice rolls; each branch is 
+labeled with the roll and its probability. There are 36 ways to roll two dice, each equally 
+likely; but because a 6 –5 is the same as a 5 –6, there are only 21 distinct rolls. The six 
+doubles (1 –1 through 6 –6) each have a probability of 1/36, so we say P(1 –1) = 1/36. The 
+other 15 distinct rolls each have a 1/18 probability
+Stochastic game trees
+64(a dice roll)
+1stset of legal 
+moves for MIN
+𝑎1
+𝑎2𝑎𝑛1.  M AX chooses an action, say,
+𝑎3out of 𝑎1,..,𝑎𝑛and 
+executes it. 
+2.  M INrolls a die and gets a set
+of legal actions 𝑏1,..,𝑏𝑚
+under some CHANCE node.  
+3.  M INchooses an action, say, 
+𝑏1, from the set and executes 
+it. 
+4.  M AX rolls a die and gets
+a set of legal actions. 
+5.  Repeat steps 1 -4 until a 
+terminal state is reached. 𝑏1𝑏𝑚
+𝑏2probability𝑎3
+Optima ldecisio nsunder chance
+◼Minimax →Expectiminimaxalgorithm
+65EXPECTIMINIMAX (𝑠)=
+UTILITY(𝑠,MAX) if Is-TERMINAL(𝑠)
+max𝑎EXPECTIMINIMAX (RESULT(𝑠,𝑎)) if TO-MOVE(𝑠)=MAX
+min𝑎EXPECTIMINIMAX (RESULT(𝑠,𝑎)) if TO-MOVE(𝑠)=MIN
+σ𝑟𝑃(𝑟)EXPECTIMINIMAX (RESULT(𝑠,𝑟)) if TO-MOVE(𝑠)=CHANCE
+one possible dice rollexpected value
+Exam ples
+66◼Coin-flipgame
+◼Rules:
+1.MAX makes oneofthetwomoves
+2.MINflipsacoin
+3.MIN makes oneofthetwomoves
+67
+68
+69
+◼Optim aldecisionsunderexpectimin imax isdifferen tfrom
+minimax
+❑Scaling ofutilityvalues whileothernumbe rsarekeptfixed
+70
+With an evaluation function that assigns the values [1, 2, 3, 4] to the leaves, move a1 is best; 
+with values [1, 20, 30, 400], move a2 is best. Hence, the program behaves totally differently if 
+we make a change in the scale of some evaluation values! It turns out that to avoid this 
+sensitivity, the evaluation function must be a positive linear transformation of the probability 
+of winning from a position (or, more generally, of the expected utility of the position).
+❑Without chancenode,optima lminimax decision would’ve been
+thesamebefor eandafterscaling
+❑Chancenodesintrodu cesadditiona lbranchingfactor
+◼Ifn=numb erofpossibleoutcomes,then O((bn)m)
+◼Backgammo n:((20~4000)x21)m
+◼21=numberofpossibleoutcom esfor(die1,die2)
+71

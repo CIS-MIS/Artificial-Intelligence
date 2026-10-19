@@ -1,0 +1,404 @@
+1IntroductionCS 4400 : Artificial Intelligence
+What is AI?
+Four approaches
+The Turing test
+Foundations
+History
+State oftheart
+2Contents
+2What is Intelligence?
+A wish -list of general characteristics of intelligence
+• Perception : manipulation & interpretation of data provided by sensors
+• Action : control and use of effectors to accomplish a variety of tasks
+• Reasoning : deductive (logical) inference, inductive inference
+• Learning : adapting behavior to better cope with changing environments,
+  discovery of patterns, learning to reason, plan, and act.
+• Communication : with other intelligent agents including humans using
+   signals, signs, icons, …
+• Planning : formulation of plans – sequences or agenda of actions to
+   accomplish externally or internally determined goals
+C3PO
+Star Wars (1977)
+T-800
+The Terminator (1984)
+David / Gigolo Joe
+A.I. (2001)
+Sonny
+I, Robot (2004)
+3AI in pop culture -humanoids
+HAL 9000
+2001: a Space Odyssey (1968)
+Skynet
+The Terminator (1984)
+The matrix / agent Smith
+The Matrix (1999)
+4AI in pop culture -systems
+□HAL 9000
+2001: a Space Odyssey (1968)
+5AI in pop culture -systems
+•part of the story centers around an intelligent computer called HAL
+•HAL is the “brains” of an intelligent spaceship
+•in the movie, HAL can
+✓speak easily with the crew
+✓see and understand the emotions of the crew
+✓navigate the ship automatically
+✓diagnose on -board problems
+✓make life -and-death decisions
+✓display emotions
+•In 1969 this was science fiction: is it still science fiction?
+https://www.youtube.com/watch?v=dKZczUDGp_I  
+
+Ethics
+□People might lose jobs
+□People might have too much leisure time
+□People might lose sense of uniqueness
+□People might lose privacy rights
+□People might not be held accountable for certain actions
+□Machines may replace the human race ...
+6
+Different Types of Artificial Intelligence
+□Modeling exactly how humans actually think
+−cognitive models of human reasoning 
+□Modeling exactly how humans actually act
+−models of human behavior (what they do, not how they think)
+□Modeling how ideal agents “should think”
+−models of “rational” thought (formal logic)
+−note: humans are often not rational!
+□Modeling how ideal agents “should act” 
+−rational actions but not necessarily formal rational reasoning
+−i.e., more of a black -box/engineering approach
+□Modern AI focuses on the last definition
+−we will also focus on this “engineering” approach
+−success is judged by how well the agent performs
+−modern methods are also inspired by cognitive & neuroscience (how 
+people think). 
+7
+thinks rationally
+rationally
+“Thinking” vs. “Acting”  (--) 
+“Human -like” vs “Rational”  ( | )
+8Systemthat 
+thinkslike
+humansSystem that
+System that 
+acts like 
+humansSystem that actsWhat is AI? Common definitions
+A human interrogator
+Two subjects A and B:
+Using keyboards and 
+written questions and(room1), two subjects (room 2)
+one human and one machine
+screens, the interrogator asks 
+receives written answers
+If interrogator cannot tell if A or B is human, then the
+machine passes
+No direct physical interaction between the interrogator
+and the machine
+Physical simulation of a person unnecessary for intelligence
+9
+Test designed by Alan Turing in 1950Acting Humanly: The Turing Test
+9Acting Humanly: The Turing Test
+Alan Turing (1950) 
+   Operational definition of intelligence
+https://wsimag.com/science -and-technology/36961 -no-turing -test-for-consciousne1ss• A human interrogator poses some
+   written questions to another human
+   and a computer (or “robot”).
+• The computer passes the test if 
+   the interrogator cannot tell whether
+    the written responses come from 
+    the human responder or the 
+    computer.Human interrogator Human respondent Robot
+Annual Loebner  prize competition  (since 1990): the first prize of $100,000 to be awarded to 
+the first program that passes the "unrestricted" Turing test.
+https://www.britannica.com/biography/Alan -Turing
+What’s needed to pass the Turing
+Natural Language Processing
+to communicate, say, in written English
+Knowledge Representation
+to store what it knows or hears
+Automated ReasoningTest?
+to use the stored information to
+new conclusions
+Machine l earning  (ML)
+to adapt to new circumstancesanswer questions anddraw
+10Acting Humanly: The Turing Test
+In total Turing test, physical interaction is
+assumed: interrogator can pass or
+to subjects A & B
+Computer vision to perceive objects
+Robotics to manipulate objects
+For a full physical simulation
+Speech recognition
+Speech synthesisshow objectsThe Total Turing Test
+11
+Six Disciplines of AI 
+11Natural language processing (NLP) to communicate in a human language;
+Knowledge representation to store what it knows;
+Automated reasoning to answer questions and draw new conclusions;
+Machine learning (ML) to adapt to new circumstances and to detect patterns. 
+Total Turing test requires interaction with the real world. 
+Computer vision (CV) & speech recognition to perceive the world;  
+Robotics to move around in the world and to manipulate objects.To pass the Turing test, the following capabilities are required: 
+Most vibrant and in -demand areas in AI today: ML, CV, NLP , and Robotics. 
+AI program “Eugene Goostman” passed the
+Turing test for world’s first time in June 2014
+A chatting program imperson atinga13-year-old 
+Ukra inianboy, created by VladimirVeselovet al.
+(https://www.youtube.com/watch?v=njmAUhUwKys  )
+33% of the 30 judges were convinced that the bot was
+human
+Does it mean we have a working AI program?
+Emphasis on the outcome, not the underlying process
+of intelligenceBreaking news?
+12
+Thinking Humanly: Cognitive Modeling
+13To say a program thinks like a human, we must know humans think first.
+Learn about human thought in three ways: 
+• introspection  – catching thoughts as they go by; 
+• psychological experiments – observing a person in action; 
+• brain imaging – observing brain activities. 
+General problem solver (GPS) by Newell & Simon (1961)
+Cognitive science constructs theories of the human mind by combining 
+ computer models from AI 
+ experimental techniques from psychologyAlso compares reasoning steps to those in the human solution.
+Understanding the human thought process is the
+main goal of cognitive science
+Psyc hologicalexperiments + computational mode lsof 
+think ing
+Cognitive science is not AI
+Algorithm that works on computers does not mean it’s
+how human brain works
+Successful AI applications need not base on cognitive
+modeling
+The two fields have influenced each otherThinking Humanly: Cognitive Modeling
+13
+Logic:
+Syllogism from Greek philosophers
+“Socrates is a man: all men are mortal: therefore, 
+Socrates is mortal.”
+By 1965, programs exists that could solve any 
+solvable logical problems in principle
+Practical problems:
+Not everything can be formulated logically
+Large amounts of computation needed to do
+inferencecompleteThinking Rationally: “Laws of Thought”
+14
+Focus of this course
+Compared with other approaches
+Acting/thinking humanly: “rationally” can be defined 
+more concretely than “humanly”
+Thinkingrationa lly:correct inference is part of acting 
+rationa lly
+Act to achieve best expected outcome,
+information and/or limited resourcewithlimitedActing Rationally
+15
+Acting Rationally
+15This course is about designing rational agents.
+Rational behavior : doing the right thing
+expected to maximize goal achievement, 
+given the available information
+• An agent is an entity that perceives and acts.
+• A rational agent is one that acts to achieve the best outcome.
+16Rational Agents (preview)
+□ Rational  behavior: Doing that is expected to maximize 
+                                                    one’s “utility function” in this world.
+□An agent  is an entity that perceives and acts. 
+□A rational agent   perceives and acts rationally,
+                                    requires knowledge representation and reasoning.
+□This course is about designing rational agents
+□Abstractly, an agent is a function from percept histories to actions: 
+                                                         [f: P* → A]
+□For any given class of environments and tasks, we seek the agent (or class of agents) with 
+the best performance
+□Caveat: computational limitations make perfect rationality unachievable
+→ design best program  for given machine resources
+Sometimes we don’t have the resources
+Run out of time
+Run out of memory
+Limited rationality:
+constraintsdotheright thing given the
+17Limited Computation
+18Foundations of AI
+□Philosophy   Logic, methods of reasoning, mind as physical 
+   system, foundations of learning, language,
+   rationality.
+□Mathematics   Formal representation and proof, algorithms,
+   computation, (un)decidability, (in)tractability,
+   probability.
+□Economics   utility, decision theory, rational economic agents 
+□Neuroscience                   neurons as information processing units.
+□Psychology/       how do people behave, perceive, process 
+      Cognitive Science  information,  represent knowledge, adaptation,       
+                                                    phenomena of perception and motor control,  
+□Computer  building fast computers 
+engineering
+□Control theory                   design systems that maximize an objective
+   function over time 
+□Linguistics   knowledge representation, grammar
+19Landmarks in AI history
+• 1943                  McCulloh & Pitts: model of artificial neurons
+• 1950                  Turing’s “Computing Machinery and Intelligence”
+• 1956                  McCarthy, Minsky, Newell, Simon, Shannon, Nash et al.
+                          Dartmouth workshop :"Artificial  Intelligence" adopted
+• 1952 -69             Early enthusiasm, great expectations, optimism fueled by
+                             early success on some problems thought to be hard 
+• 1966 -73             Collapse in AI research: Progress was slower than expected.
+                             Unrealistic predictions, Herbert Simon (1957)
+                             AI discovers computational complexity. 
+19Landmarks in AI history
+• 1969 -86               Expert systems
+• 1980 -                   AI becomes an industry: expert systems booms, then
+                            busts (1988 -93): “AI Winter”
+• 1986 -                   Neural networks regain popularity
+• 1987 -                   Probabilistic reasoning and machine learning  
+19Landmarks in AI history
+• 1995 -               Emergence of intelligent agents
+ AI technologies continue to find applications in
+ information retrieval
+ data mining and knowledge discovery
+ customizable software systems 
+ bioinformatics autonomous vehicles agile manufacturing systems smart devices (e.g., home, automobiles)
+ … internet tools: search engines, recommender systems
+ Steady progress on fundamental AI research problems continues.
+19Landmarks in AI history
+• 2001 -               Big data 
+ Successful large -scale real -world applications in
+ image recognition
+ natural language processing
+ speech recognition
+ machine translation• 2011 -               Deep learning
+ …
+ Convolutional neural networks (CNNs)e.g., ImageNet
+ Chat Generative Pre -trained Transformer  (ChatGPT)
+20Turing Award Winners in AI
+1969  Marvin Minsky (MIT)
+1971  John McCarthy (Stanford) 
+             National Medal of Science (1990)
+1975  Allen Newell * (Carnegie Mellon)
+            National Medal of Science (1992)
+          Herbert Simon * (Carnegie Mellon)
+          Nobel Prize in Economics (1978)
+            National Medal of Science (1986)
+1994  Edward Feigenbaum (Stanford)
+          Raj Reddy (Carnegie Mellon)
+2011  Judea Pearl (UCLA)
+2018  Yoshua  Bengio  (U Montreal)
+          Geoffrey Hinton (U Toronto)
+          Yann Lecun  (NYU & Facebook) *omitted from the textbook on p. 17. 
+  Big mistake!Founding 
+Fathers of AI
+US News rankings of CS programs 
+in AI (2024) : 
+1. Carnegie Mellon
+2. MIT
+3. Berkeley
+4. Stanford
+…
+20Academic Genealogy
+Herbert Simon
+Allen Newell Edward Feigenbaum Raj ReddyJohn McCarthy
+* All the photos are from https://amturing.acm.org/byyear.cfm . 
+Marvin MinskyAlbert TuckerSolomon Lefschetz
+22Current AI Applications
+ Deep Blue (IBM) defeated the reigning world chess champion Garry 
+   Kasparov (1997). Chinook defeated human checkers champions (1994).• Game playing
+ Supercomputer Watson (IBM) beat human champions on “Jeopardy” (2011).
+ AlphaGo (Google) beat the world’s No.1 ranked player Ke Jie in Go (2017).
+ Libratus  (Carnegie Mellon) defeated the world’s best Texas Hold ‘ em poker 
+   players head -to-head (2017), six -player (2019).
+ “AlphaStar ” AI (Google) defeated human pros at StarCraft II (2019)
+22Current AI Applications
+• Robotic vehicles
+ Stanley (Stanford) won the DARPA Grand Challenge (2005)
+ Boss (Carnegie Mellon) won the DARPA’s Urban Challenge (2007)
+• Legged robots ( Boston Dynamics ) Self-driving cars by Tesla, Google, etc. 
+Stanley Boss Google car Tesla car crash
+Florida, 2016
+Atlas SpotMini
+ Handle
+22(cont’d)
+• Autonomous planning
+ NASA’s Remote Agent program controlled the scheduling of operations for 
+   a space craft (2000).
+ Uber and Google Maps plan optimal routes for hundreds of millions of users. 
+• Speech recognition
+ Flight booking via conversation with an automated system 
+ Real -time speech -to-speech translation 
+• Image understanding
+ ImageNet object recognition 
+ Image captioning Extensive use of convolutional 
+neural networks (CNNs)
+ Face recognition (boarding airplanes, bullet trains, etc.)
+• Natural language processing
+ ChatGPT by OpenAI allows user to steer and refine a conversation (2022)
+23Consider what might be involved in 
+building a “intelligent” computer….
+□What are the “components” that might be useful?
+–Fast hardware?
+–Foolproof software?
+–Speech interaction?
+•speech synthesis
+•speech recognition
+•speech understanding
+–Image recognition and understanding ?
+–Learning?
+–Planning and decision -making?
+24Can Computers play Humans at Chess?
+□Chess Playing is a classic AI problem
+–well-defined problem
+–very complex: difficult for humans to play well
+•Conclusion: YES: today’s computers can beat even the best human
+1200140016001800200022002400260028003000
+1966197119761981198619911997RatingsGarry Kasparov (current World Champion ) Deep Blue
+Deep ThoughtPoints Ratings
+
+25Can we build hardware as complex as the brain?
+□How complicated is our brain?
+–a neuron, or nerve cell, is the basic information processing unit
+–estimated to be on the order of 10 11 neurons in a human brain
+–many more synapses (10 14) connecting these neurons
+–cycle time: 10 -3 seconds (1 millisecond)
+□How complex can we make computers?
+–106 or more transistors per CPU 
+–supercomputer: hundreds of CPUs, 10 9 bits of RAM 
+–cycle times: order of 10 - 8 seconds
+□Conclusion
+–YES: in the near future  we can have computers with as many basic 
+processing elements as our brain, but with
+•far fewer interconnections (wires or synapses) than the brain
+•much faster updates than the brain
+–but building hardware is very different from making a computer behave 
+like a brain!
+26Can Computers “see”?
+□Recognition v. Understanding (like Speech)
+–Recognition and Understanding of Objects in a scene
+•look around this room
+•you can effortlessly recognize objects
+•human brain can map 2d visual image to 3d “map” 
+□Why is visual recognition a hard problem?
+□Conclusion: mostly NO:  computers can only “see” certain types of objects 
+under limited circumstances: but YES for certain constrained problems (e.g., 
+face recognition)
+
+play a decent game of table tennis?
+drive in Victorville, California?
+drive in the center of Cairo, Egypt?
+buy a week’s worth of groceries at the market?
+buying a week’s worth of groceries on the Web?
+play a decent game of bridge at a competition level?
+27Can AI …
+discover and prove new mathematical theorems?
+write an intentionally funny story?
+give competent legal advice in a specialized area of law?
+translate spoken English into spoken Swedish inrealtime?
+perform a complex surgical operations?
+28Can AI …
+29Conclusion
+•AI is about building intelligent agents (robots)
+•There are many very interesting sub -problems to solve:
+–Learning, vision, speech, planning, …
+•Surprising progress has been made (autonomous cars, chess computers) but 
+surprising lack of progress is also a fact (visual object recognition).
+•There is no doubts that AI has a bright future: technology is increasingly 
+getting smart.
+

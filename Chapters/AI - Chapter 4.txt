@@ -1,0 +1,614 @@
+1Uninformed searchCS 4400 : Artificial Intelligence
+Tree search
+Graph search 
+Breadth -first search 
+Uniform -cost search 
+Depth -first search
+Modified depth -first search
+Bidirectional search1.
+2.
+3.
+4.
+5.
+6.
+7.
+2Contents
+Rational agents
+PEAS for task environment
+Performance measure/environment/actuators/sensors
+Task environment
+Observable/deterministic/single -agent/episodic/static
+Agent architecture
+Reflex -based/model -based/goal -based/utility -
+based/learning
+3Review
+Problem -solving by searching
+observable, discrete, known, deterministic task
+environment → searching
+Problem formulation
+initial state/action/transition/goal test/path cost
+Examples
+Road to Bucharest, vacuum -world, 8 -puzzle, 8 -queens
+4Review
+Search tree
+Root: initial state
+Node: states
+Branches: actions
+“Expanding a node”
+Generate list of new states (=children) by considering 
+all possible actions at the node
+Leaf node: node with no child
+Frontier: set of leaf nodes available for
+expansion(a.k.a.openlist)
+51/7. Tree search
+6Tree search  algorithms
+□Basic idea:
+□Exploration of state space by generating successors of 
+already -explored states ( a.k.a.~ expanding  states).
+□Every states is evaluated: is it a goal state ?
+From Arad toBucharest
+7Example: Romania
+7
+
+9Tree search
+Search trees may have
+Repeated states (= loopy path)
+Arad -Sibiu -Arad
+Redundant paths in general
+Arad -Sibiu (140km)
+Arad -Zerind -Oradea -Sibiu (297km)
+Redundantpathscansometimes 
+problemformulation
+8-queensbe avoided by
+Init: empty board → final: n queens (n! paths to the final state)
+Addaqueentotheleftmostempty column (1path)Repeated states and redundant paths
+10
+Example: rectangular grid
+4 children for each node
+After d -steps, say d=20
+4d= ~ trillion nodes
+~2d2 = 800 distinct states
+Tractable problem becomes
+    
+Cure: graph searchintractable !
+11Repeated states and redundant paths
+ Failure to detect repeated states can turn a solvable problem into an 
+unsolvable one. 
+ Keep only the best path to each state .
+12Graph Search
+◼Keep the explored set ( a.k.a  closed list)
+◼If a newly generated node has been explored before, 
+     do not add it to the frontier
+◼never generate a state generated before
+◼must keep track of all possible states (uses a lot of memory)
+◼e.g., 8 -puzzle problem, we have 9! = 362,880 states
+◼Optimal but memory inefficient
+
+Search graph is a subgraph of state -space graph
+Frontier separates explored andunexplored regions
+132/7. Graph search
+Although graph search is more efficient, I will use tree
+search for demonstrations in class
+14Graph search
+
+Node class
+State
+Parent node: which node generated this?
+Action: which action generated this?
+Path-cost
+Depth[g(n)]: cost from initstate tocurrent state
+15Data structure
+Queue to store frontier, explored set, etc
+Queue member functions
+EMPTY(q)
+POP(q): remove and return the first element
+INSERT(e,q): insert an element
+ISELEMENT(e,q): is the element inside the queue?
+Queue types
+First-in first -out (FIFO): pops the oldest element
+Last-in first -out (LIFO): pops the newest element
+Priorityqueue:pops the element withhighest priority 
+16Data structure
+Strategy(=algorithm): order of expanding nodes
+Completeness: is the strategy guaranteed to find the
+solution (if there
+Optimality:does 
+solution?
+Time and spaceis one)?
+it find the optimal (=lowest path -cost)
+complexities
+T(n) is O(n2) iff T(n) < cn2 for some c, for all n > n 0
+17Measuring performance of strategy
+Time complexity = max # of nodes generated until goal
+Tree search: # of nodes generated = # of nodes explored + # of
+nodes in frontier
+Graph search: # of nodes generated ≤ # of states
+( since no repeated state )
+Space complexity = max # of nodes in memory
+Tree search: # of nodes in frontier
+Graph search: space complexity ≈ time complexity
+(since all generated nodes are kept in memory)until goal
+18Time and space complexity
+17Measuring performance of strategy
+• Accordingly, complexity is measured in terms of
+𝑑: depth  (number of actions in the optimal solution)
+𝑚: maximum number of actions in any path
+𝑏: branching factor (number of successors of a node).…Initial
+state
+Goal
+stateOptimal 
+solution path
+(𝑑+1 nodes)
+≤𝑏 successors
+Uninformed search (a.k.a.
+search)
+Breadth -first search
+Uniform -cost search
+Depth -first search
+Depth -limited searchsystematic blind
+Iterative deepening depth -first
+Bidirectional searchsearch
+Informed search (a.k.a. heuristic search)
+19Uninformed search
+While searching you have no clue 
+whether one non -goal state is better 
+than any other . Your search is blind. 
+You don’t know if your current 
+exploration is likely to be fruitful.
+20Complexity Recap 
+□ We often want to characterize algorithms independent of their implementation .
+□ “This algorithm took 1 hour and 43 seconds on my laptop”. Is not very useful, 
+because tomorrow computers are faster.
+□ Better is:
+      “This algorithm takes O( nlog(n)) time to run and O(n) to store”. because this  
+       statement abstracts away from irrelevant details.
+□Time(n) = O(f(n)) means:  
+     Time(n) < constant x  f(n)   for   n>n0 for some n0
+     Space(n) idem.
+□n is some variable which characterizes the size of the problem,
+     e.g. number of data -points, number of dimensions, branching -factor of search 
+            tree, etc.
+Expand the shallowest unexpanded node
+e.g., root, all children, all grandchildren,…
+Queue: two ways to look at it
+FIFO Queue
+Priority queue: lowest depths first
+213/7. Breadth -first search
+22Breadth -first search
+
+23Example: Romania
+Arad
+Node: < State, Parent, Action, PathCost, Depth >
+Assume PathCost == Depth
+Init state is “Arad”: root.state = “Arad”
+Queue: { node1 = < In(Arad), null, null, 0, 0 > }
+24Planning trip from Arad
+
+Arad
+Zerind Sibiu Timisoara
+Expand: node1= < In(Arad), null, null, 0, 0 >
+Queue:
+node2 
+node3
+node4{
+=
+=
+=<
+<
+<In(Zerind), node1, Go(Zerind), 75, 1 >,
+In(Sibiu), node1, Go(Sibiu), 140, 1 >,
+In(Timis…), node1, Go(Timis…), 118, 1 >
+} 
+25Planning trip from Arad
+
+Arad
+Zerind Sibiu Timisoara
+Arad Oradea
+Expand: node2 = < In(Zerind),node1,Go(Zerind),75, 1>
+Queue: {
+<
+<
+<
+<Node3
+Node4
+Node5
+Node6=
+=
+=
+=In(Sibiu), node1, Go(Sibiu), 140, 1 >,
+In(Timis…), node1, Go(Timis…), 118, 1 >
+In(Arad), node2, Go(Arad ), 150, 2>
+In(Oradea),node2, Go(Oradea), 146, 2>
+} 
+26Planning trip from Arad
+
+Arad
+Zerind Sibiu Timisoara
+Arad Oradea Arad Oradea Fagaras Rimnicu
+Expand: node3 = < In(Sibiu),node1,Go(Sibiu),140, 1>
+Queue: {
+<
+<
+<
+<Node4
+Node5
+Node6
+Node7
+…
+}=
+=
+=
+=In(Timis…), node1, Go(Timis…), 118, 1 >
+In(Arad), node2, Go(Arad), 150, 2>
+In(Oradea), node2, Go(Oradea), 146,2>
+In(Arad), node3, Go(Arad), 280,2>
+27Planning trip from Arad
+
+Complete? Yes, if b is finite  (it always reach goal)  
+Optimal?
+Yes, if path cost is nondecreasing w.r.t. node depth
+Time complexity:
+# nodes at depth n = bn
+1+b+b2+b3+…+bd = O(bd)
+Space complexity:
+# of explored nodes at depth d = O(bd-1)
+# of frontier nodes at depth d = O(bd)
+28Properties of breadth -first search
+《cf.》
+28Properties of breadth -first search
+Depth Nodes Time Memory
+2 110 .11 milliseconds 107 KB
+4 11,110 11 milliseconds 10.6 MB 
+6 1061.1 seconds 1 GB
+8 1082 minutes 103 GB
+10 10103 hours 10 TB
+12 101213 days 1 PB 
+14 10143.5 years 99 PB 
+16 1016350 years 10 EBTree search: 𝑂(𝑏𝑑) 
+Graph search is preferred since its time and space are proportional to the size 
+of the state space (often less than 𝑂(𝑏𝑑)).𝑏=10
+ Memory is a bigger issue than time. Only small search problems are solvable due to exponential time complexity. 
+29Example 
+BFS
+
+304/7. Uniform -cost search
+Breadth -first is only optimal if step costs is increasing with depth (e.g. constant). 
+Can we guarantee optimality for any step cost?
+Uniform -cost Search: Expand node with  smallest path cost g(n).
+Proof Completeness:
+Given that every step will cost more than 0, 
+and assuming a finite branching factor, there
+is a finite number of expansions required before 
+the total path cost is equal to the path cost of the 
+goal state. Hence, we will reach it.
+Proof of optimality given completeness:
+Assume UCS is not optimal.
+Then there must be an (optimal) goal state with 
+path cost smaller than the found (suboptimal) goal 
+state (invoking completeness).
+However, this is impossible because UCS would
+have expanded that node first by definition.
+Contradiction.
+31Uniform -cost search
+Implementation : queue ordered by path cost,
+Equivalent to breadth -first if all step costs all equal.
+Complete?  
+Time?  
+Space?  
+Optimal?  
+32Uniform -cost search
+If the child is not in any of 
+these ‘explored’ or ‘frontier’…
+Arad
+Queue: {node1=<In(Arad), null,null,0,0>}
+33Planning trip from Arad
+
+Arad
+Zerind Sibiu Timisoara
+Expand: node1= < In(Arad), null, null, 0, 0 >
+Queue:
+node2 
+node3
+node4{
+=
+=
+=<
+<
+<In(Zerind), node1, Go(Zerind), 75, 1 >,
+In(Sibiu), node1, Go(Sibiu), 140, 1 >,
+In(Timis…), node1, Go(Timis…), 118, 1 >
+} 
+34Planning trip from Arad
+
+Arad
+Zerind Sibiu Timisoara
+Arad Oradea
+Expand: node2 = <In(Zerind),node1,Go(Zerind),75, 1>
+Queue: {
+<
+<
+<
+<Node3
+Node4
+Node5
+Node6=
+=
+=
+=In(Sibiu), node1, Go(Sibiu), 140, 1 >,
+In(Timis…), node1, Go(Timis…), 118, 1 >
+In(Arad), node2, Go(Arad), 150, 2>
+In(Oradea), node2, Go(Oradea),146,2>
+}
+35Planning trip from Arad
+
+Arad
+Zerind Timisoara
+Arad Oradea Arad Lugoj
+Expand: node4 = <In(Timis…),node1,Go(Timis…),118, 1>
+Queue: {
+<
+<
+<
+<
+<node3
+node5
+node6
+node7
+node8
+}=
+=
+=
+=
+=In(Sibiu), node1, Go(Sibiu), 140, 1 >,
+In(Arad), node2, Go(Arad)>, 150, 2> 
+In(Oradea), node2, Go(Oradea)>,146,2> 
+In(Arad), node4, Go(Arad)>,236, 2>
+In(Lugoj), node4, Go(Lugoj>,229,2>
+36SibiuPlanning trip from Arad
+
+Complete? Yes if step cost > 0
+Optimal? Yes
+Time and space complexities
+Difficult to characterize with b and
+Guided by path costs, not depthsd
+In general, time and space complexities areworse
+than forbreadth -first
+37Properties of uniform -cost search
+Expand the deepest node first
+2nd
+ e.g., left -most path,
+pathleft-most path, ...,right-most
+Queue: two ways to look at it
+LIFO Queue
+Priority queue: highest depth first
+385/7. Depth -first search
+Arad
+Queue: {node1=< In(Arad), null,null,0,0>}
+39Planning trip from Arad
+
+Arad
+Zerind Sibiu Timisoara
+Expand: node1=<
+Queue: {In(Arad), null, null, 0, 0 >
+node2=<
+node3=<
+node4=<In(Zerind), node1, Go(Zerind), 75, 1 >,
+In(Sibiu), node1, Go(Sibiu), 140, 1 >,
+In(Timis…), node1, Go(Timis…), 118, 1 >
+} 
+40Planning trip from Arad
+
+Arad
+Zerind Sibiu Timisoara
+Arad Oradea
+Expand: node2=< In(Zerind),node1,Go(Zerind),75, 1 >
+Queue :
+node3=<
+node4=<
+node5=<
+node6=<{
+In(Sibiu), node1, Go(Sibiu), 140, 1 >, 
+In(Timis…),node1,Go(Timis…),118,1 > 
+In(Arad), node2, Go(Arad), 150, 2>
+In(Oradea), node2, Go(Oradea),146, 2>
+}
+41Planning trip from Arad
+
+Arad
+Zerind
+AradSibiu Timisoara
+Oradea
+Zerind Sibiu Timisoara
+Expand: node5=< In(Arad),node1,Go(Arad),150, 1>
+Queue :
+node3=<
+node4=<
+node6=<
+node7=<
+… }{
+In(Sibiu), node1, Go(Sibiu), 140, 1 >,
+In(Timis…),
+In(Oradea),
+In(Zerind),node1,
+node2,
+node2,Go(Timis…), 118, 1 >,
+Go(Oradea),146, 2>,
+Go(Zerind,225, 3>,
+42Planning trip from Arad
+
+43Another Example
+•Expand deepest  unexpanded node
+•Implementation :
+–fringe = Last In First Out (LIFO) queue, i.e., put successors at 
+front
+Is A a goal state?
+44Another Example
+•Expand deepest unexpanded node
+•Implementation :
+–fringe = LIFO queue, i.e., put successors at front
+queue=[B,C]
+Is B a goal state?
+45Another Example
+•Expand deepest unexpanded node
+•Implementation :
+–fringe = LIFO queue, i.e., put successors at front
+queue=[D,E,C]
+Is D = goal state?
+46Another Example
+•Expand deepest unexpanded node
+•Implementation :
+–fringe = LIFO queue, i.e., put successors at front
+queue=[H,I,E,C]
+Is H = goal state?
+47Another Example
+•Expand deepest unexpanded node
+•Implementation :
+–fringe = LIFO queue, i.e., put successors at front
+queue=[I,E,C]
+Is I = goal state?
+48Another Example
+•Expand deepest unexpanded node
+•Implementation :
+–fringe = LIFO queue, i.e., put successors at front
+queue=[E,C]
+Is E = goal state?
+49Another Example
+•Expand deepest unexpanded node
+•Implementation :
+–fringe = LIFO queue, i.e., put successors at front
+queue=[J,K,C]
+Is J = goal state?
+50Another Example
+•Expand deepest unexpanded node
+•Implementation :
+–fringe = LIFO queue, i.e., put successors at front
+queue=[K,C]
+Is K = goal state?
+51Another Example
+•Expand deepest unexpanded node
+•Implementation :
+–fringe = LIFO queue, i.e., put successors at front
+queue=[C]
+Is C = goal state?
+52Another Example
+•Expand deepest unexpanded node
+•Implementation :
+–fringe = LIFO queue, i.e., put successors at front
+queue=[F,G]
+Is F = goal state?
+53Another Example
+•Expand deepest unexpanded node
+•Implementation :
+–fringe = LIFO queue, i.e., put successors at front
+queue=[L,M,G]
+Is L = goal state?
+54Another Example
+•Expand deepest unexpanded node
+•Implementation :
+–fringe = LIFO queue, i.e., put successors at front
+queue=[M,G]
+Is M = goal state?
+55Complexity of depth -first search
+□Complete?  No: fails in infinite -depth spaces
+     Can modify to avoid repeated states along path
+□Time?  O(bm) with m=maximum depth
+□terrible if m is much larger than d
+− but if solutions are dense, may be much faster than      
+breadth -first
+□Space?  O(bm), i.e., linear space! (we only need to 
+      remember a single path + expanded unexplored nodes)
+□Optimal?  No (It may find a non -optimal goal first)A
+B C
+55Non-Optimality of DFS 
+Returns the first solution it finds, even if it is not the cheapest.
+𝑠0
+𝑠𝑔Optimal solution
+Goal state
+55Inefficiency of DFS 
+ May expand the same state many times via different paths, 
+   and even systematically the entire space. 
+ May get stuck in an infinite loop in a cyclic state space. 𝑠0
+𝑠𝑖𝑠𝑔
+Goal
+⋮
+𝑠0𝑠1
+𝑠𝑛⋮𝑠𝑔
+Check each node for cycles.⋯
+55Incompleteness of DFS 
+Can go down an infinite path forever.  
+𝑠0
+𝑠𝑔
+⋮
+55Why Consider DFS?  
+ Small memory for problems.
+No need for a table of reached nodes.
+Small frontier. 
+ Search time 𝑂(#nodes ). 
+ Memory consumption 𝑂𝑏𝑚. 
+branching factor
+(# successors)maximum depth
+ Workhorse of constraint satisfaction, logic programming, etc. depth 𝑚depth 0
+Depth -limited search (DLS)
+Do DFS, terminate search at some search limit  L
+Complete if solution isatadepth lessthan L
+Stillnotoptimal
+566/7. Modifying DFS 1 -DLS
+57Depth -limited search
+Iterative deepening depth -first search
+Repeat DLS withincreasing depths
+58Modifying DFS 2 -IDDFS
+59DLS vs. IDDFS
+□ To avoid the infinite depth problem of DFS, we can 
+ decide to only search until depth L, i.e. we don’t expand beyond depth L.
+ → Depth -Limited Search
+□ What if solution is deeper than L? → Increase L iteratively.
+  → Iterative Deepening Search
+□ As we shall see: this inherits the memory advantage of Depth -First 
+  search, and is better in terms of time complexity than Breadth first search.
+60Example
+61
+62
+IDDFS
+Complete
+Optimal if path cost is nondecreasing w.r.t. node depth
+Space complexity: O(bd) (cf. O(bd) for BFS)
+Inherits advantages from both BFS and DFS
+It’s the preferred search method when search space is
+large ordisunknown
+63IDDFS
+If you know the goal state (e.g., navigation)
+Search backward as well as forward
+Requires that actions are reversible
+Requires that there be one (or few) goal state(s)
+Search succeeds
+common node
+Examples
+Romania
+8-puzzle
+Not 8 -queenswhen both searches meet ata
+647/7. Bidirectional search
+• Difficult to conduct if the goal is abstractly specified.
+
+65Summary of algorithms
+𝑑: minimum depth of a solution
+𝑚: maximum search tree depth𝑏: branching factor ( >1)
+𝑙: depth limit
+𝐶∗: optimal solution cost
+𝜖: minimum action cost1. if 𝑏 is finite, and the state space 
+    either has a solution or is finite. 
+2. if all costs are ≥𝜀>0. 
+3. if all costs identical.
+4. if both directions are breadth -first
+    or uniform -cost. 
+Romania
+Init: Sibiu,
+BFS
+UCS
+DFS
+Rulesgoal: Bucharest
+Goal check is done at the time of expansion, not generation
+Write the expanded nodes in order
+Write the solution (=path)
+Expand child nodes in alphabetical order if all conditions are 
+the same
+66Exercise

@@ -1,0 +1,355 @@
+1CS 4400: Artificial Intelligence
+Local search andoptimization
+Contents
+21.Local search
+2.Hillclimbing
+3.Simulated annealing
+4.Local beam search
+5.Genetic algorithm
+1/5. Local search
+3◼Sometimes path doesn’t matter, only the end  
+goal does
+❑N-queens
+❑Integrated -circuit design
+◼Local search algorithms
+❑Similar to greedy best-first search, but even simpler
+❑Goal -finding algorithms that ignore paths
+❑Can save memory  (only remember current state)
+❑Can often find solutions in large/infinite state space  
+unsuitable for systematic search
+Example: n -queens
+4◼Put n queens on an n × n board with no 
+two queens on the same row, column, or 
+diagonal
+Note that a state cannot be an incomplete configuration with m<n queens
+Local search
+◼Objective function
+❑In tree/graph search: evaluation function, ornegative
+ofcost-to-go
+❑Find a state with the maximum objective value
+◼State -space landscape
+❑Plot of objective a
+◼Complete &  
+Optimal?
+❑No, in generals a function ofstates
+4
+
+2/5. Hill-climbing
+◼Hill-climbing
+❑One of the simplest local search
+❑Continually move in the direction of increasing value
+❑a.k.a. steepest -ascent/descent
+❑Depending on initial state, can get stuck in local 
+maxima
+6
+
+Hill-climbing
+◼Start with a initial state
+◼Loop: improve by moving to neighboring states
+◼Don’t keep the record of the past states
+◼“Trying to find the top of Mount Everest in a thick fog
+while suffering from amnesia”
+7
+// random choice  
+// to break a tile
+N-Queens problem
+◼State: a configuration of 4 -queens
+◼Possible actions: choose one queen, and move  
+the queen within the same column (12*)
+◼Cost : # of pairs of queens attacking each other  
+(= -objective function)
+8*Each column has 4 rows total, and since 1 row is already occupied by the queen, there are 3 alternative rows 
+available for that queen. 
+N-Queens HillClimbing
+9Q Q
+Q Qcost=?
+N-Queens HillClimbing
+10Q ? Q ?
+? Q ? Q
+? ? ? ?
+? ? ? ?cost=5  
+initially
+Cost after
+moving a
+queen?
+N-Queens HillClimbing
+11Q 4 Q 5
+5 Q 4 Q
+5 2 5 3
+3 2 2 5cost=5
+N-Queens HillClimbing
+12Q 4 Q 5
+5 Q 4 Q
+5 2 5 3
+3 3 2 5cost=5
+N-Queens HillClimbing
+13Q ? ? ?
+? Q ? Q
+? ? ? ?
+? ? Q ?cost=2
+N-Queens HillClimbing
+14Q 1 5 2
+3 Q 4 Q
+2 1 5 2
+2 2 Q 4cost=2
+N-Queens HillClimbing
+15Q 1 5 2
+3 Q 4 Q
+2 1 5 2
+2 2 Q 4cost=2
+N-Queens HillClimbing
+16Q 1 2 3
+4 2 2 Q
+2 Q 3 3
+3 2 Q 3cost=1
+N-Queens HillClimbing
+Q 1 2 3
+4 2 2 Q
+2 Q 3 3
+3 2 Q 3cost=1
+17
+N-Queens Hill Climbing –2ndattempt
+18Q Q
+Q Qcost=5
+N-Queens Hill Climbing –2ndattempt
+19Q 4 Q 5
+5 Q 4 Q
+5 2 5 3
+3 2 2 5cost=5
+N-Queens Hill Climbing –2ndattempt
+20Q 4 Q 5
+5 Q 4 Q
+5 2 5 3
+3 2 2 5cost=5
+N-Queens Hill Climbing –2ndattempt
+21Q 1 5 2
+3 Q 4 Q
+2 1 5 2
+2 2 Q 4cost=2
+N-Queens Hill Climbing –2ndattempt
+22Q 1 5 2
+3 Q 4 Q
+2 1 5 2
+2 2 Q 4cost=2
+N-Queens Hill Climbing –2ndattempt
+23Q Q 4 3
+3 2 3 Q
+0 1 3 3
+1 2 Q 2cost=1
+N-Queens Hill Climbing –2ndattempt
+24Q Q 3 3
+3 2 3 Q
+0 1 3 3
+1 2 Q 2cost=1
+N-Queens Hill Climbing –2ndattempt
+251 Q 2 1
+3 2 2 Q
+Q 2 2 2
+1 3 Q 1cost=0
+N-Queens Hill Climbing –2ndattempt
+26Q
+Q
+Q
+Qcost=0
+N-Queens problem
+27
+• Successor is a state generated from relocating
+   a queen in the same column.8-queens problem
+• ℎs= # pairs of queens attacking each other, 
+   directly or indirectly, in the state 𝑠. 
+• ℎs= 12 for the best successor. 
+Hill climbing randomly picks one.// random choice  
+// to break a tile
+8-way tie!.
+ℎ=5+3+6+3=17
+Efficiency?
+28
+5 moves
+ℎ=1
+Hill climbing can make rapid progress toward a solution.
+Drawback of Hill Climbing 
+29Hill climbing terminates when a peak is reached with no neighbor
+having a higher value. 
+ Local maximum
+Not the global maximum.
+Every move of one queen 
+introduces more conflicts.Hill climbing in the vicinity of a 
+local maximum will be drawn 
+toward it and then get stuck
+there.
+Gradient Ascent/Descent
+◼A state as a point in n -dimensional space
+❑One dimension for each variable
+❑4-queens problem –point in4-space -e.g. (3, 1, 4, 2)
+◼Objective function
+❑How “good” is that point inn-space?
+◼Try to find the max (or min) in thatspace
+❑Can get stuck: randomness and restarts can help
+30
+Gradient -Based Method
+31Use the gradient : ∇𝑓(𝑥1,…,𝑥𝑛)=𝜕𝑓
+𝜕𝑥1,𝜕𝑓
+𝜕𝑥2,…,𝜕𝑓
+𝜕𝑥𝑛
+direction of fastest  increase in 𝑓 value locally
+−∇𝑓: direction of fastest  decrease in 𝑓 value locally
+* From https://en.wikipedia.org/wiki/GradientGradient map𝑓𝑥,𝑦=−cos2𝑥+cos2𝑦2
+Gradient Descent
+32• Assume we have some cost -function: 
+ and we want minimize over continuous variables X1,X2,..,Xn
+1. Compute the gradient :
+2. Take a small step downhill in the direction of the gradient:
+3. Check if
+4. If true then accept move, if not reject. 
+5. Repeat.
+1( ,..., )n C x x
+1( ,..., )n
+iC x x ix
+1 ' ( ,..., )i i i n
+ix x x C x x ix→ = − 
+11( ,.., ',.., ) ( ,.., ,.., )i n i n C x x x C x x x 
+
+Getting Stuck
+❑Local maxima: top of a smaller hill
+❑Plateau: flat local maximum
+❑Shoulder: flat place, can still go up on one side
+❑Ridge: local maxima not connected –the worst type
+33
+How to improve hill-climbing?
+34◼Hill-climbing is already very useful for high-
+dimensional, continuous variable problems
+◼To leave a plateau –take sideway moves
+◼Randomly restart when stuck
+◼Randomly move “downhill” with some probability
+3/5. Simulated Annealing
+35◼Rolling a ball on a bumpy surface, trying to find  
+the lowest point
+❑Momentum can move it out of local minima
+❑Shake the surface to move it out of local minima
+◼Instead of taking “best” move, take random move
+❑If new state is better, accept move
+❑If new state is worse, accept with some probability <1
+❑Probability of accepting worse point is determined by  
+“temperature”
+➔ escape local maxima by allowing some "bad" moves but 
+gradually decrease  their frequency
+36Annealing : Heat a metal to a high temperature and then gradually cool it, 
+allowing the material to reach a low -energy crystalline state so it is hardened.
+• Start by shaking hard (i.e., at 
+   high temperature).
+• Gradually reduce the intensity
+   of shaking (i.e., lower the 
+   temperature).
+37
+• Accept the next state if it is an improvement ( ∆𝐸>0).
+• Otherwise, accept it with a probability that decreases exponentially   
+ as the badness −∆𝐸 of the move increases (∆𝐸
+𝑇<0 decreases), and 
+ as the “temperature” goes down (∆𝐸
+𝑇<0 decreases).Badness 
+Is −∆𝐸. Temperature
+• Escape local minima by allowing bad moves.Bad moves are more tolerated at the start when 𝑇 is 
+high and become less likely as 𝑇 decreases.Minimization
+// solution
+𝑒∆𝐸/𝑇   // ∆𝐸≤0 // the next state is better; choose it. .lim
+𝑡→∞𝑇=0
+Properties of simulated annealing search
+38◼One can prove: If T decreases slowly enough, then 
+simulated annealing search will find a global 
+optimum with probability approaching 1 
+(however, this may take VERY long)
+◼Widely used in VLSI layout, airline scheduling, etc.
+4/5. Local beam search
+39Keep track of 𝑘 states rather than one.
+1. Start with 𝑘 randomly generated states.
+2. Generate all their successors. 
+3. Stop if any successor is a goal.
+4. Otherwise, keep the 𝑘 best successors 
+    and go back to step 2.
+ May suffer from a lack of diversity among the 𝑘 states.
+Solution : stochastic beam search which chooses successors 
+with probabilities proportional to their values. ⋯𝑘
+⋯
+5/5. Genetic algorithm
+◼Idea: mimic evolution in biology
+◼Similar to stochastic beam search
+❑Keep k best successors with some randomness
+❑Survival of the fittest: decide which descendants to  
+keep by an objective (=fitness) function
+❑Use two states, instead of one, to generate new states
+40
+Genetic  algorithm
+41◼A successor state is generated by combining two parent 
+states
+◼Start with k randomly generated states ( population )
+◼A state is represented as a string over a finite alphabet 
+(often a string of 0s and 1s)
+◼Evaluation function ( fitness function ). Higher values for 
+better states.
+◼Produce the next generation of states by selection, 
+crossover, and mutation
+How genetic algorit hmswork
+42◼Encode a state by a string:
+◼8-queens: (8 positions per queen)  * (3bit per position) = 24bits
+◼One string = one state = an individual
+◼Population: k individuals
+◼New generation from previous generation
+❑Crossover: exchange parts of strings from two parents
+❑Mutation: change bits randomly forexploration
+❑Selection: remove unfit individuals
+How genetic algorit hmswork
+43◼Fitness function
+❑How good is any particular individual (=state)?
+❑Same as objective function
+◼8-queens: How many pairs of non -attacking queens?
+◼Circuit layout: How much wire/solder saved?
+◼Scheduling: How much time saved?
+❑Fitness determines the probability that the genes of an  
+individual will be carried on into the next generation
+Example of a genetic algorithm
+◼Initial population
+❑k randomly generated strings
+44
+Example of a genetic algorithm
+◼Fitness function
+❑How good is each individual?
+❑Probability of being selected for reproduction is  
+proportional to the fitness function
+◼Normalize the fitness values so that they sum to 100%
+45fitness:  
+#non -attacking queens
+Example of a genetic algorithm
+◼Selectio n
+❑Choose individuals randomly with the probabilities
+❑Selected individual will be one of the parents
+◼There is no male/female distinction
+❑An individual can pro duce more than onechild
+◼It is not a monogamy
+46probability of being 
+regenerated in next generationP(child) = 24/(24+23+20+11) = 31%
+P(child) = 23/(24+23+20+11) = 29% etc
+Example of a genetic algorithm
+◼Crossover
+❑Make new children from a pair ofparents
+◼Choose a cut -point and swap halves
+❑Why mix the genes in chunks and notrandomly?
+◼Assumption: adjacent digits/bits encode a solution to a sub-
+problem
+◼Children share the solution to sub -problems with parents
+47
+Example of a genetic algorithm
+◼Mutation
+❑Change bits randomly with a low probability
+❑Like simulated annealing, help to get out of local  
+minima
+48
+49
+
+Applications of GA
+50 Complex structured problems 
+Circuit layout, job -shop scheduling
+ Evolving the architecture of deep neural networks
+ Finding bugs of hardware
+ Molecular structure optimization
+ Image processing.
+ Learning robots, etc.

@@ -1,0 +1,404 @@
+1CS4400:ArtificialIntell igence
+LogicalAgents
+Conte nts
+21.Logicalagents
+2.TheWump usenvironment
+3.Logicalsystems
+1/3. Logical agent
+3◼Sofarinthiscourse: agentfindsbestaction(s )by
+searching
+❑Knowled geaboutthetask:encodebyproblemformulation
+❑Differen tsearchingalgorithmsforpartially-observed, stochastic,
+and/o rmultiple-agentenvironme nts
+❑Feasibleforsmallproblems
+◼Nextup:agentfinds bestaction(s)byreason ing
+❑Knowled geaboutthetask:system for “knowledge repre sentation”
+❑Uselogicalinferen cealgorithmsonthe“knowledge”
+❑Find solution byderivingnew “knowledge”
+Detective agent
+4◼Tryingtosolveamurdercase
+❑Mr.JoneswaskilledinOld Westbury onThurs day
+❑DNAevidenceindicatesconc lusivelythateitherBob
+orhistwinbrotherRoncomm ittedthecrime
+❑Witnesses sayBobwasinHongKongfromMonday
+through Friday
+◼WhokilledMr.Jones?
+❑Howdidweinferthis?
+Knowledge
+5◼Expli citknowledge
+❑JoneswaskilledonThurs day
+❑JoneswaskilledinOld Westbury
+❑BobkilledJonesorRonKilledJones
+❑BobwasinHongKongMonday throughFriday
+◼Aretheseenoughforanagenttosolvethe
+murder?
+Knowledge
+6◼Backgroundknowledge
+❑Youmust beinthesame placeassome onetokill
+him/he rinperson
+❑Aphys icalobjec tcanonlybeinoneplaceatatime
+❑Peoplearephysic alobjects
+❑Bob,RonandJones arepeop le
+❑Thursday isbetw eenMonday andFriday
+◼Huma nshavevery largebackgroundknowledge
+onmany things
+Logic
+7◼Logicgivesusawaytousewhatwealready
+knowtodrawconclusions
+◼Throughlogicwecanalso
+❑interpretambig uousperceptio ns
+❑providecomp actwaystostore knowledgethrough
+generalizatio ns(e.g.,allmen aremortal)
+❑transform transientperception sintolong-term memory
+(know ledge)abouttheenvironment
+❑inferhiddenpropertiesabouttheenvironment
+Knowledge & Reasoning
+To address such logic we will introduce 
+A knowledge base (KB): a list of facts that are known 
+to the agent.
+Rules to infer new facts from old facts using rules of 
+inference.
+Logic provides the natural language for this.
+Knowledge -based agent
+9◼Knowl edgebase(KB): whattheagentknows
+abouttheworld sofar
+◼KBisasetofsentences
+❑Sentence saresimilartonatura llanguagesentenc es
+(e.g., Englishsentences)
+❑Knowledge-repre sentatio nlanguage(e.g.,
+propos itionallogic,predicate logic)
+◼AgentcanperformtwooperationswithKB:
+❑TELL:putsentencesintheKB
+❑ASK:queryifasentence istruegiventheKB
+Knowledge -based agent
+◼TheKB-agentfunction isahigh-level(=knowledgelevel)
+description.
+◼Implementation leveldescripti onsdifferbyalgorithms.
+10
+2/3. Wumpu senvir onme nt(PEAS)
+◼Performance measure
+❑+1000:getgold;-1000:getkilled
+❑-1:eachaction;-10:usearrow
+❑Endswhentheagentdiesorclimbs out
+◼Environment
+❑4x4squares, startingfrom square[1,1],
+facingtotheright
+❑TheWum pus,pits,andgoldatunknown
+locations
+❑Insta ntdeathifyouenterasquarewith
+theliveWump usorapit
+◼Actuators
+❑Turn90˚ (CW), Turn-90˚ (CCW),Go
+❑Shoot:onearrowtoshoot,andshooting
+theWump uskillsit
+11
+
+◼Actuators (cont’d)
+❑Grab:cangrabgoldifagentisinthe
+same square
+❑Canclimboutofthecaveatsquare[1,1]
+◼Sensors
+❑Novision–it’s too darktosee.
+❑Agentperceivesastenchinthesquares
+adjacenttotheWum pus
+❑Agentperceivesabreezeinthesquares
+adjacenttoapit
+❑Agentperceivesaglitterinthesquares
+withthegold
+❑Agentwillperceiveabumpwhenitwalks
+intoawall
+❑When theWump usiskilled,itemitsa
+woefulscreamthatcanbeheard 
+anywhereinthecave
+12
+
+Wumpus world characterization
+Fully Observable No –only local perception
+Deterministic Yes –outcomes exactly specified
+Episodic No –things we do have an impact.
+Static Yes –Wumpus and Pits do not move
+Discrete Yes
+Single -agent? Yes –Wumpus is essentially a 
+natural feature
+ExploringWumpu senvir onment
+14◼Agentstarts in[1,1]
+◼Perceives:
+[none,none,none,none,non e]
+(stench,bree ze,glitter,bump, scream)
+A
+◼Agentstarts in[1,1]
+15◼Perceives:
+[none,none,none,none,non e]
+◼Infers [1,1],[1,2], [2,1]OK
+◼Movesto[1,2]
+◼Perceives:
+[stench,none,none,none,none]AS
+OK
+OK OK
+◼Agentstarts in(1,1)
+16◼Perceives:
+[none,none,none,none,non e]
+◼Infers [1,1],[1,2], [2,1]OK
+◼Movesto[1,2]
+◼Perceives:
+[stench,none,none,none,none]
+◼Infers: Wump usin[1,3]or[2,2]W?
+AS
+OKW?
+OK OK
+◼Agentstarts in(1,1)
+17◼Perceives:
+[none,none,none,none,non e]
+◼Infers [1,1],[1,2], [2,1]OK
+◼Movesto[1,2]
+◼Perceives:
+[stench,none,none,none,none]
+◼Infers: Wump usin[1,3]or[2,2]
+◼Infers: onlysafe move isbackto
+[1,1]
+◼Movesto[1,1]W?
+S
+OKW?
+A
+OKOK
+◼Agentstarts in(1,1)
+18◼Perceives:
+[none,none,none,none,non e]
+◼Infers [1,1],[1,2], [2,1]OK
+◼Movesto[1,2]
+◼Perceives:
+[stench,none,none,none,none]
+◼Infers: Wump usin[1,3]or[2,2]
+◼Infers: onlysafe move isbackto
+[1,1]
+◼Movesto[1,1]
+◼Movesto[2,1]W?
+S
+OKW?
+OK A
+OK
+◼Agentstarts in(1,1)
+19◼Perceives:
+[none,none,none,none,non e]
+◼Infers [1,1],[1,2], [2,1]OK
+◼Movesto[1,2]
+◼Perceives:
+[stench,none,none,none,none]
+◼Infers: wumpusin[1,3] or[2,2]
+◼Infers: onlysafe move isbackto
+[1,1]
+◼Movesto[1,1]
+◼Movesto[2,1]
+◼Perceives:
+[none,breeze,none,none,none]W?
+S
+OKW?
+OK AB
+OK
+◼Movesto[2,1]
+◼Perceives:
+[none,breeze,none,none,none]
+◼Infers pitineither[3,1] or[2,2]
+20W?
+S
+OKW?
+P?
+OK AB
+OKP?
+◼Movesto[2,1]
+◼Perceives:
+[none,breeze,none,none,none]
+◼Infers pitineither[3,1] or[2,2]
+◼BUT!Can’thavea pit in [2,2]
+(nobreezein[1,2])
+◼PitMUST bein[3,1]
+21W?
+S
+OKW?
+OK AB
+OKP
+◼Movesto[2,1]
+◼Perceives:
+[none,breeze,none,none,none]
+◼Infers pitineither[3,1] or[2,2]
+◼BUT!Can’thavePitin[2,2] (no
+breezein[1,2])
+◼PitMUST bein[3,1]
+◼Similarly,wumpuscannotbein
+[2,2] (nosmellin[2,1])
+◼Wump usmust bein[1,3]
+22W
+S
+OKOK
+OK AB
+OKP
+◼Movesto[2,1]
+◼Perceives:
+[none,breeze,none,none,none]
+◼Infers pitineither[3,1] or[2,2]
+◼BUT!Can’thavePitin[2,2] (no
+breezein[1,2])
+◼PitMUST bein[3,1]
+◼Similarly,wumpuscannotbein
+[2,2] (nosmellin[2,1])
+◼Wump usmust bein[1,3]
+◼Move to[2,2]
+◼Perceive:
+[none,none,none,none,none]
+◼Infer: [2,3]; [3,2]OK
+23W OK
+S
+OKA
+OKOK
+OK B
+OKP
+◼Move to[2,2]
+◼Perceive:
+[none,none,none,none,none]
+◼Infer: [2,3]; [3,2]OK
+◼Move to[2,3]
+◼Perceive:
+[stench,breeze,glitter,none ,none]
+◼Grab gold
+◼Move backto[1,1]
+◼Climbout
+◼Success!
+24W OK
+S
+OKA
+OKOK
+OK B
+OKP
+Inference inwumpus envir onment
+25◼How didwesolvetheproblem?
+❑Rulesoftheenvironment inKBinthebeginning
+❑Addednewpercept sinKB(=TELL)
+❑Checke dwithKBifasquare issafe tomove inorifit
+conta insgold,etc(=ASK)
+❑Assumed thatconc lusionsdraw nfromKBare
+guaranteed tobecorrectiftheKBiscorrect
+◼Fundamental assumption forproblemsolvingbylogical
+reasoning
+◼Let’sgetintoimplementingthesestepsusing
+logical system 
+3/3. Logical systems
+26◼Com ponentsoflogicalsystem
+❑Repr esentation ofknowledge
+◼Syntax
+◼Semantics
+❑Inference
+◼World/m odel
+◼Entailment
+Knowledge representation
+27◼Syntaxandsemantics
+❑Sentencesareexpress edaccordingtosyntax ofthe
+representation language
+❑Semantics definesthetruthofeachsentence w.r.t
+eachposs ibleworld
+◼Inthelanguageofarithmetic
+❑“x+2≥y”isasentence; “x2+y≥”isnotasentence
+❑“x+2 ≥y”istrueifthenumbe rx+2isnolessthan thenumbe ry
+❑“x+2 ≥y”istrueinaworldwherex=7; y=1
+❑“x+2 ≥y”isfalse inaworldwherex=0; y=6
+World/model
+28◼Amodel(=world):anassignmentofvaluesto
+variables
+◼Exam ple:
+◼x=7; y=1isamodel(=world)
+◼x=-1;y=3isanothermodel(=world)
+◼Therecanbeinfinitelymany poss iblemode ls
+◼Q: Is thesentence“x+y=4”trueornot?
+29◼A:Itdependsonthevaluesofxandy(=model)
+◼Definitions:
+❑Asentence α istrueinmodel m
+=themodelmsatisfiesα
+=misamodelofα
+◼Example :(x=1; y=3)isa model of“x+y=4”while ( x=0;y=2)is
+not
+❑M(α):allpossiblemodelsofα
+◼Example :M(“x+y=4”)={(x=1; y=3),(x=2;y=2),(x=3;y=1)}
+Entailment
+30◼Entailment
+❑KB⊧α :theKBentailsthesentence α
+❑Mean ing:sentence α followslogicallyfromtheKB
+◼Example: “x=0”entail s“xy=0”.
+◼Moreprecisely
+❑KB⊧α iffeverymodelmofKBisalsoamodelofα
+◼Example: foranyassignment ofxandysuchthat“x=0”is true, 
+“xy=0”is also true
+❑KB⊧αiffM(KB)⊆M(α)
+◼Example: M(KB) ={(x=0;y=0),(x=0;y=1),…}
+⊆M(α)={(x=0;y=0),(x=0;y=1),(x=1;y=0),…}
+Entailment inwumpus envir onme nt
+◼Considerthesituation:
+❑Nothingperceivedat[1,1],
+❑Moveright
+❑Perceive breez eat[2,1]
+◼Isitsafetomoveto[1,2]?
+◼Toanswerthis,useentailment
+❑Considerposs iblemode lsforthe
+three squares
+◼3pits,eachwith2assignment s(pitor
+nopit):8possiblemodels
+31
+Entailment inwumpus envir onme nt
+32Consider possible models for KBassuming only 
+pits and a reduced Wumpus world
+Situation after detecting 
+nothing in [1,1], moving right, breeze in [2,1]
+
+◼8possiblemodels
+33
+◼KB=wumpus -worldrules +percepts
+❑“Agent feelsabreez einasquare adjacen ttoapit”+“Agent felta
+breezeatsquare[2,1]”
+❑Whichmodel makestheKBtrue? (=M(KB))
+M(KB)
+34
+◼KB=wumpus -worldrules +percepts
+◼Query sentence α1:“[1,2] is safe (hasnopit)”
+◼Which modelmakes thesentence α1true?(=M(α1))
+M(KB) M(α1)
+35
+◼DoesKB⊧“α1:[1,2] issafe” ?
+❑Iseverymodel ofKBalsoamodelofα1?
+❑M(KB)⊆M(α1)?
+M(KB)M(α)
+361
+◼KB=wumpus -worldrules +percepts
+◼Query sentence α2:“[2,2] issafe (has nopit)”
+◼KB⊧α2?
+M(KB)M(α2)
+37
+
+Inference
+38◼Determinin gwhetherKBentailsαisthe
+inferenceprocedure
+◼How didwemade inferenceforWumpus
+environment?
+❑Byenum erating allpossiblemodelsandcomp aring
+M(KB)andM(α)
+◼Therearebetteralgorithmsforinference
+❑Ifaninference algorithmicanderiv eα fromKB
+❑KB⊢iα
+❑“iderive sα fromKB” or “αisderive dfromKBbyi”
+Prop erties ofaninferen cealgorit hm
+39◼Aninferencealgorithmiissoundiff
+❑Anysente ncederived fromKBisentailedbyKB
+❑=WheneverKB⊢iα,itisalsotruethatKB⊧α
+◼Aninferencealgorithmiiscompl eteiff
+❑Wecanderiv eanysentence thatfollowsfromtheKB
+❑=WheneverKB⊧α,itisalsotruethatKB⊢iα
+◼Weneedasoundandcomplete inference:
+❑Itwillanswercorrectly
+❑Itwillansweranyquestion whoseanswerfollowsfrom
+whatisknownbytheKB
+(Next) Prop ositiona llogic
+40◼Prop ositionallogicisoneofthesimplestand
+intuitivelogicalsystems (Ch8)
+◼Therearemorepowerfullogicalsystems such
+asfirst-orderlogic(Ch9)
+◼Prop ositionallogic
+❑Syntax:propos itions aresymbolsorcombinat ionsof
+symbo ls
+❑Semantics: propos itions areeithe rtrueorfalse

@@ -1,0 +1,1840 @@
+ARTIFICIAL INTELLIGENCE — CLASS NOTES
+LECTURE 2: SUPERVISED LEARNING, PERCEPTRONS, AND MODEL EVALUATION
+
+======================================================================
+1. INTRODUCTION TO MACHINE LEARNING
+======================================================================
+
+Machine learning is a branch of artificial intelligence that allows computer systems to learn patterns from data and use those patterns to make predictions or decisions.
+
+Instead of manually programming every possible rule for a task, developers can train a machine learning model using examples, feedback, or other forms of data.
+
+For example, rather than writing a rule for every possible photograph of a cat, a developer can train a model using many labeled photographs of cats and other animals. The model learns patterns that help it classify new photographs.
+
+Learning is important because it allows a system to adapt its behavior based on information or experience.
+
+Humans learn skills such as walking, speaking, recognizing objects, and solving mathematical problems. AI systems use computational methods to learn patterns and improve their performance on specific tasks.
+
+However, machine learning is not identical to human learning. AI systems learn through mathematical processes, algorithms, data, and feedback rather than through the full range of human experiences.
+
+KEY IDEA:
+Machine learning enables AI systems to learn patterns from data and use those patterns to make predictions about new situations.
+
+======================================================================
+2. THE THREE MAIN TYPES OF MACHINE LEARNING
+======================================================================
+
+There are three major learning approaches introduced in this lecture:
+
+1. Supervised Learning
+2. Unsupervised Learning
+3. Reinforcement Learning
+
+Each approach differs in how the system receives information and how it learns.
+
+----------------------------------------------------------------------
+2.1 Supervised Learning
+----------------------------------------------------------------------
+
+Supervised learning is a machine learning approach in which a model learns from training examples that include known answers, called labels.
+
+The model receives an input, makes a prediction, and compares that prediction with the correct answer during training.
+
+The difference between the prediction and the correct answer helps the training process adjust the model.
+
+Example: Animal Classification
+
+A training dataset might contain the following examples:
+
+- Image 1 → Cat
+- Image 2 → Dog
+- Image 3 → Snake
+- Image 4 → Bird
+
+The labels tell the model which category belongs to each image.
+
+After training, the model can receive a new image and attempt to classify it correctly.
+
+The model's goal is to learn patterns that generalize to examples it has not previously encountered.
+
+Why is it called supervised learning?
+
+It is called supervised learning because the training process uses examples with known answers. These answers provide guidance about whether the model's predictions are correct.
+
+The training labels act like an answer key that helps the model learn.
+
+Common applications include:
+
+- Spam email detection.
+- Image classification.
+- Facial recognition.
+- Loan risk prediction.
+- Medical image analysis.
+- Sentiment classification.
+- Predicting house prices.
+
+IMPORTANT:
+Supervised learning does not mean that a human must manually correct every prediction. The labels may be prepared in advance, and the model can learn from them during automated training.
+
+----------------------------------------------------------------------
+2.2 Unsupervised Learning
+----------------------------------------------------------------------
+
+Unsupervised learning is a machine learning approach in which a model analyzes data without being given the correct label for every training example.
+
+The goal is to discover patterns, relationships, similarities, or structures within the data.
+
+Example: Grouping Customers
+
+Imagine a company has information about thousands of customers but does not have predefined customer categories.
+
+An unsupervised learning algorithm might discover groups based on similarities in purchasing behavior.
+
+The resulting groups could include:
+
+- Customers who frequently buy electronics.
+- Customers who mainly purchase household products.
+- Customers who regularly buy discounted items.
+
+The algorithm identifies patterns in the data rather than learning from a provided answer key for every example.
+
+Clustering is a common unsupervised learning technique that groups similar data points together.
+
+Applications include:
+
+- Customer segmentation.
+- Grouping similar documents.
+- Discovering patterns in scientific data.
+- Identifying unusual data points.
+- Organizing large collections of information.
+
+The lecture also discusses how unsupervised learning can help identify repeated patterns in video frames. Similar frames may contain redundant visual information that can be represented more efficiently.
+
+However, practical video compression often uses specialized algorithms and techniques; it should not be assumed that all video compression relies on unsupervised learning.
+
+----------------------------------------------------------------------
+2.3 Reinforcement Learning
+----------------------------------------------------------------------
+
+Reinforcement learning is a machine learning approach in which an agent learns how to act by interacting with an environment and receiving feedback.
+
+The feedback often takes the form of rewards or penalties.
+
+The goal is to learn a strategy that achieves a high cumulative reward over time.
+
+Example: Learning to Walk
+
+A child learning to walk practices balancing, taking steps, and adjusting movements after losing balance.
+
+This is an analogy for learning through experience. Human learning is more complex than a standard reinforcement learning algorithm, but the example helps illustrate the basic idea of improving behavior through feedback.
+
+Example: Training a Game-Playing AI
+
+An AI agent plays a game.
+
+- It chooses an action.
+- The game responds to the action.
+- The agent receives a reward or penalty.
+- It uses experience to improve its future choices.
+
+Over many interactions, the agent can learn which actions tend to produce better outcomes.
+
+Applications include:
+
+- Game-playing systems.
+- Robotics.
+- Some forms of autonomous control.
+- Resource allocation.
+- Sequential decision-making.
+
+KEY DIFFERENCE:
+Supervised learning uses labeled examples, unsupervised learning discovers patterns without supplied labels for every example, and reinforcement learning learns behavior through interaction and feedback.
+
+----------------------------------------------------------------------
+2.4 Comparison of the Three Learning Approaches
+----------------------------------------------------------------------
+
+SUPERVISED LEARNING
+
+Training information:
+Inputs paired with known answers.
+
+Main objective:
+Learn to predict the correct output for new inputs.
+
+Example:
+Classifying an email as spam or not spam.
+
+UNSUPERVISED LEARNING
+
+Training information:
+Data without supplied target labels for every example.
+
+Main objective:
+Discover patterns, relationships, or groups.
+
+Example:
+Grouping customers by purchasing behavior.
+
+REINFORCEMENT LEARNING
+
+Training information:
+Experience from interacting with an environment and receiving feedback.
+
+Main objective:
+Learn actions that maximize cumulative reward.
+
+Example:
+Training an AI agent to play a game.
+
+======================================================================
+3. WHY SUPERVISED LEARNING IS IMPORTANT
+======================================================================
+
+Supervised learning is widely used in AI because many real-world problems can be represented as predicting an answer from available information.
+
+A supervised learning system typically follows this process:
+
+STEP 1: Collect examples.
+
+Gather data relevant to the task.
+
+STEP 2: Label the examples.
+
+Associate each example with its correct answer or target value.
+
+STEP 3: Train the model.
+
+Use the examples and labels to adjust the model's parameters.
+
+STEP 4: Test the model.
+
+Evaluate how well the model performs on data that was not used to train it.
+
+STEP 5: Evaluate and improve.
+
+Analyze the errors and determine whether the model, training data, or input features should be improved.
+
+Example: Spam Detection
+
+Training examples might include:
+
+- "You have won a prize!" → Spam
+- "Your meeting starts at 10 AM." → Not spam
+- "Claim your exclusive reward now!" → Spam
+- "Here are the notes from class." → Not spam
+
+The model learns patterns associated with spam and legitimate email.
+
+After training, it can evaluate new messages.
+
+A successful model should identify useful patterns rather than merely memorize the training examples.
+
+======================================================================
+4. TRAINING, TESTING, AND GENERALIZATION
+======================================================================
+
+One of the most important concepts in machine learning is the difference between memorizing examples and learning patterns that apply to new data.
+
+----------------------------------------------------------------------
+4.1 Training Data
+----------------------------------------------------------------------
+
+Training data are the examples used to teach a model.
+
+For supervised learning, these examples typically include inputs and their corresponding labels.
+
+Example:
+
+Input:
+A photograph of a cat.
+
+Label:
+Cat.
+
+The model uses many such examples to learn relationships between the inputs and outputs.
+
+----------------------------------------------------------------------
+4.2 Testing Data
+----------------------------------------------------------------------
+
+Testing data are examples reserved for evaluating a model after training.
+
+These examples should not have been used to fit the model during training.
+
+For example, if a model is trained using photographs of 500 cats and 500 dogs, it should be evaluated on a separate set of photographs.
+
+Testing reveals whether the model can classify new examples rather than simply reproduce answers from its training data.
+
+----------------------------------------------------------------------
+4.3 Generalization
+----------------------------------------------------------------------
+
+Generalization is a model's ability to apply learned patterns to new, previously unseen examples.
+
+A model that generalizes well can make useful predictions beyond the exact examples used during training.
+
+Example:
+
+A model learns to recognize cats from photographs showing different breeds, poses, backgrounds, and lighting conditions.
+
+If it can recognize cats in new photographs, it has demonstrated generalization.
+
+However, a model may perform well on familiar-looking examples but fail on unusual examples.
+
+For instance, a model trained mainly on small, brightly lit photographs may struggle with large, dark, or blurry images.
+
+----------------------------------------------------------------------
+4.4 Overfitting and Memorization
+----------------------------------------------------------------------
+
+Overfitting occurs when a model learns the training data too specifically, including patterns that do not generalize well to new examples.
+
+An overfitted model may perform very well on training data but poorly on testing data.
+
+Memorization is one way a model can fail to generalize, although overfitting can also involve learning misleading or overly specific patterns rather than literally memorizing every example.
+
+Ways to help reduce overfitting include:
+
+- Using representative training data.
+- Evaluating performance on separate data.
+- Limiting unnecessary model complexity.
+- Applying appropriate regularization techniques.
+- Collecting more diverse examples when needed.
+
+KEY IDEA:
+A model is useful when it learns patterns that help it perform well on new examples, not merely when it reproduces answers from its training data.
+
+======================================================================
+5. ARTIFICIAL NEURONS AND THE HUMAN BRAIN
+======================================================================
+
+Early AI researchers explored ways to build computational systems inspired by the human brain.
+
+The human brain contains billions of neurons, which are specialized cells that communicate with one another through electrical and chemical signaling.
+
+Researchers investigated whether simplified mathematical models of neurons could perform basic classification tasks.
+
+This research contributed to the development of artificial neural networks.
+
+IMPORTANT DISTINCTION:
+Artificial neurons are mathematical and computational models inspired in part by biological neurons. They do not reproduce the full complexity of real brain cells.
+
+----------------------------------------------------------------------
+5.1 The Structure of a Biological Neuron
+----------------------------------------------------------------------
+
+A typical biological neuron has three major structural components:
+
+1. Cell Body
+2. Dendrites
+3. Axon
+
+CELL BODY
+
+The cell body, also called the soma, contains the nucleus and supports the neuron's basic functions. It integrates incoming signals.
+
+DENDRITES
+
+Dendrites are branching structures that receive signals from other neurons.
+
+AXON
+
+The axon carries electrical signals away from the cell body toward other cells.
+
+SYNAPSE
+
+A synapse is a junction through which one neuron communicates with another cell.
+
+Many synapses involve the release of chemical neurotransmitters, which affect the receiving cell. Some synapses transmit signals electrically.
+
+A simplified description of neural signaling is:
+
+1. A neuron receives incoming signals.
+2. These signals influence the neuron's electrical state.
+3. If the neuron reaches an activation threshold, it generates an action potential.
+4. The signal travels along the axon.
+5. Communication with another cell occurs at a synapse.
+
+The exact biological process is much more complex than this simplified explanation.
+
+----------------------------------------------------------------------
+5.2 The Connection to Artificial Neurons
+----------------------------------------------------------------------
+
+Artificial neurons borrow a simplified idea from biological neurons:
+
+A system receives inputs, combines them, and produces an output depending on the result.
+
+In an artificial neuron:
+
+- Inputs represent information entering the system.
+- Weights determine the influence of individual inputs.
+- A bias adjusts the neuron's activation behavior.
+- An activation function determines the output.
+
+This structure allows artificial neurons to make mathematical decisions based on input data.
+
+For example, an artificial neuron may receive information about the mass and diameter of a food item and use those measurements to predict whether it is a bagel or a donut.
+
+======================================================================
+6. THE PERCEPTRON
+======================================================================
+
+A perceptron is one of the earliest and simplest models of an artificial neuron.
+
+It was developed by psychologist Frank Rosenblatt, who introduced the perceptron in the late 1950s.
+
+Rosenblatt's work was influenced by the early development of artificial intelligence and research into how machines could learn from examples.
+
+The perceptron can be trained to classify inputs into categories.
+
+For example:
+
+- Triangle versus not triangle.
+- Spam versus not spam.
+- Bagel versus donut.
+
+A basic perceptron receives numerical inputs, assigns weights to them, combines the weighted inputs, and produces a classification.
+
+----------------------------------------------------------------------
+6.1 The Original Perceptron Experiment
+----------------------------------------------------------------------
+
+Rosenblatt developed a physical perceptron system designed to classify images.
+
+The system used a camera and electrical components to process visual information.
+
+In the lecture's example, the system attempted to distinguish triangles from shapes that were not triangles.
+
+The process was simplified as follows:
+
+STEP 1: Present an image.
+
+The camera receives an image of a triangle or another shape.
+
+STEP 2: Convert the image into signals.
+
+The image's pixels provide information that can be represented by electrical signals.
+
+STEP 3: Combine the signals.
+
+The system combines signals according to its internal settings.
+
+STEP 4: Produce a classification.
+
+If the result crosses a threshold, the system identifies the image as a triangle. Otherwise, it identifies it as not a triangle.
+
+STEP 5: Provide feedback.
+
+The trainer indicates whether the classification was correct.
+
+STEP 6: Adjust the system.
+
+When the system makes an error, its internal settings are updated to improve future predictions.
+
+This experiment demonstrated that a machine could learn a classification task through examples and corrective feedback.
+
+======================================================================
+7. HOW A MODERN PERCEPTRON WORKS
+======================================================================
+
+Modern perceptrons are implemented using mathematical operations rather than the physical switches and electrical components used in early demonstrations.
+
+A basic perceptron has four essential elements:
+
+1. Inputs
+2. Weights
+3. Bias
+4. Activation Function
+
+----------------------------------------------------------------------
+7.1 Inputs
+----------------------------------------------------------------------
+
+Inputs are the numerical values provided to the perceptron.
+
+In the bagel-versus-donut example, the inputs are:
+
+x₁ = Mass of the food item.
+
+x₂ = Diameter of the food item.
+
+For example:
+
+Mass = 34 grams.
+
+Diameter = 7.8 centimeters.
+
+The perceptron uses these measurements to make its prediction.
+
+----------------------------------------------------------------------
+7.2 Weights
+----------------------------------------------------------------------
+
+Each input has an associated weight.
+
+A weight determines how strongly an input influences the model's calculation.
+
+For two inputs, the weights are:
+
+w₁ = Weight associated with mass.
+
+w₂ = Weight associated with diameter.
+
+A weight can be positive, negative, or zero.
+
+A positive weight increases the weighted sum as the input increases, while a negative weight decreases the weighted sum as the input increases.
+
+The effect also depends on the scale of the input.
+
+For example, if the mass weight is large relative to the diameter weight, mass may have a greater influence on the prediction.
+
+Weights are learned and adjusted during training.
+
+----------------------------------------------------------------------
+7.3 Bias
+----------------------------------------------------------------------
+
+The bias is an adjustable parameter that shifts the decision threshold of a perceptron.
+
+It helps determine when the model produces one class rather than another.
+
+A simple perceptron combines the weighted inputs with the bias before applying its activation function.
+
+The bias allows the model to change its decision boundary without requiring every input to have a particular value.
+
+The lecture describes the bias as a threshold. This is a useful intuition, although mathematically the bias is commonly added to the weighted sum rather than used as a separate value that the sum must exceed.
+
+----------------------------------------------------------------------
+7.4 Activation Function
+----------------------------------------------------------------------
+
+An activation function converts the neuron's calculated value into an output.
+
+The lecture focuses on a step function, which produces one of two possible outputs.
+
+For example:
+
+Output 0 → Donut.
+
+Output 1 → Bagel.
+
+The exact meanings of 0 and 1 depend on how the classes are defined.
+
+A step function creates a binary decision: the model selects one class or the other.
+
+This is useful for explaining a simple classification problem, although real-world machine learning models may use other activation functions and may also produce probabilities or continuous values.
+
+----------------------------------------------------------------------
+7.5 The Perceptron Formula
+----------------------------------------------------------------------
+
+A basic perceptron first calculates a weighted sum of its inputs.
+
+For two inputs:
+
+z = (w₁ × x₁) + (w₂ × x₂) + b
+
+Where:
+
+z = Weighted sum after including the bias.
+
+x₁ and x₂ = Input values.
+
+w₁ and w₂ = Weights.
+
+b = Bias.
+
+The model then applies an activation function.
+
+For a simple step function:
+
+If z ≥ 0, output 1.
+
+If z < 0, output 0.
+
+The threshold can be represented in different equivalent ways. For example, a model may compare the weighted sum against a threshold or include a bias in the sum and compare the result against zero.
+
+These are mathematically equivalent when the parameters are defined consistently.
+
+The classification might be interpreted as:
+
+Output 1 = Bagel.
+
+Output 0 = Donut.
+
+This is only an example. A real implementation must specify which output corresponds to each class.
+
+IMPORTANT:
+The perceptron does not understand what a bagel or donut is. It calculates an output from numerical inputs and learned parameters.
+
+======================================================================
+8. TRAINING A PERCEPTRON
+======================================================================
+
+A newly initialized perceptron may make poor predictions because its weights and bias have not yet been adjusted to represent the task effectively.
+
+Training helps the model improve by comparing its predictions with the correct labels.
+
+The bagel-versus-donut example demonstrates this process.
+
+----------------------------------------------------------------------
+8.1 Step 1: Initialize the Parameters
+----------------------------------------------------------------------
+
+At the beginning of training, the perceptron has initial values for its weights and bias.
+
+These values may be initialized to zero or selected using another initialization method, depending on the algorithm and implementation.
+
+The initial parameters may not separate bagels and donuts correctly.
+
+As a result, the perceptron may make incorrect predictions.
+
+----------------------------------------------------------------------
+8.2 Step 2: Provide a Training Example
+----------------------------------------------------------------------
+
+Suppose the perceptron receives a food item with the following measurements:
+
+Mass = 34 grams.
+
+Diameter = 7.8 centimeters.
+
+The model calculates a weighted sum using the measurements, weights, and bias.
+
+It then applies its activation function to generate a prediction.
+
+Suppose the model predicts:
+
+Prediction = Bagel.
+
+However, the actual item is a donut.
+
+The prediction is incorrect.
+
+----------------------------------------------------------------------
+8.3 Step 3: Compare the Prediction With the Correct Label
+----------------------------------------------------------------------
+
+The training process compares the model's prediction with the known label.
+
+Prediction: Bagel.
+
+Correct label: Donut.
+
+Error: The model selected the wrong class.
+
+The trainer or training algorithm uses this information to adjust the model's parameters.
+
+This process is an example of supervised learning because the correct answer is available during training.
+
+----------------------------------------------------------------------
+8.4 Step 4: Update the Weights and Bias
+----------------------------------------------------------------------
+
+The perceptron learning algorithm adjusts the parameters when the model makes a mistake.
+
+A common perceptron update rule is:
+
+wᵢ(new) = wᵢ(old) + η(y - ŷ)xᵢ
+
+b(new) = b(old) + η(y - ŷ)
+
+Where:
+
+wᵢ(old) = Original weight.
+
+wᵢ(new) = Updated weight.
+
+η = Learning rate.
+
+y = Correct target label.
+
+ŷ = Predicted label.
+
+xᵢ = Corresponding input value.
+
+b(old) = Original bias.
+
+b(new) = Updated bias.
+
+The learning rate controls the size of the update.
+
+In this formula, the labels are represented numerically, commonly using 0 and 1.
+
+If the prediction is correct, then y - ŷ = 0, so the update is zero.
+
+If the prediction is incorrect, then y - ŷ is nonzero, so the parameters are adjusted.
+
+For example:
+
+Correct label = 0.
+
+Predicted label = 1.
+
+The error term is:
+
+y - ŷ = 0 - 1 = -1.
+
+The weight update becomes:
+
+wᵢ(new) = wᵢ(old) - ηxᵢ.
+
+The bias also decreases by the learning rate.
+
+This changes the model's calculation and may help it classify similar examples correctly in the future.
+
+IMPORTANT:
+The update rule is applied to the model's parameters, not directly to the input measurements.
+
+----------------------------------------------------------------------
+8.5 Step 5: Repeat the Training Process
+----------------------------------------------------------------------
+
+The perceptron processes additional labeled examples.
+
+For each example:
+
+1. Receive the input values.
+2. Calculate the weighted sum.
+3. Apply the activation function.
+4. Produce a prediction.
+5. Compare the prediction with the correct label.
+6. Update the weights and bias if required.
+
+Training continues over multiple examples, often for several passes through the dataset.
+
+A pass through the training dataset is commonly called an epoch.
+
+As the parameters change, the model's predictions may improve.
+
+However, training does not guarantee perfect accuracy. Some datasets cannot be perfectly separated by a single linear decision boundary.
+
+======================================================================
+9. DECISION BOUNDARIES
+======================================================================
+
+A decision boundary is the dividing line or surface that separates the regions in which a model predicts different classes.
+
+In the bagel-versus-donut example, the perceptron uses two numerical features:
+
+- Mass.
+- Diameter.
+
+These can be plotted on a graph.
+
+Horizontal axis:
+Mass in grams.
+
+Vertical axis:
+Diameter in centimeters.
+
+Each food item becomes a point on the graph.
+
+The perceptron's weights and bias determine a line that separates the two predicted classes.
+
+----------------------------------------------------------------------
+9.1 Interpreting the Graph
+----------------------------------------------------------------------
+
+Suppose the model predicts:
+
+- Points on one side of the line → Bagel.
+- Points on the other side of the line → Donut.
+
+The line is the decision boundary.
+
+A new food item is represented by its mass and diameter. Its location relative to the boundary determines the perceptron's prediction.
+
+If the weights and bias change during training, the decision boundary can move or rotate.
+
+This changes which inputs are classified as bagels or donuts.
+
+----------------------------------------------------------------------
+9.2 What Happens When the Perceptron Makes a Mistake?
+----------------------------------------------------------------------
+
+Suppose a donut is incorrectly classified as a bagel.
+
+The training algorithm adjusts the weights and bias.
+
+The resulting decision boundary changes.
+
+Ideally, the donut's point moves to the correctly classified region relative to the new boundary.
+
+However, moving the boundary to correct one example can affect other examples.
+
+A parameter update may improve some predictions while worsening others.
+
+This is why the model must be evaluated using many examples rather than judging it from a single correction.
+
+----------------------------------------------------------------------
+9.3 The Limitation of a Linear Decision Boundary
+----------------------------------------------------------------------
+
+A basic perceptron produces a linear decision boundary.
+
+With two input features, the boundary is a straight line.
+
+With three input features, it becomes a plane in three-dimensional space.
+
+With more features, it becomes a higher-dimensional linear boundary.
+
+Some classification problems can be separated using a straight line, plane, or other linear boundary.
+
+Other problems require more complex decision boundaries.
+
+For example, if donuts and bagels overlap substantially in mass and diameter, a single straight line may not distinguish them reliably.
+
+This limitation is one reason more advanced machine learning models are needed for complex tasks.
+
+KEY IDEA:
+A perceptron learns a decision boundary from labeled examples. Its effectiveness depends partly on whether the chosen inputs and the model's structure can represent the distinction being learned.
+
+======================================================================
+10. FEATURE SELECTION
+======================================================================
+
+A feature is a measurable property or characteristic used as an input to a machine learning model.
+
+In the lecture's example, the features are:
+
+Feature 1: Mass.
+
+Feature 2: Diameter.
+
+The model uses these measurements to distinguish bagels from donuts.
+
+Choosing appropriate features is an important part of machine learning because the model can only learn effectively from the information available to it.
+
+----------------------------------------------------------------------
+10.1 Useful Features
+----------------------------------------------------------------------
+
+Useful features contain information that helps distinguish between the categories.
+
+For example, mass and diameter may provide some information about whether a food item is a bagel or donut.
+
+However, the two categories may overlap in these measurements.
+
+Additional features could include:
+
+- Presence of seeds.
+- Presence of sprinkles.
+- Shape.
+- Texture.
+- Color.
+- Surface characteristics.
+- A photograph of the item.
+
+These features may provide additional information that mass and diameter alone do not capture.
+
+----------------------------------------------------------------------
+10.2 Irrelevant or Misleading Features
+----------------------------------------------------------------------
+
+Not every feature improves a model.
+
+For example, if every bagel and donut in a dataset was photographed against a different background, the model might learn to associate the background with the food category.
+
+It could then perform poorly when the background changes.
+
+A feature can be misleading if it captures an accidental relationship rather than a reliable characteristic of the target category.
+
+Careful dataset design and testing help reveal these problems.
+
+----------------------------------------------------------------------
+10.3 Why More Features Are Not Always Better
+----------------------------------------------------------------------
+
+Adding useful features can improve a model's predictions, but adding more features does not guarantee better results.
+
+Additional features can also:
+
+- Increase computational requirements.
+- Increase the amount of data needed for effective training.
+- Introduce noise.
+- Make the model harder to interpret.
+- Increase the risk of overfitting.
+
+The goal is to select features that provide meaningful information about the problem.
+
+======================================================================
+11. EVALUATING A CLASSIFICATION MODEL
+======================================================================
+
+After training, a model must be tested to determine how well it performs on new data.
+
+A model should not be judged solely by how many examples it correctly classified during training.
+
+The lecture introduces several evaluation metrics:
+
+1. Accuracy.
+2. Precision.
+3. Recall.
+
+These metrics measure different aspects of model performance.
+
+To understand them, we first need to understand the confusion matrix.
+
+======================================================================
+12. THE CONFUSION MATRIX
+======================================================================
+
+A confusion matrix is a table that compares a classification model's predictions with the actual labels.
+
+It shows how many predictions were correct and how many were incorrect for each class.
+
+Consider a model that classifies food items as either donuts or bagels.
+
+For this example, donut is the positive class and bagel is the negative class.
+
+The four possible outcomes are:
+
+----------------------------------------------------------------------
+12.1 True Positive (TP)
+----------------------------------------------------------------------
+
+The model predicts the positive class, and the actual class is positive.
+
+Example:
+
+Actual item: Donut.
+
+Prediction: Donut.
+
+Result: True Positive.
+
+----------------------------------------------------------------------
+12.2 True Negative (TN)
+----------------------------------------------------------------------
+
+The model predicts the negative class, and the actual class is negative.
+
+Example:
+
+Actual item: Bagel.
+
+Prediction: Bagel.
+
+Result: True Negative.
+
+----------------------------------------------------------------------
+12.3 False Positive (FP)
+----------------------------------------------------------------------
+
+The model predicts the positive class, but the actual class is negative.
+
+Example:
+
+Actual item: Bagel.
+
+Prediction: Donut.
+
+Result: False Positive.
+
+The model incorrectly identifies a bagel as a donut.
+
+----------------------------------------------------------------------
+12.4 False Negative (FN)
+----------------------------------------------------------------------
+
+The model predicts the negative class, but the actual class is positive.
+
+Example:
+
+Actual item: Donut.
+
+Prediction: Bagel.
+
+Result: False Negative.
+
+The model fails to identify a donut and instead classifies it as a bagel.
+
+----------------------------------------------------------------------
+12.5 Confusion Matrix Example
+----------------------------------------------------------------------
+
+Using the lecture's reported test results:
+
+                         PREDICTED CLASS
+                     Donut          Bagel
+
+ACTUAL Donut           8              17
+
+ACTUAL Bagel           2              73
+
+The rows represent the actual classes.
+
+The columns represent the predicted classes.
+
+Interpreting the table:
+
+- 8 donuts were correctly classified as donuts.
+- 17 donuts were incorrectly classified as bagels.
+- 2 bagels were incorrectly classified as donuts.
+- 73 bagels were correctly classified as bagels.
+
+Therefore:
+
+True Positives = 8.
+
+False Negatives = 17.
+
+False Positives = 2.
+
+True Negatives = 73.
+
+These values assume that donut is the positive class.
+
+IMPORTANT:
+The positive class is a convention chosen for the evaluation. If bagel were designated as the positive class instead, the interpretations of true positives, false positives, true negatives, and false negatives would change.
+
+======================================================================
+13. ACCURACY
+======================================================================
+
+Accuracy measures the proportion of all predictions that are correct.
+
+It answers the question:
+
+"Out of all the examples, how many did the model classify correctly?"
+
+The formula is:
+
+Accuracy = (TP + TN) / (TP + TN + FP + FN)
+
+Where:
+
+TP = True Positives.
+
+TN = True Negatives.
+
+FP = False Positives.
+
+FN = False Negatives.
+
+----------------------------------------------------------------------
+13.1 Calculating Accuracy
+----------------------------------------------------------------------
+
+Using the bagel-versus-donut example:
+
+Correct donut classifications = 8.
+
+Correct bagel classifications = 73.
+
+Total examples = 100.
+
+Therefore:
+
+Accuracy = (8 + 73) / 100
+
+Accuracy = 81 / 100
+
+Accuracy = 0.81
+
+Accuracy = 81%.
+
+The model correctly classified 81 out of 100 food items.
+
+----------------------------------------------------------------------
+13.2 What Accuracy Tells Us
+----------------------------------------------------------------------
+
+An accuracy of 81% means that 81% of the tested examples received the correct classification.
+
+However, accuracy does not reveal every type of mistake.
+
+For example, a model might classify most bagels correctly but miss many donuts.
+
+The overall accuracy could still appear reasonably high because the model performs well on the more frequently occurring class.
+
+Therefore, accuracy should often be considered alongside precision, recall, and other appropriate metrics.
+
+======================================================================
+14. PRECISION
+======================================================================
+
+Precision measures how often a model's positive predictions are correct.
+
+It answers the question:
+
+"When the model predicts the positive class, how often is that prediction correct?"
+
+The formula is:
+
+Precision = TP / (TP + FP)
+
+Where:
+
+TP = True Positives.
+
+FP = False Positives.
+
+For this example, donut is the positive class.
+
+----------------------------------------------------------------------
+14.1 Calculating Precision for Donuts
+----------------------------------------------------------------------
+
+The model predicted that 10 items were donuts.
+
+Of those 10 items:
+
+- 8 were actually donuts.
+- 2 were actually bagels.
+
+Therefore:
+
+Precision = 8 / (8 + 2)
+
+Precision = 8 / 10
+
+Precision = 0.80
+
+Precision = 80%.
+
+This means that 80% of the items the model labeled as donuts were actually donuts.
+
+----------------------------------------------------------------------
+14.2 Interpreting Precision
+----------------------------------------------------------------------
+
+High precision means that positive predictions are usually correct.
+
+In the food example, high precision means that when the model says "donut," the item is likely to be a donut.
+
+Low precision means that many positive predictions are incorrect.
+
+For example, a model with low precision might frequently label bagels as donuts.
+
+Precision is particularly important when false positives are costly.
+
+Examples include:
+
+- Spam filters that should avoid sending legitimate emails to the spam folder.
+- Fraud detection systems that should avoid unnecessarily flagging legitimate transactions.
+- Medical screening systems where false alarms may lead to additional testing.
+- Search systems that should return relevant results.
+
+Precision does not tell us how many actual positive examples the model successfully found. That is measured by recall.
+
+======================================================================
+15. RECALL
+======================================================================
+
+Recall measures the proportion of actual positive examples that the model successfully identifies.
+
+It answers the question:
+
+"Out of all the examples that truly belong to the positive class, how many did the model find?"
+
+The formula is:
+
+Recall = TP / (TP + FN)
+
+Where:
+
+TP = True Positives.
+
+FN = False Negatives.
+
+For this example, donut is the positive class.
+
+----------------------------------------------------------------------
+15.1 Calculating Recall for Donuts
+----------------------------------------------------------------------
+
+There were 25 actual donuts in the test dataset.
+
+The model correctly identified 8 of them as donuts.
+
+The remaining 17 donuts were incorrectly classified as bagels.
+
+Therefore:
+
+Recall = 8 / (8 + 17)
+
+Recall = 8 / 25
+
+Recall = 0.32
+
+Recall = 32%.
+
+The model successfully identified 32% of all the actual donuts.
+
+----------------------------------------------------------------------
+15.2 Interpreting Recall
+----------------------------------------------------------------------
+
+High recall means that the model finds most of the actual positive examples.
+
+Low recall means that the model misses many positive examples.
+
+In the food example, low recall means that the model fails to identify many donuts.
+
+This may happen because the model learned that donuts usually have smaller masses and diameters than bagels.
+
+Larger donuts may have measurements that fall into the region the model classifies as bagels.
+
+Recall is especially important when missing a positive example is costly.
+
+Examples include:
+
+- Detecting important emails.
+- Identifying potentially fraudulent transactions.
+- Screening for diseases.
+- Detecting safety hazards.
+- Finding relevant documents in a large collection.
+
+======================================================================
+16. PRECISION VERSUS RECALL
+======================================================================
+
+Precision and recall measure different aspects of classification performance.
+
+PRECISION
+
+Question:
+"When the model says it found something, how often is it correct?"
+
+Formula:
+
+Precision = TP / (TP + FP)
+
+High precision means fewer false positives among positive predictions.
+
+RECALL
+
+Question:
+"Out of everything that should have been found, how much did the model successfully find?"
+
+Formula:
+
+Recall = TP / (TP + FN)
+
+High recall means fewer false negatives among actual positive examples.
+
+----------------------------------------------------------------------
+16.1 The Bagel-and-Donut Example
+----------------------------------------------------------------------
+
+The model's results for donuts were:
+
+Precision = 80%.
+
+Recall = 32%.
+
+These results mean:
+
+- When the model predicted donut, it was correct 80% of the time.
+- The model identified only 32% of all actual donuts.
+
+The model was reasonably reliable when it predicted donut, but it missed many donuts.
+
+This happened because the model used only mass and diameter. Those measurements did not capture all the differences between the two foods.
+
+----------------------------------------------------------------------
+16.2 Why Precision and Recall Can Conflict
+----------------------------------------------------------------------
+
+A model's decision threshold influences how many examples it labels as positive.
+
+If the model is adjusted to predict the positive class more often, it may identify more actual positive examples.
+
+This can increase recall, but it may also create more false positives and reduce precision.
+
+If the model is adjusted to be more selective about predicting the positive class, it may reduce false positives and improve precision.
+
+However, it may also miss more actual positive examples, reducing recall.
+
+The exact trade-off depends on the model, dataset, decision threshold, and classification problem.
+
+There is no universally correct balance for every application.
+
+----------------------------------------------------------------------
+16.3 The F1 Score
+----------------------------------------------------------------------
+
+Another metric, called the F1 score, combines precision and recall into a single measure using their harmonic mean.
+
+The formula is:
+
+F1 = 2 × (Precision × Recall) / (Precision + Recall)
+
+The F1 score is useful when both precision and recall matter.
+
+Using the donut example:
+
+Precision = 0.80.
+
+Recall = 0.32.
+
+F1 = 2 × (0.80 × 0.32) / (0.80 + 0.32)
+
+F1 = 0.512 / 1.12
+
+F1 ≈ 0.457
+
+F1 ≈ 45.7%.
+
+The F1 score summarizes the balance between precision and recall. It does not replace the need to examine both metrics individually.
+
+======================================================================
+17. CHOOSING THE RIGHT METRIC FOR THE TASK
+======================================================================
+
+The best evaluation metric depends on the consequences of different types of mistakes.
+
+A model should be evaluated according to the purpose it is intended to serve.
+
+----------------------------------------------------------------------
+17.1 Email Filtering
+----------------------------------------------------------------------
+
+Consider an email system that attempts to identify important messages.
+
+Suppose the model labels an important email as spam.
+
+This is a false negative if important email is the positive class.
+
+The user may miss an important message.
+
+For this reason, the system may prioritize high recall for important emails.
+
+High recall helps ensure that most important messages are identified.
+
+However, false positives also matter. If the system allows too much spam into the important inbox, users may become frustrated.
+
+The design must balance both types of errors.
+
+----------------------------------------------------------------------
+17.2 Spam Detection
+----------------------------------------------------------------------
+
+Suppose a model identifies spam emails and sends them to a spam folder.
+
+If a legitimate email is incorrectly classified as spam, the result is a false positive for the spam class.
+
+This can be harmful if the message is important.
+
+A spam detection system may therefore prioritize precision when labeling messages as spam, depending on how costly false positives are.
+
+The system must also consider recall so that large amounts of spam do not go undetected.
+
+----------------------------------------------------------------------
+17.3 Medical Screening
+----------------------------------------------------------------------
+
+In some medical screening applications, missing a disease can be more harmful than performing an additional test.
+
+A system may therefore prioritize recall to identify as many potentially affected patients as possible.
+
+However, low precision can produce many false alarms, leading to unnecessary tests, stress, or costs.
+
+The appropriate balance depends on the condition, the screening method, and the consequences of errors.
+
+----------------------------------------------------------------------
+17.4 Fraud Detection
+----------------------------------------------------------------------
+
+A bank may want to identify as many fraudulent transactions as possible.
+
+High recall can help reduce the number of fraudulent transactions that go undetected.
+
+However, low precision may result in legitimate transactions being incorrectly flagged, disrupting customers' access to their money.
+
+The bank must balance fraud detection with customer convenience and the costs of investigating false alarms.
+
+KEY IDEA:
+The best model is not necessarily the model with the highest accuracy. It is the model whose performance best matches the goals and risks of the task.
+
+======================================================================
+18. A NOTE ABOUT THE LECTURE'S TEST RESULTS
+======================================================================
+
+The lecture reports the following results for a test set of 100 food items:
+
+Actual donuts: 25.
+
+Actual bagels: 75.
+
+Correct donut classifications: 8.
+
+Incorrect donut classifications: 17.
+
+Correct bagel classifications: 73.
+
+Incorrect bagel classifications: 2.
+
+From these values:
+
+Accuracy = (8 + 73) / 100 = 81%.
+
+Donut precision = 8 / (8 + 2) = 80%.
+
+Donut recall = 8 / (8 + 17) = 32%.
+
+These calculations are consistent with the confusion matrix.
+
+One additional observation is that the lecture's example highlights how a model can have reasonably high accuracy while performing poorly on one of its classes.
+
+The model correctly identifies most bagels but misses many donuts.
+
+This is why multiple evaluation metrics are useful.
+
+======================================================================
+19. LIMITATIONS OF A SIMPLE PERCEPTRON
+======================================================================
+
+A perceptron is useful for understanding the foundations of supervised learning, but it has important limitations.
+
+----------------------------------------------------------------------
+19.1 Limited Decision Boundaries
+----------------------------------------------------------------------
+
+A single basic perceptron creates a linear decision boundary.
+
+It cannot represent every possible classification pattern.
+
+If the classes are arranged in a complex way, a single straight line may not separate them accurately.
+
+----------------------------------------------------------------------
+19.2 Dependence on Input Features
+----------------------------------------------------------------------
+
+The model can use only the information provided to it.
+
+If mass and diameter do not sufficiently distinguish bagels from donuts, the perceptron may make repeated mistakes.
+
+Adding relevant features may improve classification.
+
+----------------------------------------------------------------------
+19.3 Limited Output
+----------------------------------------------------------------------
+
+A perceptron with a step activation function produces one of two outputs.
+
+It does not automatically provide a calibrated probability that the prediction is correct.
+
+Other models and activation functions can support more complex outputs.
+
+----------------------------------------------------------------------
+19.4 Training Does Not Guarantee Perfection
+----------------------------------------------------------------------
+
+The perceptron learning algorithm can converge to a solution when the training data are linearly separable under suitable conditions.
+
+However, if the classes cannot be separated by a linear boundary, the algorithm may not find a perfect classification.
+
+Real-world data are often noisy, overlapping, or incomplete.
+
+Therefore, even a trained model may continue to make mistakes.
+
+----------------------------------------------------------------------
+19.5 More Complex AI Models
+----------------------------------------------------------------------
+
+Many modern AI systems use more advanced models, including artificial neural networks composed of multiple connected artificial neurons.
+
+These systems can learn more complex relationships than a single perceptron.
+
+The next stage of studying AI involves understanding how multiple artificial neurons can be connected to form an artificial neural network.
+
+======================================================================
+20. COMPLETE WORKFLOW: FROM DATA TO A TRAINED MODEL
+======================================================================
+
+The concepts in this lecture can be combined into one complete workflow.
+
+STEP 1: Define the problem.
+
+Example:
+Classify food items as bagels or donuts.
+
+STEP 2: Collect the data.
+
+Gather examples of both food categories.
+
+STEP 3: Label the examples.
+
+Identify which items are bagels and which are donuts.
+
+STEP 4: Choose features.
+
+Measure mass and diameter, or use other useful characteristics.
+
+STEP 5: Initialize the model.
+
+Set the perceptron's initial weights and bias.
+
+STEP 6: Train the model.
+
+Provide labeled examples and adjust the parameters based on prediction errors.
+
+STEP 7: Establish a decision boundary.
+
+The learned parameters determine how the model separates the classes.
+
+STEP 8: Test the model.
+
+Evaluate the model using examples that were not used for training.
+
+STEP 9: Calculate evaluation metrics.
+
+Use accuracy, precision, recall, and other appropriate measures to assess performance.
+
+STEP 10: Identify weaknesses.
+
+Determine whether errors result from insufficient data, poor features, model limitations, or other causes.
+
+STEP 11: Improve the model.
+
+Consider better features, more representative data, different parameters, or a more suitable algorithm.
+
+STEP 12: Evaluate again.
+
+Repeat testing to determine whether the changes improve performance on new data.
+
+IMPORTANT:
+A model should not be considered successful simply because it has completed training. Its performance must be evaluated against the goals of the application.
+
+======================================================================
+21. KEY FORMULAS TO REMEMBER
+======================================================================
+
+1. PERCEPTRON WEIGHTED SUM
+
+z = (w₁ × x₁) + (w₂ × x₂) + b
+
+Purpose:
+Combines input values using their weights and bias.
+
+2. PERCEPTRON PREDICTION
+
+For a step function with threshold zero:
+
+If z ≥ 0, output 1.
+
+If z < 0, output 0.
+
+Purpose:
+Converts the weighted sum into a binary prediction.
+
+3. PERCEPTRON WEIGHT UPDATE
+
+wᵢ(new) = wᵢ(old) + η(y - ŷ)xᵢ
+
+Purpose:
+Adjusts a weight using the prediction error and corresponding input.
+
+4. PERCEPTRON BIAS UPDATE
+
+b(new) = b(old) + η(y - ŷ)
+
+Purpose:
+Adjusts the bias using the prediction error.
+
+5. ACCURACY
+
+Accuracy = (TP + TN) / (TP + TN + FP + FN)
+
+Purpose:
+Measures the proportion of all predictions that are correct.
+
+6. PRECISION
+
+Precision = TP / (TP + FP)
+
+Purpose:
+Measures the proportion of positive predictions that are correct.
+
+7. RECALL
+
+Recall = TP / (TP + FN)
+
+Purpose:
+Measures the proportion of actual positive examples that are correctly identified.
+
+8. F1 SCORE
+
+F1 = 2 × (Precision × Recall) / (Precision + Recall)
+
+Purpose:
+Combines precision and recall into a single metric.
+
+Where:
+
+TP = True Positives.
+
+TN = True Negatives.
+
+FP = False Positives.
+
+FN = False Negatives.
+
+η = Learning rate.
+
+y = Correct target label.
+
+ŷ = Predicted label.
+
+xᵢ = Input feature.
+
+wᵢ = Weight associated with an input feature.
+
+b = Bias.
+
+======================================================================
+22. IMPORTANT TAKEAWAYS
+======================================================================
+
+1. Machine learning allows AI systems to learn patterns from data and use those patterns to make predictions.
+
+2. The three major learning approaches introduced in this lecture are supervised learning, unsupervised learning, and reinforcement learning.
+
+3. Supervised learning uses examples with known labels to teach a model how to make predictions.
+
+4. Generalization is the ability to perform well on new examples rather than merely memorizing training data.
+
+5. Biological neurons inspired the development of simplified artificial neurons, but artificial neurons do not reproduce the full complexity of the human brain.
+
+6. A perceptron is a basic artificial neuron that can learn to classify inputs into categories.
+
+7. The perceptron uses inputs, weights, a bias, and an activation function to produce a prediction.
+
+8. Training adjusts the weights and bias to improve the model's predictions.
+
+9. A decision boundary separates the regions in which a model predicts different classes.
+
+10. A basic perceptron creates a linear decision boundary and therefore cannot solve every classification problem.
+
+11. Feature selection matters because the model's predictions depend on the information supplied to it.
+
+12. A confusion matrix shows correct predictions and different types of classification errors.
+
+13. Accuracy measures the proportion of all predictions that are correct.
+
+14. Precision measures how reliable positive predictions are.
+
+15. Recall measures how many actual positive examples the model successfully identifies.
+
+16. A model can have high precision but low recall, meaning its positive predictions are often correct even though it misses many positive examples.
+
+17. The best evaluation metric depends on the task and the consequences of different mistakes.
+
+18. More features or more complicated models do not automatically guarantee better results.
+
+19. Testing on separate data helps determine whether a model generalizes beyond its training examples.
+
+20. More complex AI tasks often require models that go beyond a single perceptron.
+
+======================================================================
+23. REVIEW QUESTIONS
+======================================================================
+
+QUESTION 1:
+What is machine learning, and how does it relate to artificial intelligence?
+
+QUESTION 2:
+What are the three main types of machine learning discussed in this lecture?
+
+QUESTION 3:
+What is supervised learning, and why are labels important?
+
+QUESTION 4:
+How does unsupervised learning differ from supervised learning?
+
+QUESTION 5:
+What is reinforcement learning, and how does feedback help an agent learn?
+
+QUESTION 6:
+What is the difference between training data and testing data?
+
+QUESTION 7:
+What does generalization mean in machine learning?
+
+QUESTION 8:
+What is an artificial neuron, and how was its design inspired by biological neurons?
+
+QUESTION 9:
+What is a perceptron?
+
+QUESTION 10:
+What are the four main components of a basic perceptron?
+
+QUESTION 11:
+What are weights, and how do they influence a model's prediction?
+
+QUESTION 12:
+What is a bias, and how does it affect the perceptron's decision?
+
+QUESTION 13:
+What is an activation function?
+
+QUESTION 14:
+Explain the purpose of the perceptron weighted-sum formula.
+
+QUESTION 15:
+How does a perceptron learn from an incorrect prediction?
+
+QUESTION 16:
+What is a decision boundary?
+
+QUESTION 17:
+Why might a perceptron incorrectly classify a large donut as a bagel?
+
+QUESTION 18:
+What is a feature, and why is feature selection important?
+
+QUESTION 19:
+What information does a confusion matrix provide?
+
+QUESTION 20:
+What are true positives, true negatives, false positives, and false negatives?
+
+QUESTION 21:
+How is accuracy calculated?
+
+QUESTION 22:
+What is the difference between precision and recall?
+
+QUESTION 23:
+A model identifies 8 actual donuts out of 25 actual donuts. What is its recall for donuts?
+
+QUESTION 24:
+A model predicts that 10 items are donuts, and 8 of those items are actually donuts. What is its precision for donuts?
+
+QUESTION 25:
+Why might a model have high accuracy but low recall for one class?
+
+QUESTION 26:
+Why might an email filtering system prioritize recall for important messages?
+
+QUESTION 27:
+Why might a system that automatically sends emails to a spam folder need high precision for the spam class?
+
+QUESTION 28:
+Why does adding more features not always improve a model?
+
+QUESTION 29:
+What is overfitting, and how does testing on separate data help identify it?
+
+QUESTION 30:
+Why might a more complex model be necessary for problems that a single perceptron cannot solve?
+
+======================================================================
+24. REVIEW QUESTIONS — SUGGESTED ANSWERS
+======================================================================
+
+ANSWER 1:
+Machine learning is a branch of AI that enables systems to learn patterns from data and use those patterns to make predictions or decisions.
+
+ANSWER 2:
+Supervised learning, unsupervised learning, and reinforcement learning.
+
+ANSWER 3:
+Supervised learning trains a model using examples paired with known answers. Labels tell the model what the correct output should be.
+
+ANSWER 4:
+Supervised learning uses labeled examples, while unsupervised learning searches for patterns or structures without supplied target labels for every example.
+
+ANSWER 5:
+Reinforcement learning trains an agent through interaction with an environment. Rewards and other feedback help the agent learn which actions are more effective.
+
+ANSWER 6:
+Training data are used to fit the model. Testing data are separate examples used to evaluate its performance after training.
+
+ANSWER 7:
+Generalization is the ability to apply learned patterns to new examples that were not used during training.
+
+ANSWER 8:
+An artificial neuron is a computational model inspired in part by biological neurons. It receives inputs, combines them mathematically, and produces an output.
+
+ANSWER 9:
+A perceptron is a simple artificial neuron that uses weighted inputs, a bias, and an activation function to classify data.
+
+ANSWER 10:
+Inputs, weights, bias, and activation function.
+
+ANSWER 11:
+Weights determine how strongly individual input features influence the model's calculation.
+
+ANSWER 12:
+A bias shifts the model's activation threshold and helps determine where the decision boundary is positioned.
+
+ANSWER 13:
+An activation function transforms a neuron's calculated value into an output. A step function produces a binary output.
+
+ANSWER 14:
+The weighted-sum formula combines each input with its corresponding weight and includes the bias. The result is then used to determine the prediction.
+
+ANSWER 15:
+The training algorithm compares the prediction with the correct label and adjusts the weights and bias according to the update rule.
+
+ANSWER 16:
+A decision boundary is the line, surface, or higher-dimensional boundary that separates regions assigned to different predicted classes.
+
+ANSWER 17:
+The model uses mass and diameter. If the large donut's measurements fall within the region classified as bagel, the model will make an incorrect prediction.
+
+ANSWER 18:
+A feature is a measurable input characteristic. Feature selection is important because useful features help distinguish classes, while irrelevant features may add noise or reduce performance.
+
+ANSWER 19:
+A confusion matrix compares actual labels with predicted labels and shows how many examples were correctly or incorrectly classified.
+
+ANSWER 20:
+True positive: The model correctly predicts the positive class.
+
+True negative: The model correctly predicts the negative class.
+
+False positive: The model predicts positive when the actual class is negative.
+
+False negative: The model predicts negative when the actual class is positive.
+
+ANSWER 21:
+Accuracy equals the number of correct predictions divided by the total number of predictions.
+
+ANSWER 22:
+Precision measures how many positive predictions are correct. Recall measures how many actual positive examples the model identifies.
+
+ANSWER 23:
+Recall = 8 / 25 = 0.32 = 32%.
+
+ANSWER 24:
+Precision = 8 / 10 = 0.80 = 80%.
+
+ANSWER 25:
+A model may perform well on a frequently occurring class while missing many examples of another class. Accuracy can hide this weakness, which is why precision and recall are useful.
+
+ANSWER 26:
+Missing an important email can have serious consequences. High recall helps ensure that most important emails are identified.
+
+ANSWER 27:
+Incorrectly placing legitimate emails into the spam folder can cause users to miss important messages. High precision for the spam class reduces these false positives.
+
+ANSWER 28:
+Additional features may introduce irrelevant information, increase computational costs, require more training data, or encourage overfitting.
+
+ANSWER 29:
+Overfitting occurs when a model learns patterns that do not generalize well. Testing on separate data reveals whether the model performs well on examples it did not use during training.
+
+ANSWER 30:
+A single perceptron creates a linear decision boundary. More complex problems may require nonlinear relationships or more sophisticated models, such as multilayer artificial neural networks.
+
+======================================================================
+25. PREVIEW OF THE NEXT LECTURE
+======================================================================
+
+The next lecture introduces artificial neural networks.
+
+A single perceptron can perform simple classification tasks, but many real-world problems involve more complicated relationships.
+
+Artificial neural networks combine multiple artificial neurons into connected layers.
+
+These networks can learn more complex patterns from data and are used in many modern AI applications, including image recognition, language processing, and speech recognition.
+
+The next step is to understand how artificial neurons work together, how information moves through a network, and how networks learn to produce more accurate predictions.

@@ -1,0 +1,730 @@
+ARTIFICIAL INTELLIGENCE NOTES
+Topic: Recommender Systems
+Course: Artificial Intelligence
+
+============================================================
+1. INTRODUCTION TO RECOMMENDER SYSTEMS
+============================================================
+
+A recommender system is an AI system that analyzes information about users, items, and user behavior to predict what a person might find useful, interesting, or enjoyable.
+
+Recommender systems help people discover content and products by suggesting items that match their interests or preferences.
+
+Examples of recommender systems:
+- YouTube recommends videos and channels.
+- Netflix recommends movies and television shows.
+- Amazon recommends products to purchase.
+- Google Search recommends relevant websites and links.
+- Social media platforms recommend posts, accounts, and videos.
+- Online advertising systems recommend products and services.
+
+Why are recommender systems important?
+- They help users discover relevant information.
+- They reduce the time needed to search for content.
+- They help companies connect users with products and services.
+- They influence the information, entertainment, and opinions people encounter online.
+
+Key idea:
+Recommender systems influence the version of the internet each person experiences because different users receive different recommendations.
+
+============================================================
+2. HOW RECOMMENDER SYSTEMS LEARN ABOUT USERS
+============================================================
+
+Recommender systems analyze data to identify patterns in user behavior and predict future preferences.
+
+Examples of information they may collect include:
+- Videos watched
+- Channels followed or subscribed to
+- Products purchased
+- Items rated
+- Videos liked or disliked
+- Time spent viewing a post
+- Search history
+- Previous clicks
+- Content watched by users with similar interests
+
+This information helps the system estimate which items a user may prefer.
+
+For example, if a user frequently watches programming tutorials, a recommendation system might suggest other programming videos.
+
+However, watching one programming video does not necessarily mean the user wants to see programming content forever. User interests can change, and individual actions do not always reveal the full context behind a preference.
+
+Machine learning techniques commonly used in recommender systems include:
+
+1. Supervised learning
+   - Learns patterns from examples with known outcomes.
+   - Can predict whether a user will click, subscribe, purchase, or rate an item positively.
+
+2. Unsupervised learning
+   - Finds patterns or similarities in data without requiring labeled outcomes for every example.
+   - Can group users with similar behavior or identify similar items.
+
+Many recommender systems combine multiple techniques rather than relying on only one approach.
+
+============================================================
+3. THREE COMMON RECOMMENDATION APPROACHES
+============================================================
+
+A. CONTENT-BASED RECOMMENDATION
+
+Content-based recommendation focuses on the characteristics of the items themselves and compares them with a user's known interests.
+
+For example, a video recommendation system might analyze:
+- Video topics
+- Titles and descriptions
+- Keywords
+- Categories
+- Creators
+- Language
+- Other content features
+
+If a user watches several videos about artificial intelligence, the system may recommend more AI-related videos.
+
+Advantages:
+- Can recommend items that are similar to content the user already likes.
+- Does not necessarily require information about other users.
+- Can work with relatively new items if their content features are available.
+
+Limitations:
+- May repeatedly recommend similar content.
+- Can make it difficult for users to discover unfamiliar topics.
+- Depends on how item characteristics and user interests are represented.
+- May inherit human judgments or biases when people define categories such as creator quality.
+
+Example:
+A user watches several machine learning tutorials. The system recommends another tutorial about neural networks because the topics are related.
+
+B. SOCIAL OR POPULARITY-BASED RECOMMENDATION
+
+Social or popularity-based recommendation uses information about audience behavior.
+
+Possible signals include:
+- Number of views
+- Number of likes
+- Number of shares
+- Ratings
+- Watch time
+- Purchase frequency
+- Overall popularity
+
+For example, a platform might recommend a video because millions of people have watched it.
+
+Advantages:
+- Can identify content that attracts broad interest.
+- Can help recommend items to new users when personalized information is unavailable.
+- Can reveal popular or trending content.
+
+Limitations:
+- Popularity does not mean an item is suitable for every user.
+- Less popular content may be overlooked.
+- Recommendations can favor already successful creators or products.
+- Popularity can reinforce existing trends.
+
+Example:
+A new user joins a streaming platform. Since the system knows little about the user, it recommends several widely watched shows.
+
+C. PERSONALIZED RECOMMENDATION
+
+Personalized recommendation uses information about an individual user to tailor suggestions to their preferences.
+
+The system may consider:
+- Previous viewing activity
+- Likes and ratings
+- Subscriptions
+- Search history
+- Purchases
+- Interests inferred from past behavior
+
+Example:
+Two people open YouTube at the same time. One receives programming tutorials, while the other receives cooking videos because their previous activities suggest different interests.
+
+Advantages:
+- Makes recommendations more relevant to individual users.
+- Helps users find content suited to their interests.
+- Can improve the usefulness of large websites and online services.
+
+Limitations:
+- Requires information about the user.
+- May struggle when little information is available.
+- Can repeatedly recommend familiar topics instead of introducing new ones.
+- Can reinforce a narrow set of interests.
+
+============================================================
+4. COLLABORATIVE FILTERING
+============================================================
+
+Collaborative filtering is a recommendation technique that uses patterns in the behavior or preferences of multiple users to predict what an individual user may like.
+
+The central idea is:
+
+Users who have shown similar preferences in the past may share other preferences in the future.
+
+Collaborative filtering can use similarities between users, similarities between items, or both.
+
+Example:
+- User A enjoys programming videos and science videos.
+- User B also enjoys programming videos and science videos.
+- User B watches and likes a new robotics video.
+- The system may recommend that robotics video to User A.
+
+The recommendation is based on the relationship between the users' previous behavior and their interest in the same item.
+
+Collaborative filtering can combine personalized preferences with broader patterns in user behavior. In practical systems, it is often used alongside content-based and popularity-based methods.
+
+Important distinction:
+Collaborative filtering is not the same as simply recommending the most popular items. It attempts to use relationships between users or items to make more personalized predictions.
+
+============================================================
+5. REPRESENTING USER PREFERENCES WITH A MATRIX
+============================================================
+
+A recommendation system can organize user behavior in a table called a user-item interaction matrix.
+
+In a video recommendation system:
+- Each row represents a user.
+- Each column represents a video, channel, movie, or other item.
+- Each cell represents the interaction between a particular user and an item.
+
+Example:
+
+                    Channel A   Channel B   Channel C
+User 1                  1           1           ?
+User 2                  1           1           1
+User 3                  0           1           0
+
+In this simplified example:
+- 1 means the user interacted positively with the item.
+- 0 means the user interacted but did not show the specified positive behavior.
+- ? means the system does not have an observed interaction.
+
+In the original example, a user who watched a channel and subscribed received a 1. A user who watched but did not subscribe received a 0. An empty cell represented a channel the user had not seen.
+
+This distinction is important:
+
+A missing value is not automatically a negative rating.
+
+If a user has never watched a video, the system cannot conclude that the user dislikes it. The user may simply be unaware that the video exists.
+
+Different systems may represent interactions differently. For example, they may use ratings, clicks, purchases, or viewing time instead of binary values.
+
+============================================================
+6. HOW COLLABORATIVE FILTERING MAKES A PREDICTION
+============================================================
+
+A collaborative filtering system can follow several steps to recommend a new item.
+
+Step 1: Collect interaction data
+The system records information about users and the items they interact with.
+
+Step 2: Identify similar users or items
+The system analyzes patterns in the interaction matrix to determine which users have similar preferences or which items attract similar audiences.
+
+Step 3: Find relevant examples
+The system examines how similar users interacted with an item the target user has not encountered.
+
+Step 4: Predict the target user's preference
+A prediction model estimates how likely the target user is to like, watch, subscribe to, or purchase the item.
+
+Step 5: Rank candidate items
+The system orders potential recommendations using predicted preferences and possibly other factors, such as relevance, popularity, or business objectives.
+
+Step 6: Recommend selected items
+The system displays some of the highest-ranked candidates to the user.
+
+EXAMPLE: RECOMMENDING A NEW CHANNEL
+
+Suppose John-Green-Bot subscribes to:
+- Crash Course
+- Jabrils
+
+He watches The Best of BattleBots but does not subscribe. He has never watched The Art Assignment.
+
+The system wants to predict whether John-Green-Bot would subscribe to The Art Assignment.
+
+The system could:
+1. Compare his viewing and subscription patterns with those of other users.
+2. Identify users with similar preferences.
+3. Check whether those similar users subscribed to The Art Assignment.
+4. Use those observations to estimate his likelihood of subscribing.
+5. Recommend the channel if its predicted relevance is sufficiently high.
+
+The system does not know with certainty whether he will subscribe. It makes a prediction based on available evidence.
+
+============================================================
+7. CLUSTERING AND SUPERVISED LEARNING
+============================================================
+
+Collaborative filtering can involve both unsupervised and supervised learning.
+
+A. UNSUPERVISED LEARNING: FINDING SIMILAR USERS
+
+Unsupervised learning can identify patterns in user behavior without requiring a known correct answer for every example.
+
+One possible technique is clustering.
+
+Clustering groups users according to similarities in their interactions or preferences.
+
+For example:
+- One cluster may contain users who frequently watch programming videos.
+- Another may contain users who watch art and design videos.
+- Another may contain users who enjoy science and engineering.
+
+A clustering algorithm does not necessarily understand these categories in a human sense. It identifies patterns based on the data and similarity measure used.
+
+B. SUPERVISED LEARNING: PREDICTING PREFERENCES
+
+Supervised learning trains a model using examples that contain known outcomes.
+
+For example, the training data might include:
+- A user's previous activity
+- Information about a video
+- Whether the user clicked the video
+- Whether the user liked or disliked it
+- Whether the user subscribed to the channel
+
+The model learns relationships between the available information and the observed outcomes.
+
+It can then predict an outcome for an interaction that has not yet occurred.
+
+A prediction might estimate:
+- The probability of clicking a video
+- The likelihood of subscribing to a channel
+- A predicted movie rating
+- The likelihood of purchasing a product
+
+C. COMBINING THE TECHNIQUES
+
+A possible workflow is:
+
+1. Use unsupervised learning to identify similar users.
+2. Gather preference information from those users.
+3. Use a predictive model to estimate how the target user might respond.
+4. Rank candidate recommendations.
+
+Not every collaborative filtering system uses this exact pipeline. Some methods directly learn user and item representations without explicitly clustering users first.
+
+============================================================
+8. TYPES OF DATA USED IN RECOMMENDER SYSTEMS
+============================================================
+
+Recommender systems can use several types of interaction data.
+
+A. BINARY INTERACTIONS
+
+Binary data represents two possible outcomes.
+
+Examples:
+- Subscribed or not subscribed
+- Purchased or not purchased
+- Clicked or not clicked
+
+A binary value is useful when the system is trying to predict a specific action.
+
+B. RATINGS
+
+A rating provides a more detailed indication of preference.
+
+Examples:
+- One to five stars for a movie
+- A numerical product rating
+- A like or dislike
+
+Ratings may provide more information than a simple interaction, although ratings are not always reliable or available.
+
+C. IMPLICIT FEEDBACK
+
+Implicit feedback is inferred from user behavior rather than directly provided as an explicit rating.
+
+Examples:
+- How long someone watches a video
+- Whether someone clicks a recommendation
+- How often a song is played
+- Whether a user returns to an item
+- Whether a person abandons a shopping page
+
+Implicit feedback can be useful because users generate a large amount of behavioral data.
+
+However, it is difficult to interpret perfectly.
+
+For example, watching a video for a long time might mean the user enjoyed it, but it could also mean the video was left playing in the background.
+
+Key idea:
+An interaction is evidence of behavior, not necessarily proof of a user's true preference.
+
+============================================================
+9. MAJOR CHALLENGES IN RECOMMENDER SYSTEMS
+============================================================
+
+There are three important challenges discussed in this lesson.
+
+A. SPARSE DATASETS
+
+A dataset is sparse when most possible user-item interactions are missing.
+
+For example, a streaming platform might have millions of users and thousands of movies. Each user watches only a small fraction of the available movies.
+
+As a result, most cells in the user-item interaction matrix are empty.
+
+Why is this a problem?
+- There may be little information about a user's preferences.
+- Similarity between users can be difficult to estimate.
+- The system may struggle to predict preferences for unfamiliar items.
+- Large datasets can require substantial storage and computational resources.
+
+Companies may use sampling, approximations, data compression, or more efficient models to reduce costs. These choices can involve trade-offs between speed, cost, and prediction quality.
+
+B. THE COLD START PROBLEM
+
+The cold start problem occurs when a recommendation system does not have enough information about a new user or item to make reliable recommendations.
+
+There are two major forms:
+
+1. New-user cold start
+   - The system has little or no information about the new user's preferences.
+   - It cannot easily personalize recommendations.
+
+2. New-item cold start
+   - A new video, product, or movie has few or no interactions.
+   - The system cannot rely on much user behavior to estimate its popularity or relevance.
+
+Possible solutions include:
+- Recommending popular items to new users.
+- Asking users to select interests.
+- Using item descriptions, categories, or other content features.
+- Incorporating information about similar items.
+- Updating recommendations as new interactions occur.
+
+Example:
+A person creates a new streaming account. Since the system has no viewing history, it may initially recommend popular movies or ask the person to select preferred genres.
+
+C. PREDICTIONS MAY NOT BE USEFUL
+
+A statistically likely recommendation is not necessarily a helpful recommendation.
+
+For example, an advertising system might recommend a product that someone purchased yesterday. The system has correctly identified an apparent interest, but the recommendation is no longer useful because the person already owns the product.
+
+This illustrates the difference between predicting behavior and understanding what would actually benefit a user.
+
+A good recommendation system should consider the purpose and context of the recommendation, not only the probability of an interaction.
+
+============================================================
+10. BIAS, STEREOTYPES, AND SOCIAL CONTEXT
+============================================================
+
+Recommender systems learn from data, but data does not always accurately represent a person's interests or circumstances.
+
+A. STEREOTYPING
+
+A system may associate a user with a category and make assumptions based on that category.
+
+For example, it might assume that a robot wants to watch robot-related movies simply because it is a robot.
+
+That assumption may be incorrect because membership in a category does not determine individual preferences.
+
+B. INAPPROPRIATE RECOMMENDATIONS
+
+A system might recommend violent content to a child because the child previously watched other action-oriented videos.
+
+The system may identify a statistical relationship without understanding age, family expectations, or the appropriateness of the content.
+
+C. ECHO CHAMBERS
+
+An echo chamber is an environment where people are repeatedly exposed to similar viewpoints, especially viewpoints that reinforce their existing beliefs.
+
+A recommendation algorithm may contribute to an echo chamber when it continually prioritizes content similar to what a user previously watched or liked.
+
+Possible consequences include:
+- Reduced exposure to different perspectives
+- Reinforcement of existing beliefs
+- A distorted impression of public opinion
+- Increased difficulty discovering alternative viewpoints
+
+D. FILTER BUBBLES
+
+A filter bubble occurs when personalization limits the information a person encounters, potentially narrowing their view of the world.
+
+Echo chambers and filter bubbles are related concepts, but they are not identical. An echo chamber emphasizes the reinforcement of beliefs within an information environment, while a filter bubble emphasizes the filtering or personalization that limits exposure to other content.
+
+Important qualification:
+Recommender systems can contribute to these effects, but they do not inevitably create them. Their impact depends on system design, user behavior, content availability, and the wider social environment.
+
+============================================================
+11. PRIVACY AND DATA COLLECTION
+============================================================
+
+Recommender systems often rely on collecting and analyzing user data.
+
+This creates privacy concerns because the information can reveal patterns about a person's interests, habits, and activities.
+
+Examples include:
+- Viewing history
+- Search activity
+- Shopping behavior
+- Location-related information
+- Social media interactions
+- Advertising interactions
+
+Some people may find it unsettling when advertisements appear related to something they recently searched for or discussed.
+
+This experience does not necessarily mean a device was listening to a private conversation. Ads may be influenced by search history, browsing activity, account data, shared household devices, inferred interests, or other forms of tracking.
+
+A. PRIVATE OR INCOGNITO BROWSING
+
+Private or incognito browsing can reduce the amount of browsing history saved locally on a device. When used without signing into an account, it may also reduce the ability of a site to connect activity to that logged-in account.
+
+However, private browsing does not provide complete anonymity.
+
+Websites, internet service providers, employers or schools managing a network, and other services may still be able to observe some activity. Websites may also use technical methods to identify or track users.
+
+To improve privacy, users can:
+- Review website privacy settings.
+- Limit unnecessary permissions.
+- Adjust advertising personalization settings.
+- Review account activity and data collection options.
+- Use privacy-focused browser features.
+- Avoid sharing unnecessary personal information.
+
+B. PERSONALIZATION VERSUS PRIVACY
+
+Personalized recommendations can be helpful, but they often rely on collecting information about users.
+
+This creates a trade-off:
+
+More user data may improve personalization, but collecting and using that data can raise privacy concerns.
+
+The goal is not necessarily to eliminate all personalization. Instead, systems should collect and use data responsibly, transparently, and with appropriate user control.
+
+============================================================
+12. IMPROVING RECOMMENDATION SYSTEMS
+============================================================
+
+A well-designed recommender system should do more than predict what a user is likely to click.
+
+Developers should consider several factors.
+
+A. RELEVANCE
+Does the recommendation match the user's interests and needs?
+
+B. DIVERSITY
+Does the system offer different types of content rather than repeatedly showing nearly identical items?
+
+C. DISCOVERY
+Does the system help users find new topics, creators, or products?
+
+D. FAIRNESS
+Does the system unfairly disadvantage particular creators, groups, or types of content?
+
+E. PRIVACY
+Is the system collecting only the information it needs, and is that information handled appropriately?
+
+F. SAFETY AND CONTEXT
+Is the recommendation suitable for the intended audience and situation?
+
+G. TRANSPARENCY AND CONTROL
+Can users understand or influence why certain items are recommended?
+
+H. ACCURACY AND COST
+Can the system provide useful predictions while operating within available computational and financial resources?
+
+These objectives can conflict. For example, maximizing immediate clicks might produce highly repetitive recommendations, while increasing diversity might sometimes reduce the probability that a user clicks the next item.
+
+Developers must choose which outcomes to prioritize and evaluate the effects of those choices.
+
+============================================================
+13. FEEDBACK LOOPS IN RECOMMENDER SYSTEMS
+============================================================
+
+A feedback loop occurs when a system's recommendations influence the behavior that generates its future training data.
+
+For example:
+
+1. A user watches a science video.
+2. The system recommends more science videos.
+3. The user watches some of those recommendations.
+4. The system records the additional science viewing activity.
+5. The system becomes even more likely to recommend science videos.
+
+This process can improve personalization when the user genuinely wants more science content.
+
+However, it can also narrow the user's experience if the system rarely offers alternatives.
+
+Feedback loops can affect:
+- Which content receives attention
+- Which creators gain popularity
+- Which products receive sales
+- Which viewpoints users encounter
+
+One way to address this challenge is to balance recommendations based on predicted relevance with opportunities for exploration and content diversity.
+
+============================================================
+14. EXPLORATION AND DISCOVERY
+============================================================
+
+A recommendation system must often balance two goals.
+
+EXPLOITATION
+Recommend items the system already predicts the user will like.
+
+EXPLORATION
+Recommend unfamiliar items to learn more about the user's preferences or introduce new possibilities.
+
+Example:
+A person usually watches computer science videos.
+
+- Exploitation: Recommend another computer science video.
+- Exploration: Recommend an introductory art or music video that might interest the person.
+
+Too much exploitation can make recommendations repetitive. Too much exploration can produce recommendations that seem irrelevant.
+
+The best balance depends on the user's goals and the platform's objectives.
+
+Exploration can also help the system gather information that improves future recommendations.
+
+============================================================
+15. KEY TERMS TO REMEMBER
+============================================================
+
+Recommender System:
+An AI system that predicts and suggests items a user may find relevant or enjoyable.
+
+Content-Based Recommendation:
+Recommends items based on their characteristics and their similarity to a user's known interests.
+
+Social or Popularity-Based Recommendation:
+Uses audience behavior, such as views, likes, or ratings, to identify popular items.
+
+Personalized Recommendation:
+Tailors suggestions to an individual user's preferences and behavior.
+
+Collaborative Filtering:
+Uses patterns across multiple users' interactions or preferences to predict what an individual user may like.
+
+User-Item Interaction Matrix:
+A table representing interactions between users and items.
+
+Clustering:
+An unsupervised learning technique that groups similar data points.
+
+Supervised Learning:
+A machine learning approach that learns from examples with known outcomes.
+
+Sparse Dataset:
+A dataset in which most possible user-item interactions are missing.
+
+Cold Start Problem:
+The difficulty of making recommendations for a new user or item when little interaction data is available.
+
+Implicit Feedback:
+Behavioral evidence of preference, such as clicks or watch time, rather than an explicit rating.
+
+Echo Chamber:
+An information environment that repeatedly reinforces similar viewpoints.
+
+Filter Bubble:
+An environment in which personalization may limit exposure to different information or perspectives.
+
+Feedback Loop:
+A process in which recommendations influence user behavior, which then influences future recommendations.
+
+Exploitation:
+Choosing items the system already predicts will be relevant.
+
+Exploration:
+Trying unfamiliar items to discover interests or gather additional information.
+
+============================================================
+16. MAIN TAKEAWAYS
+============================================================
+
+1. Recommender systems are a common application of artificial intelligence that helps users find videos, products, movies, websites, and other content.
+
+2. Recommendation methods can focus on item characteristics, overall audience behavior, or an individual user's preferences.
+
+3. Collaborative filtering uses patterns across users or items to predict preferences that have not yet been observed.
+
+4. User-item interaction matrices help represent the relationship between users and the content they encounter.
+
+5. Recommender systems can combine unsupervised learning, supervised learning, and other techniques.
+
+6. Sparse data and cold start make it difficult to predict preferences accurately.
+
+7. A prediction that is statistically likely is not always useful, appropriate, or socially responsible.
+
+8. Recommendation algorithms can influence which information people encounter and may contribute to echo chambers or filter bubbles.
+
+9. Personalization depends on data, creating important privacy and transparency concerns.
+
+10. Developers must balance relevance, diversity, discovery, fairness, safety, privacy, accuracy, and computational cost.
+
+11. Users should understand that online recommendations are generated by algorithms and do not represent a complete or neutral view of everything available.
+
+12. Responsible recommender systems should help people discover useful information without unnecessarily limiting their choices or compromising their privacy.
+
+============================================================
+17. REVIEW QUESTIONS
+============================================================
+
+1. What is a recommender system, and what are three examples of where it is used?
+
+2. How does content-based recommendation differ from popularity-based recommendation?
+
+3. What makes personalized recommendations different from general recommendations?
+
+4. Explain collaborative filtering in your own words.
+
+5. What information does a user-item interaction matrix represent?
+
+6. Why is a missing interaction different from a negative rating?
+
+7. How can unsupervised learning help a recommender system identify similar users?
+
+8. How can supervised learning help predict whether a user will subscribe to a channel?
+
+9. What is a sparse dataset, and why does it create problems for recommender systems?
+
+10. Explain the difference between the new-user and new-item cold start problems.
+
+11. Why might an accurate prediction still produce an unhelpful recommendation?
+
+12. How can recommender systems contribute to echo chambers or filter bubbles?
+
+13. Why does incognito browsing not guarantee complete privacy?
+
+14. What is a feedback loop, and how might it affect the content a user sees?
+
+15. Explain the difference between exploration and exploitation.
+
+16. Identify three factors developers should consider besides prediction accuracy.
+
+17. Why should developers avoid assuming that people have particular interests based only on their demographic or other group membership?
+
+18. Describe one benefit and one potential risk of personalized recommendations.
+
+============================================================
+18. PRACTICE SCENARIO
+============================================================
+
+Scenario:
+
+A streaming service notices that a user watches several documentaries about space exploration. The service begins recommending more space documentaries. After several weeks, almost every recommendation shown to the user is about space.
+
+Questions:
+
+A. Which type of recommendation is being used?
+   Personalized recommendation, potentially combined with content-based recommendation.
+
+B. How could collaborative filtering improve the recommendations?
+   The system could identify users with similar viewing patterns and use their interactions with other types of content to suggest additional items.
+
+C. What potential problem might develop?
+   The system may repeatedly recommend similar content, limiting the user's opportunities to discover other interests.
+
+D. How could the service improve the experience?
+   It could preserve relevant space documentaries while introducing diverse content, exploring new interests, and giving the user more control over recommendations.
+
+E. What privacy concern should the service consider?
+   The service should handle viewing history responsibly, explain relevant data practices, and provide appropriate privacy controls.
+
+Final lesson:
+A successful recommender system should not simply predict what a person is likely to choose next. It should also consider whether its recommendations are useful, diverse, appropriate, fair, and respectful of the user's privacy.

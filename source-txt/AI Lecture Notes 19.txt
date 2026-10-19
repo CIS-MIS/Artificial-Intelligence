@@ -1,0 +1,833 @@
+ARTIFICIAL INTELLIGENCE NOTES: DETECTING AND REDUCING BIAS IN AI
+Crash Course AI — Pet Adoption Recommendation Lab
+
+============================================================
+1. INTRODUCTION: USING AI TO MAKE DECISIONS
+============================================================
+
+In this lab, Jabril builds an AI system to help decide whether adopting a particular cat or dog would make him happy.
+
+Instead of relying on personal opinions or online recommendations, he collects survey data from pet owners and trains a machine learning model to predict whether someone is happy with their pet.
+
+The goal is to demonstrate how an AI system can appear successful during testing but still produce biased or unreasonable predictions.
+
+Key Idea:
+An AI system can achieve high accuracy on its test data and still make poor decisions in the real world.
+
+This can happen because:
+- The training data does not represent the real world.
+- Some groups or categories are underrepresented.
+- Features are unintentionally correlated with a hidden category.
+- The model learns patterns that do not reflect the actual goal.
+- The evaluation process fails to reveal important problems.
+
+The central lesson is that building an AI system requires more than writing code and checking its accuracy. Developers must also examine their data, features, assumptions, and predictions.
+
+============================================================
+2. OVERVIEW OF THE AI PROJECT
+============================================================
+
+The project follows four main steps:
+
+Step 1: Collect Data
+- Decide which pet characteristics might influence happiness.
+- Survey pet owners.
+- Convert their answers into numerical values.
+- Divide the data into training and testing sets.
+
+Step 2: Build and Train a Neural Network
+- Create a neural network using Python and Scikit-learn.
+- Train it to identify patterns between pet characteristics and owner happiness.
+- Evaluate its predictions using training and testing data.
+
+Step 3: Make Predictions
+- Enter the characteristics of cats and dogs available for adoption.
+- Ask the model to predict whether each pet would make an owner happy.
+
+Step 4: Investigate Bias
+- Analyze the model's unexpected predictions.
+- Examine the survey data for imbalances.
+- Identify features that may be associated with hidden categories.
+- Improve the data collection process and model design.
+
+The fourth step is essential because the initial model produces suspicious results despite reporting high test accuracy.
+
+============================================================
+3. STEP ONE: DATA COLLECTION
+============================================================
+
+What Is Data Collection?
+
+Data collection is the process of gathering information that an AI model will use to learn patterns and make predictions.
+
+For this project, Jabril creates a survey rather than downloading an existing dataset from the internet.
+
+He surveys 30 people who own either a cat or a dog.
+
+The survey asks five yes-or-no questions.
+
+Four input features describe the pet:
+1. Is the pet cuddly?
+2. Is the pet soft?
+3. Is the pet quiet at night?
+4. Is the pet energetic?
+
+The fifth question is the target:
+5. Does the pet make its owner happy most of the time?
+
+Representing Answers Numerically
+
+The survey responses are converted into numbers:
+
+- Yes = 1
+- No = 0
+
+For example:
+
+Cuddly | Soft | Quiet | Energetic | Owner Happy
+   1   |  1   |   1   |     0     |      1
+   0   |  0   |   0   |     1     |      1
+   1   |  0   |   1   |     0     |      0
+
+These rows are illustrative examples, not the actual survey results.
+
+Each row represents one survey response.
+
+The first four columns are the input features. The final column is the target label that the model attempts to predict.
+
+Important Terminology:
+
+Feature:
+An input variable used by a machine learning model to make a prediction.
+
+Label:
+The correct answer or target outcome the model is trained to predict.
+
+Dataset:
+A collection of examples used to train, evaluate, or test a model.
+
+Why Use Numerical Values?
+
+Machine learning algorithms generally require information in a numerical format. Converting yes-or-no responses into 1s and 0s makes the data easier to process.
+
+An important limitation is that numerical encoding does not make the original answers more accurate or representative. It only changes how the answers are represented.
+
+A Major Design Decision
+
+Jabril deliberately leaves out the cat-or-dog label from the model's input features.
+
+He wants the model to learn from the characteristics of the pet and the owner's happiness, rather than simply learning an explicit rule about cats or dogs.
+
+However, leaving out a category does not guarantee that the model cannot infer it indirectly.
+
+As the lab demonstrates, the other features can unintentionally reveal which category a pet belongs to.
+
+============================================================
+4. TRAINING DATA VS. TESTING DATA
+============================================================
+
+Before training the model, Jabril divides the dataset into two parts.
+
+Training Set:
+The examples the model uses to learn patterns and adjust its internal parameters.
+
+Testing Set:
+A separate group of examples kept out of training and used to evaluate how well the trained model performs on unseen examples.
+
+Why Is This Separation Important?
+
+If a model is evaluated only on the same examples it learned from, its performance may appear better than its ability to generalize to new situations.
+
+Generalization is the ability of a model to make useful predictions on examples it has not encountered during training.
+
+Example:
+A student who memorizes the answers to a practice test may score highly on that exact test but perform poorly when given new questions.
+
+Similarly, an AI model may perform well on its training data but struggle with unfamiliar examples.
+
+Important Rule:
+The test set should remain separate from the training process. Repeatedly adjusting the model based on test results can also make the test set less independent as an evaluation tool.
+
+============================================================
+5. OVERFITTING
+============================================================
+
+What Is Overfitting?
+
+Overfitting occurs when a model learns patterns that are too specific to its training data, including noise, accidental correlations, or irrelevant details.
+
+An overfitted model may perform very well on its training examples but perform poorly on new data.
+
+Why Use a Small Neural Network?
+
+Jabril has only 30 survey responses, which is a very small dataset for training a neural network.
+
+He therefore chooses a relatively simple model with one hidden layer.
+
+The general idea is that a model with fewer parameters may be less likely to memorize a small dataset than a much more complex model.
+
+However, a small model does not automatically prevent overfitting. Performance also depends on the data, training process, model settings, and task.
+
+Key Lesson:
+Model complexity should be appropriate for the amount and quality of available data.
+
+============================================================
+6. STEP TWO: BUILDING A NEURAL NETWORK
+============================================================
+
+What Is a Neural Network?
+
+A neural network is a machine learning model made up of interconnected computational units that learn patterns from data by adjusting weights and biases.
+
+Jabril uses a Multi-Layer Perceptron (MLP).
+
+An MLP is a type of feedforward neural network that contains an input layer, one or more hidden layers, and an output layer.
+
+The Three Main Layers
+
+A. Input Layer
+Receives the features used to make predictions.
+
+In this lab, there are four input features:
+- Cuddly
+- Soft
+- Quiet
+- Energetic
+
+B. Hidden Layer
+Processes the input features and learns patterns that may help predict the target.
+
+Jabril uses one hidden layer containing four neurons.
+
+A neuron is a computational unit that combines inputs using learned weights and biases and applies an activation function.
+
+C. Output Layer
+Produces the model's prediction.
+
+The two output categories represent:
+- Yes: The owner is happy with the pet.
+- No: The owner is not happy with the pet.
+
+Conceptual Structure:
+
+Four input features
+        |
+        v
+One hidden layer
+with four neurons
+        |
+        v
+Two output categories
+(Happy / Not Happy)
+
+This is a simplified representation of the model. The actual network's mathematical operations depend on the implementation and its settings.
+
+What Are Weights and Biases?
+
+Weights determine how strongly inputs contribute to a neuron's calculation.
+
+Biases are adjustable numerical values that help shift a neuron's activation.
+
+During training, the model adjusts its weights and biases to reduce prediction errors.
+
+What Is Scikit-learn?
+
+Scikit-learn is a Python library that provides tools for machine learning, including classification, regression, clustering, preprocessing, and model evaluation.
+
+Jabril uses Scikit-learn's MLP classifier to train the neural network.
+
+============================================================
+7. HOW NEURAL NETWORK TRAINING WORKS
+============================================================
+
+The model learns by comparing its predictions with the correct answers in the training data.
+
+A simplified training process is:
+
+Step 1: Input the pet's characteristics.
+
+Step 2: The network processes the features and produces a prediction.
+
+Step 3: Compare the prediction with the actual survey label.
+
+Step 4: Calculate the prediction error using a loss function.
+
+Step 5: Adjust the weights and biases to reduce the loss.
+
+Step 6: Repeat the process over the training data.
+
+Over time, the model may learn patterns that help it make more accurate predictions.
+
+What Is an Epoch?
+
+An epoch is one complete pass through the training dataset.
+
+If the training dataset contains 24 examples, one epoch means the training algorithm has processed those 24 examples once, although the exact number of parameter updates depends on how training is configured.
+
+Jabril uses 1,000 iterations, described in the video as epochs for the particular training setup.
+
+Technical Clarification:
+In Scikit-learn's MLPClassifier, the meaning of the max_iter parameter depends on the solver and training configuration. For the stochastic solvers commonly used with MLPClassifier, an iteration generally corresponds to a pass through the training data. Other solvers may use different optimization behavior.
+
+More training is not always better. Excessive training can contribute to overfitting, and the best settings depend on the data.
+
+============================================================
+8. EVALUATING THE MODEL
+============================================================
+
+After training, Jabril evaluates the model on both the training set and the testing set.
+
+The reported results are:
+- Training accuracy: 85%
+- Testing accuracy: 100%
+
+What Is Accuracy?
+
+Accuracy measures the proportion of predictions that match the correct labels.
+
+Formula:
+
+Accuracy = Number of Correct Predictions / Total Number of Predictions
+
+For example, if a model correctly predicts 18 out of 20 examples:
+
+Accuracy = 18 / 20 = 90%
+
+Interpreting the Results
+
+The reported 100% testing accuracy initially makes the model appear successful.
+
+However, the dataset is very small. If the testing set contains only six examples, getting all six correct would produce 100% accuracy.
+
+That result alone would not establish that the model performs reliably in the real world.
+
+A small testing set can produce unstable accuracy estimates. A different set of examples might lead to a very different result.
+
+The model can also learn accidental patterns that happen to work on the limited test examples.
+
+Why Accuracy Is Not Enough
+
+Accuracy answers a narrow question:
+
+"How often did the model predict the correct label for the examples in this test set?"
+
+It does not automatically answer:
+- Does the data represent the real world?
+- Does the model treat different groups fairly?
+- Are the learned relationships meaningful?
+- Does the model perform well on new types of examples?
+- Does the model actually optimize the goal the user cares about?
+
+Key Lesson:
+A high accuracy score does not guarantee that an AI system is reliable, fair, or useful.
+
+============================================================
+9. STEP THREE: MAKING REAL-WORLD PREDICTIONS
+============================================================
+
+Jabril enters the features of several pets from adoption websites into the trained model.
+
+He expects the model to predict whether each pet would make him happy.
+
+However, the predictions seem strange:
+- The model frequently predicts that dogs would make an owner happy.
+- The model rarely predicts that cats would make an owner happy.
+- Some pets that seem appealing receive negative predictions.
+- Some pets that seem less appealing receive positive predictions.
+
+This is surprising because the model was never explicitly given a cat-or-dog input feature.
+
+Why Is This Important?
+
+The model has learned something about the survey data that causes it to associate particular features with happiness.
+
+That learned relationship does not necessarily reflect the actual relationship between a pet's characteristics and an owner's happiness.
+
+The next step is to investigate the data and determine why the predictions are biased.
+
+Key Lesson:
+Unexpected predictions should trigger an investigation instead of being accepted simply because the model has high accuracy.
+
+============================================================
+10. STEP FOUR: INVESTIGATING THE BIAS
+============================================================
+
+Jabril identifies two major problems with his dataset.
+
+Problem 1: The Sample Is Unbalanced
+
+The survey contains many more dog owners than cat owners.
+
+Why Did This Happen?
+
+Jabril collected responses from people in public places, including a park where dog owners were especially likely to be present.
+
+This means his sampling process unintentionally favored dog owners.
+
+What Is Sampling Bias?
+
+Sampling bias occurs when the process used to select data causes some groups or situations to be overrepresented or underrepresented compared with the population the data is supposed to represent.
+
+In this example, the survey sample does not accurately reflect the intended population of pet owners.
+
+Why Does It Matter?
+
+If the model receives many examples of dogs and relatively few examples of cats, it may learn patterns that are more representative of dogs than cats.
+
+However, an imbalance in the number of cats and dogs does not automatically prove that the model will be biased. The effects depend on the relationship between the features, labels, sampling process, and learning algorithm.
+
+The imbalance becomes especially problematic when combined with the second issue: a feature that helps the model distinguish dogs from cats unintentionally.
+
+How to Reduce Sampling Bias
+
+Jabril should:
+- Collect responses from more varied locations.
+- Recruit enough cat owners and dog owners.
+- Track how many responses come from each group.
+- Examine whether the sample represents the intended population.
+- Consider a stratified sampling method, in which participants are deliberately selected from relevant groups.
+
+Important:
+Collecting equal numbers of cats and dogs can help compare their characteristics, but the appropriate sample proportions depend on the goal of the study.
+
+If the goal is to estimate the experiences of all pet owners, the sampling design should reflect the target population or use suitable statistical adjustments.
+
+If the goal is to compare cats and dogs fairly, collecting sufficient examples of each may be more useful than simply reproducing the population's proportions.
+
+============================================================
+11. PROBLEM TWO: CORRELATED FEATURES
+============================================================
+
+What Is a Correlated Feature?
+
+A correlated feature is a feature that has a statistical relationship with another variable.
+
+In this lab, the more important issue is that a feature becomes associated with a hidden category in the dataset, even though the developer did not explicitly provide that category to the model.
+
+Jabril discovers that:
+- Many dogs in his dataset are energetic.
+- Some dogs have other combinations of characteristics.
+- None of the cats in his sample are marked as energetic.
+
+As a result, the energetic feature becomes a clue that a pet is probably a dog within this dataset.
+
+The model can learn this relationship without ever being told which examples represent cats or dogs.
+
+How the Model Learns the Wrong Pattern
+
+Consider this simplified example:
+
+Pet Category | Energetic | Owner Happy
+Dog          |     1     |      1
+Dog          |     1     |      1
+Dog          |     0     |      0
+Cat          |     0     |      1
+Cat          |     0     |      1
+
+These rows are illustrative, not the original survey data.
+
+In this example:
+- Every energetic pet happens to be a dog.
+- Every cat is marked as not energetic.
+- The model may learn that energetic pets are associated with happy owners.
+- It may then predict that energetic dogs will make owners happy while overlooking the happiness associated with cats.
+
+The model is not necessarily recognizing a meaningful rule about pets. It is learning patterns from the examples it has been given.
+
+Why Is This a Problem?
+
+The dataset does not contain enough examples to show how the energetic feature relates to happiness across both cats and dogs.
+
+Because the feature is associated with the hidden pet category, the model can use it as a shortcut.
+
+This is an example of a spurious correlation: a relationship that appears in the available data but may not represent a reliable or meaningful relationship in the real world.
+
+Key Lesson:
+A machine learning model can discover patterns that help it predict labels in its training data without discovering the relationships that actually matter for the intended task.
+
+============================================================
+12. CORRELATION DOES NOT MEAN CAUSATION
+============================================================
+
+Correlation means two variables tend to vary together.
+
+Causation means one variable helps produce a change in another.
+
+These concepts are different.
+
+Example:
+Suppose energetic pets are frequently associated with happy owners in a dataset.
+
+That does not prove that energy causes happiness.
+
+Other factors might influence both variables, including:
+- The owner's lifestyle.
+- The amount of time the owner spends with the pet.
+- The owner's preferences.
+- The pet's temperament.
+- The kind of pet represented in the dataset.
+
+The apparent relationship might also be caused by an unrepresentative sample.
+
+In Jabril's dataset, the model can learn that energetic pets tend to receive positive labels because of how the examples were collected.
+
+That relationship may fail when the model encounters cats or dogs with different characteristics.
+
+Important Lesson:
+AI models can learn correlations from data, but the developer must determine whether those relationships are meaningful, reliable, and relevant to the real-world objective.
+
+============================================================
+13. WHY THE MODEL CAN BE ACCURATE BUT BIASED
+============================================================
+
+This is one of the most important concepts in the lab.
+
+The model's high test accuracy and its suspicious pet recommendations are not necessarily contradictory.
+
+They measure different things.
+
+Test Accuracy:
+How frequently the model correctly predicts labels for the examples in its test set.
+
+Real-World Usefulness:
+Whether the model makes reliable and appropriate predictions for the actual decisions it is intended to support.
+
+A model can achieve high test accuracy when:
+- The test set is very small.
+- The training and testing examples share the same hidden patterns.
+- The data contains misleading correlations.
+- The test set does not include enough examples from underrepresented groups.
+- The evaluation metric does not capture the actual goal.
+
+For example, if both the training and test sets contain the same underlying dog-heavy sampling bias, the model may perform well on the test set while failing to generalize to cats.
+
+The test set is independent of the training examples, but it still comes from the same flawed source.
+
+Important Distinction:
+A separate test set can help reveal overfitting, but it cannot automatically correct a biased sampling process or guarantee that the test examples represent real-world conditions.
+
+============================================================
+14. HOW TO FIX THE TWO PROBLEMS
+============================================================
+
+Fix 1: Improve the Data Collection Process
+
+Jabril should collect new survey responses from a wider range of locations and make sure that cat owners are adequately represented.
+
+He should keep track of the number of cat and dog owners surveyed.
+
+He should also examine whether the people he surveys represent the population he wants the model to help.
+
+Possible improvements:
+- Recruit participants from parks, homes, pet stores, and online pet-owner communities.
+- Collect sufficient examples from both cat owners and dog owners.
+- Record how participants were recruited.
+- Check for other imbalances in the dataset.
+- Reserve a representative test set for evaluating the final model.
+
+Fix 2: Reconsider the Features
+
+Jabril realizes that energy is not an essential requirement for his own happiness.
+
+He can therefore remove the energetic feature if it is not relevant to the decision he wants to make.
+
+However, simply removing a feature does not guarantee that bias disappears. Other features may still be correlated with pet category or owner happiness.
+
+Before removing a feature, developers should ask:
+- Is this feature genuinely relevant to the goal?
+- Does it measure something meaningful?
+- Is it acting as a shortcut for another variable?
+- Will removing it reduce useful information?
+- Could other features reproduce the same unwanted relationship?
+
+An alternative is to collect more diverse examples showing how energetic and non-energetic pets relate to owner happiness across both cats and dogs.
+
+That would help the model learn a more representative relationship.
+
+Important Lesson:
+The solution is not always to delete a feature. Sometimes the correct response is to improve the data, change the model, reconsider the goal, or use several approaches together.
+
+============================================================
+15. THE IMPORTANCE OF DEFINING THE RIGHT GOAL
+============================================================
+
+Jabril wants to predict whether a pet will make him happy.
+
+However, his model was trained using survey answers from other people.
+
+There is a major difference between these two goals:
+
+Goal A:
+Predict whether surveyed pet owners report being happy with their pets.
+
+Goal B:
+Predict whether Jabril personally will be happy adopting a particular pet.
+
+These are not the same problem.
+
+The model may learn general relationships from survey participants, but those relationships may not apply to Jabril's personal preferences or circumstances.
+
+For example:
+- One person may want a highly energetic pet.
+- Another person may prefer a calm companion.
+- One person may enjoy frequent grooming.
+- Another person may need a pet with minimal grooming requirements.
+
+A model trained on average owner experiences may not capture these individual differences.
+
+A Better Approach
+
+Jabril could identify his own priorities and evaluate each pet according to:
+- Temperament and compatibility.
+- Activity level.
+- Time available for care.
+- Grooming requirements.
+- Noise level.
+- Living environment.
+- Financial costs.
+- Long-term care needs.
+
+He could use AI to organize this information, but the final decision should account for his personal situation and the individual animal's needs.
+
+Key Lesson:
+Before building an AI system, define what success means. A model cannot reliably optimize a goal that has not been clearly specified.
+
+============================================================
+16. THREE IMPORTANT QUESTIONS FOR AI DEVELOPERS
+============================================================
+
+The lab ends with three central questions.
+
+Question 1: Does the Data Match My Goals?
+
+Developers should ask whether the data represents the people, situations, and outcomes that the AI system is intended to handle.
+
+A dataset may be large but still unsuitable for the task if it was collected in the wrong way.
+
+Question 2: Does the AI Have the Right Features?
+
+Developers should determine whether the model uses features that genuinely help predict the intended outcome.
+
+A feature may appear useful because it correlates with a label in the training data, even though it is an unreliable shortcut.
+
+Question 3: Am I Really Optimizing the Right Thing?
+
+Developers must ensure that the model's objective matches the real-world goal.
+
+A model can optimize a measurable target successfully while failing to achieve the broader outcome that people actually care about.
+
+Example:
+A recommendation system might maximize clicks rather than user satisfaction.
+
+A hiring system might predict historical hiring decisions rather than identify the best-qualified candidates.
+
+An essay grader might reward vocabulary complexity rather than meaningful writing.
+
+Key Lesson:
+A model can do exactly what it was trained to do and still fail to accomplish what its developer intended.
+
+============================================================
+17. ITERATIVE AI DEVELOPMENT
+============================================================
+
+What Is Iteration?
+
+Iteration is the process of repeatedly improving a system through testing, analysis, and revision.
+
+AI development is rarely a straightforward process in which a developer builds a model once and obtains a perfect result.
+
+A typical improvement cycle is:
+
+1. Define the problem.
+2. Collect and prepare data.
+3. Build a model.
+4. Train the model.
+5. Evaluate its performance.
+6. Investigate unexpected results.
+7. Identify weaknesses in the data or design.
+8. Make improvements.
+9. Test the revised model.
+10. Continue monitoring its performance.
+
+Why Is Iteration Important?
+
+The initial model may reveal problems that were not obvious during design.
+
+In Jabril's case, testing the model on actual adoption listings reveals a pattern that prompts him to examine the survey data more carefully.
+
+This investigation uncovers the imbalance between cats and dogs and the misleading association involving energy.
+
+The model's failure becomes useful because it helps identify problems in the overall system.
+
+Important Lesson:
+AI developers must be prepared to revise their assumptions, data collection methods, and model designs when evidence shows that the system is not working as intended.
+
+============================================================
+18. IMPORTANT TECHNICAL CONCEPTS
+============================================================
+
+1. Machine Learning
+A field of AI in which systems learn patterns from data to make predictions or decisions.
+
+2. Neural Network
+A machine learning model consisting of interconnected computational units that adjust their parameters during training.
+
+3. Multi-Layer Perceptron (MLP)
+A feedforward neural network with an input layer, one or more hidden layers, and an output layer.
+
+4. Feature
+An input variable used by a model to make predictions.
+
+5. Label
+The target value that a supervised learning model is trained to predict.
+
+6. Training Set
+The data used to fit the model's parameters.
+
+7. Testing Set
+A separate dataset used to evaluate the trained model.
+
+8. Generalization
+The ability to perform well on new examples that were not used during training.
+
+9. Overfitting
+When a model learns patterns that are too specific to its training data and fails to generalize reliably.
+
+10. Epoch
+One complete pass through the training dataset.
+
+11. Weight
+A learned parameter that determines how strongly an input contributes to a model's calculation.
+
+12. Bias Term
+A learned parameter that shifts a neuron's calculation. This is a technical neural-network term and is distinct from social or algorithmic bias.
+
+13. Accuracy
+The proportion of predictions that match the correct labels.
+
+14. Sampling Bias
+A problem caused by the way examples are selected, leading to a sample that does not adequately represent the intended population.
+
+15. Correlation
+A statistical relationship between variables.
+
+16. Spurious Correlation
+A relationship that appears in the data but may not represent a meaningful or reliable relationship in the real world.
+
+17. Generalization Error
+The difference between a model's performance on its training data and its performance on new data.
+
+18. Algorithmic Bias
+Systematic patterns in an AI system's outputs that can lead to inaccurate or unfair results.
+
+19. Data Distribution
+The way examples, features, and labels are represented across a dataset.
+
+20. Iterative Development
+The process of repeatedly testing, analyzing, and improving a model.
+
+============================================================
+19. MAIN TAKEAWAYS
+============================================================
+
+- AI models learn from the examples and patterns present in their data.
+- A small or unrepresentative dataset can produce misleading results.
+- Training and testing data should be separated to help evaluate generalization.
+- A high test accuracy score does not prove that a model is fair or useful in the real world.
+- Hidden categories can sometimes be inferred from features even when those categories are not explicitly provided.
+- Correlated features can become shortcuts that lead to misleading predictions.
+- Correlation does not prove causation.
+- Sampling bias and poorly chosen features can work together to create unexpected model behavior.
+- Removing a feature may help, but it does not automatically eliminate bias.
+- Developers must define the right goal and determine whether the model's measurements actually represent it.
+- Human judgment and careful evaluation remain important.
+- AI systems should be improved through repeated testing and iteration.
+
+============================================================
+20. REVIEW QUESTIONS
+============================================================
+
+1. What was Jabril trying to predict with his pet adoption AI?
+
+2. What were the four input features in the survey?
+
+3. What was the label the model was trained to predict?
+
+4. Why did Jabril leave the cat-or-dog category out of the model's input features?
+
+5. What is the difference between a training set and a testing set?
+
+6. What does an epoch represent during neural network training?
+
+7. What is overfitting, and why can a small dataset make it a concern?
+
+8. Why was the model's reported 100% testing accuracy misleading?
+
+9. What is sampling bias, and how did Jabril's survey collection process introduce it?
+
+10. How could a model infer whether a pet was probably a dog without being explicitly given the pet category?
+
+11. Why did the energetic feature become a misleading shortcut?
+
+12. What is a spurious correlation?
+
+13. Why does a high accuracy score not guarantee that a model will make good real-world decisions?
+
+14. What two changes did Jabril consider making to improve the model?
+
+15. Why is removing an unwanted feature not always enough to eliminate bias?
+
+16. What is the difference between predicting general owner happiness and predicting whether Jabril personally will be happy?
+
+17. What are the three important questions developers should ask when investigating algorithmic bias?
+
+18. Why is iteration an important part of AI development?
+
+============================================================
+21. PRACTICE EXERCISE
+============================================================
+
+Scenario:
+
+A university builds an AI system to predict whether students will pass a course. The model uses attendance, assignment completion, and time spent using the online learning platform.
+
+The model achieves 98% accuracy on its test set. However, it performs poorly for students who access course materials using mobile devices with limited internet connectivity.
+
+Answer the following questions:
+
+A. Data Collection
+- What kinds of students might be underrepresented in the training data?
+- How could the data collection process contribute to the problem?
+
+B. Features
+- Could time spent on the online platform be a misleading feature?
+- Does spending less time online necessarily mean that a student understands less?
+
+C. Evaluation
+- Why might the 98% accuracy score hide a serious problem?
+- What additional measurements would help evaluate the model?
+
+D. Improvements
+- What new data could improve the model?
+- How could the university evaluate performance across different student groups?
+- What role should instructors play when reviewing predictions?
+
+E. Goal Definition
+- Is predicting historical course outcomes the same as identifying which students need help?
+- How could the university redesign the system to support students rather than unfairly disadvantage them?
+
+============================================================
+FINAL SUMMARY
+============================================================
+
+This lab demonstrates that AI bias can emerge even when a developer has good intentions and does not explicitly include a sensitive or hidden category in the model.
+
+Jabril's pet adoption AI develops a preference for dogs because the survey data contains too few cat owners and because the energetic feature is associated with dogs in the dataset. The neural network learns this pattern and uses it to make predictions that do not reliably reflect the real-world goal.
+
+The solution involves examining the data, improving how examples are collected, reconsidering the features, evaluating the actual objective, and testing the revised model.
+
+The most important principle is:
+
+A machine learning model can learn patterns from data, but developers must determine whether those patterns are meaningful, representative, and appropriate for the decision the model is supposed to support.
+
+Successful AI development requires careful planning, critical evaluation, human oversight, and continuous improvement.

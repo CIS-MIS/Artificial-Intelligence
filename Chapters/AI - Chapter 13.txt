@@ -1,0 +1,328 @@
+1CS 4400 : Artificial Intelligence
+Probability and Bayes’ rule1
+Contents
+21.Uncertainty andprobability
+2.Formal definitions
+3.Joint and conditional probability
+4.Inference using joint distributions
+5.Bayes’ rule
+6.Independence and conditional independence
+7.Naïve Bayes
+8.Wumpus world
+1/8. Weakness oflogic
+3◼Logic is very good at describing definites
+❑Blue(c1) ∧ Car(c1) : “c1 is a bluecar”
+❑∀ x  Exam(x) ⇒~Like(Me,x)
+◼But not very good atindefinites
+❑KB: 50-years of records in humidity, temperature, etc
+❑ASK: Will it raintomorrow?
+◼Cannot say with certainty that it will or will not raintomorrow…
+◼There’s a 10% chance of raintomorrow
+Automated taxi
+4◼Goal: deliver a passenger to airport (5-miles away) on  
+time
+◼Plan A90: leave home 90 mins before departure and drive  
+at a reasonable speed
+◼ASK: Is the plan guaranteed towork?
+❑Theplan A90willwork, ifthecardoesn’t break down, runoutof
+gas, norgetintoanaccident, andifthere isnoaccident onthe
+bridge, nometeorite hitsthecar,noearthquake ontheroad, …
+❑Success cannot be inferred since we cannot rule out any of these  
+occurring for sure, however unlikely these events are
+Uncertainty
+5◼In the real world, uncertainty is everywhere
+◼In vacuum world
+❑Noisy (=unreliable) sensors
+❑Uncertainty in action outcomes (erratic vacuum, slippery vacuum)
+❑Uncertain environment (kindergarten rule)
+❑Partial observability (local sensing vacuum, driving)
+◼In search, uncertainty was handled by belief state
+❑Belief states: any possible subset of the powerset: 2N
+❑E.g., states = {1}, {2}, belief state = {1}, {1,3,4}
+Movement actions 
+sometimes fail, leaving the 
+agent in the same location.
+Suck at square A
+•When A has dirt, it removes dirt, sometimes 
+removes dirt in B as well
+•When A is clean, it sometimes deposits dirt
+Belief state -space (deterministic, sensorless)
+6
+Problems of using belief states
+7◼Belief state space can be toolarge
+❑Need to consider every possible cases, no matter how unlikely
+◼Belief state space may not guarantee that the goal is  
+reached
+❑Yet the agent must act
+◼No way to compare merits of different plans
+❑Plan 1: use interstate 1, which may have heavy traffic during  
+commuting hours
+❑Plan 2: use local, which is slower but never gets congested
+Medical diagnosis example
+8◼Using logic to explain relationships between Toothache,  
+Cavity, etc…
+◼Toothache ⇒ Cavity ?
+❑Not all toothaches are caused bycavities…
+◼Toothache ⇒   Cavity vGumProblem v Abscess …
+❑The list never stops
+◼Cavity ⇒ Toothache ?
+❑Not all cavity cause pain.
+◼Uncertainty is inherent, because
+❑We cannot list all possible conditions
+❑We do not have complete theory (e.g., of medical diagnosis)
+❑We cannot have all information (e.g., from medical tests)
+Probabilistic thinking
+9◼Probabilities = degree of belief in a particular  
+proposition
+❑No longer just true orfalse
+❑“The chance of dying after a car accident is0.01%”
+◼P(“Car accident ⇒ Death”) =0.0001
+◼It does not mean someone can be dead with 0.0001 intensity
+◼The person will or will not die, with 99.99% chance of living
+❑“Toothache patients have cavities 80% of the time”
+◼P(“Toothache ⇒ Cavity”) =0.80
+◼It does not mean that every patient has 80%cavity
+◼Each patient has or does not have cavity, with 80% chance of
+cavity
+Unconditional probabilities
+10◼Unconditional (or prior) probabilities: the usual or
+regular probabilities we know of
+◼Gives the probability of a variable taking a value  
+without any conditions on other variables
+❑P(Roll=2) =1/6
+❑P(Roll >=4) =1/2
+❑P(rainToday) =0.10
+❑P(~rainToday) = 1 –0.10 =0.90
+◼Cf. Conditional (or posterior) probabilities
+2/8. Formal definitions
+11◼Begin with a set Ω called the sample space (=universe)
+❑An element ω is a sample = a possible world = an atomic event
+❑e.g., A domain with a single die: Ω = 6 possible rolls
+◼A probability space (or model) is a sample space with an  
+assignment P(ω) for every ω ∈ Ωs.t.
+❑0 ≤ P(ω) ≤ 1, ∑ ω P(ω) = 1
+❑e.g., for an unbiased die roll, P(Roll=1)= … =P(Roll=6)=1/6,  
+P(Roll=1) + … + P(Roll=6) = 1
+◼An (possibly non -atomic) event A is any subset of Ω
+❑P(A) = ∑{ω ∈ A}P(ω)
+❑e.g., A:Roll<4, P(A) = P(Roll=1) + P(Roll=2) + P(Roll=3) = 3*1/6
+=1/2
+Random Variables
+12◼We need symbols to refer to events: random  
+variables
+❑E.g., Cavity : {True, False} or {1,0}
+◼For binary (true or false) random variables, we  
+abbreviate:
+❑“variable1” iff“Variable1=True”
+❑“~variable1” iff“Variable1=False”
+◼A random variable can be multi -valued
+◼Roll = number from a roll of a die: {1,2,3,4,5,6}
+Probability distribution function
+13◼Probability distribution gives values for any possible  
+assignments of random variables:
+❑Suppose Weather is one of {sunny,rain,cloudy,snow}
+❑P(Weather=sunny) = 0.72, P(Weather=rain) = 0.1,  
+P(Weather=cloudy) = 0.08, P(Weather=snow) = 0.1
+❑P(Weather) = <0.72, 0.1, 0.08, 0.1>
+◼Consider thisexample:
+❑Temperature: a real value between 18C –26C
+❑P(Temperature) = 1/8, if 18 ≤Temperate ≤26
+0, otherwise
+that is, the Temperature has a uniform distribution
+Probability density function
+◼What is the probability thattemperature=20.5?
+❑According to the previous definition, P(20.5) =1/8?
+◼For continuous variables
+❑P(x) ≠ probability ofx
+❑It’s sometimes called probability density function
+❑Practically, you should interpret P(x) differently  
+depending on whether x is continuous or discrete
+14
+Probability density function
+◼Uniform density function
+◼Gaussian density function (a.k.a. Normal density  
+function)
+15
+Multiple Variables
+16◼Problems can have multiple variables in the  
+probability space/model
+❑If I have a toothache, do I have a cavity? (2variables)
+❑How do height and weight differ by gender? (3 vars)
+❑What’s the probability of getting to 21 in Blackjack in  
+two cards? (2vars)
+◼If I have less than 21, what’s the probability of hitting 21 in 3  
+cards (3 vars.)
+◼How do we relate these multiple variables?
+3/8. Joint Probability Table
+17◼We can use a Joint Probability Table (JPT) to  
+specify the joint probability of multiple variables
+❑Examples:
+◼P(rainToday ∧ windToday) = P(rainToday, windToday) ?
+◼P(~rainToday ∧ windToday) = P(~rainToday, windToday) ?
+◼Note: When variables are binary, we can use logical connectives
+rainToday ~rainToday
+windToday 0.08 0.2
+~windToday 0.02 0.7
+Marginalization
+◼From JPT, we can calculate the probability of individual  
+variables by summing the columns or rows
+◼It’s called marginalization
+❑P(windToday) = 0.28
+❑P(~rainToday) = 0.9rainToday ~rainToday
+windToday 0.08 0.2
+~windToday 0.02 0.7
+18
+Conditional Probabilities
+19◼If we know the values of some variables, how  
+does it affect the probability of other variables?
+◼Conditional (or posterior) probability
+❑P(A=a | B=b): probability of event A=a given that we  
+know event B=b
+◼Examples
+❑I know my brakes are squeaking, are they bad?
+◼P(badBrakes | squeaking)
+❑I have a toothache, do I have acavity?
+◼P(cavity | toothache)
+Conditional Probabilities
+◼The conditional probability is defined by the joint  
+and unconditional probabilities
+(assuming P(B=b) ≠ 0)
+◼Product rule: P(A=a,B=b) = P(A=a|B=b) P(B=b)
+◼Note: a and b are very often omitted by  
+convention
+❑P(A|B) = P(A,B) / P(B), or P(A,B) = P(A|B) P(B)P(A=a | B=b) = P(A=a, B=b)
+P(B=b)
+20
+Conditional Probabilities
+21◼P(rainToday | ~windToday)?
+❑P(rainToday,~windToday) /P(~windToday)
+❑0.02 / (0.02+0.7) = 0.02/ 0.72 ~=0.027
+❑Cf: P(rainToday) =0.1rainToday ~rainToday
+windToday 0.08 0.2
+~windToday 0.02 0.7
+Conditional Probabilities
+22◼P(rainToday |windToday)?
+❑P(rainToday,windToday) / P(windToday)
+❑0.08 / 0.28 ~= 0.285
+◼Important !
+❑P(a) + P(~a) = 1, P(a|b) + P(~a|b) = 1, proof: straightforward
+❑but not necessarily P(a|b) + P(a|~b) ~=1rainToday ~rainToday
+windToday 0.08 0.2
+~windToday 0.02 0.7
+4/8. Inference with JPT
+23◼Given a JPT of multiple random variables, we  
+can answer most of the questions using
+❑Marginalized probabilities
+❑Conditional probabilities
+◼Inference by enumeration
+❑C.f. inference by enumeration in propositional logic
+◼Examples to follow …
+Inference Example
+24◼Three variables: Cavity, Toothache, Catch (Catch is true  
+if the dentist’s steel probe catches in thecavity)
+◼What is P(cavity) from this JPT?
+❑Sum the entries where Cavity is true
+toothache ~toothache
+catch ~catch catch ~catch
+cavity 0.108 0.012 0.072 0.008
+~cavity 0.016 0.064 0.144 0.576
+Inference Example
+25◼What is P(cavity) from this JPT?
+❑Sum the entries where Cavity istrue
+P(cavity) = 0.108 + 0.012 + 0.072 + 0.008 = 0.20
+toothache ~toothache
+catch ~catch catch ~catch
+cavity 0.108 0.012 0.072 0.008
+~cavity 0.016 0.064 0.144 0.576
+Inference Example
+26◼What is P(cavity ∨ toothache ) from thisJPT?
+❑Sum the entries where either Cavity or Toothache is
+true
+toothache ~toothache
+catch ~catch catch ~catch
+cavity 0.108 0.012 0.072 0.008
+~cavity 0.016 0.064 0.144 0.576
+Inference Example
+27◼What is P(cavity ∨ toothache ) from thisJPT?
+❑Sum the entries where either Cavity or Toothache is true
+❑0.108+0.012+0.016+0.064+0.072+0.008 =0.28
+toothache ~toothache
+catch ~catch catch ~catch
+cavity 0.108 0.012 0.072 0.008
+~cavity 0.016 0.064 0.144 0.576
+Inference Example
+28◼What is P(cavity ∨ toothache ) from thisJPT?
+❑Use the rule ofdisjunction
+❑P(cavity ∨ toothache) = P(cavity) + P(toothache) –P(cavity ∧   
+toothache)
+toothache ~toothache
+catch ~catch catch ~catch
+cavity 0.108 0.012 0.072 0.008
+~cavity 0.016 0.064 0.144 0.576
+Inference Example
+29◼What is P(cavity ∨ toothache ) from this JPT?
+❑Usetherule ofdisjunction :P(a∨b)=P(a)+P(b)–P(a∧b)
+❑P(cavity ∨ toothache) = P(cavity) + P(toothache) –P(cavity ∧   
+toothache) =0.28
+toothache ~toothache
+catch ~catch catch ~catch
+cavity 0.108 0.012 0.072 0.008
+~cavity 0.016 0.064 0.144 0.576
+Inference Example
+30◼What is P(cavity ∧ toothache ) from thisJPT?
+❑Sum the entries where both Cavity and Toothache are true
+toothache ~toothache
+catch ~catch catch ~catch
+cavity 0.108 0.012 0.072 0.008
+~cavity 0.016 0.064 0.144 0.576
+Inference Example
+31◼What is P(cavity ∧ toothache ) from thisJPT?
+❑Sum the entries where both Cavity and Toothache are
+true: 0.108+0.012 =0.12
+= c{true, false} P(cavity,toothache,Catch=c)
+toothache ~toothache
+catch ~catch catch ~catch
+cavity 0.108 0.012 0.072 0.008
+~cavity 0.016 0.064 0.144 0.576
+Marginalization revisited
+32◼In general, if you have P(X,Y,Z) and you want P(X,Y)
+❑Sum P(X,Y,Z) over all possible values for Z
+❑P(X,Y) = zP(X,Y,Z=z)
+= P(X,Y,Z=z1) + … + P(X,Y,Z=zn)
+◼Similarly, if you have P(X,Y|Z) and you want P(X|Z)
+❑Sum P(X,Y|Z) over all possible values for Y
+❑P(X|Z) = yP(X,Y|Z)
+= P(X,Y=y1|Z) + … + P(X,Y=yn|Z)
+◼Eliminating a variable by summing over all values of that  
+variable is called “marginalizing out.”
+5/8. Bayes’ Rule
+33◼How are P(A|B) and P(B|A) related?
+❑Answer:
+❑Proof: use definition of conditional probability
+◼Meaning: if you have causal model, you can use  
+it for diagnosis, and vice versa.
+❑P(Cause|Effect) = P(Effect|Cause) P(Cause)
+P(Effect)P(A |B)P(B)
+P(A)=P(B |A) : Bayes’ Rule
+Bayes’ Rule inaction
+34◼Suppose a patient came in to a clinic with a stiff  
+neck
+❑What’s the probability of having a meningitis?
+❑P(m|s)? (m:meningitis, s:stiff neck)
+❑Could try to use the data to come up with an estimate  
+of this directly
+❑Or use other (easier) statistics and apply Bayes’ rule
+◼P(m) = 1/50000, P(s) = 1/20
+◼P(s|m) = 0.5
+◼P(m|s) = (P(s|m)P(m))/P(s) = 0.0002
+◼What if there were a meningitis epidemic?
+Inference byenumeration
+35◼Using the full joint probability tables for inference  
+is straightforward, but not the most efficient
+❑Cf. inference by enumeration in propositional logic
+◼N binary random variables: 2N entries in the  
+table
+◼Are there special relationships among variables  
+that can simplify inferences?
+❑Independence
+❑Conditional independence

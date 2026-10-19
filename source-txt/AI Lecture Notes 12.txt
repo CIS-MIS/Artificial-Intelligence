@@ -1,0 +1,667 @@
+ARTIFICIAL INTELLIGENCE NOTES: AI AND GAME PLAYING
+
+1. INTRODUCTION: WHY DO AI RESEARCHERS USE GAMES?
+
+Artificial intelligence (AI) researchers spend a significant amount of time developing systems that can play games and compete against humans. Games are useful for AI research because they provide controlled environments where researchers can test algorithms, measure performance, and observe how systems improve.
+
+Games are more than entertainment. They are also valuable tools for studying problem-solving, planning, decision-making, learning, and strategic thinking.
+
+Why are games useful for AI?
+- Clear objectives: Games usually have specific goals, such as winning a match or reaching a destination.
+- Measurable results: Scores and game outcomes make it easy to determine whether an AI is successful.
+- Training opportunities: AI systems can learn from previous games, expert human strategies, or repeated attempts.
+- Self-play: An AI can play against itself to generate training data and discover better strategies.
+- Performance comparisons: Researchers can compare AI systems with expert human players to measure progress.
+- Motivation: Games make AI concepts more engaging and provide practical opportunities to experiment with algorithms.
+
+KEY IDEA:
+Games provide structured environments in which AI systems can practice, learn from outcomes, and improve their decision-making strategies.
+
+2. A BRIEF HISTORY OF AI AND GAMES
+
+Humans have long been fascinated by the possibility of machines outperforming people at games requiring strategy and intelligence.
+
+A. The Mechanical Turk (1770)
+
+In 1770, Wolfgang von Kempelen introduced a machine called the Mechanical Turk to the Austrian Empress Maria Theresa.
+
+The machine appeared to play chess automatically and could defeat many human opponents. However, it was a deception: a human chess player was secretly concealed inside the machine and controlled its moves.
+
+Importance:
+- The Mechanical Turk demonstrated the public's fascination with machine intelligence.
+- It was not a genuine AI system because a human was making the decisions.
+
+B. Early AI Game Research (1940s–1950s)
+
+Early AI researchers recognized that chess was a difficult problem because it involved many possible moves and strategies.
+
+Instead of immediately attempting to solve complete chess games, researchers explored simpler versions, such as:
+- Chess positions with only a few pieces remaining.
+- Smaller chessboards with fewer pieces and possible moves.
+- Checkers, which appeared simpler than chess but still presented substantial computational challenges.
+
+In 1956, an IBM-developed checkers program was an important milestone in early computer game-playing research. Researchers also developed early chess-playing programs during the 1950s.
+
+C. Major AI Game Achievements
+
+Several important milestones demonstrate how AI game-playing capabilities improved over time.
+
+- 1995: Chinook began achieving major success against top-level checkers players.
+- 1997: IBM's Deep Blue defeated world chess champion Garry Kasparov in a match.
+- 2017: DeepMind's AlphaGo defeated Go champion Ke Jie in a match, following its landmark victory over Lee Sedol in 2016.
+- 2018: OpenAI Five demonstrated competitive performance against professional Dota 2 players in a limited match format.
+- 2019: DeepMind's AlphaStar achieved Grandmaster-level performance in StarCraft II.
+
+These achievements showed that computers could compete with highly skilled humans in games requiring planning, calculation, and strategy.
+
+KEY IDEA:
+AI game-playing systems became more successful as computers grew more powerful and researchers developed better search algorithms, learning methods, and evaluation techniques.
+
+3. REPRESENTING A GAME AS A SEARCH TREE
+
+One way to teach an AI to play a game is to represent the game as a tree of possible moves.
+
+A search tree is a structure that represents possible decisions and the resulting states of a problem.
+
+Important terms:
+
+- State: The current situation of a game, including the board arrangement and whose turn it is.
+- Action: A move that a player can make.
+- Branch: A possible action or transition from one state to another.
+- Node: A particular state represented in the tree.
+- Search tree: A representation of possible sequences of actions and their outcomes.
+- Terminal state: A state where the game ends, such as a win, loss, or draw.
+
+Example: Tic-Tac-Toe
+
+Imagine an AI playing tic-tac-toe as X.
+
+1. The AI examines the current board.
+2. It identifies every legal move.
+3. Each legal move creates a possible new board state.
+4. The AI considers how the opponent might respond to each move.
+5. It continues exploring possible future moves.
+6. It evaluates the resulting outcomes and chooses a move.
+
+The tree expands as more moves are considered.
+
+For example:
+
+Current board
+    |
+    +-- AI places X in position A
+    |      |
+    |      +-- Opponent places O in position B
+    |      +-- Opponent places O in position C
+    |
+    +-- AI places X in position B
+    |      |
+    |      +-- Opponent places O in position A
+    |      +-- Opponent places O in position C
+    |
+    +-- AI places X in position C
+           |
+           +-- Opponent considers possible responses
+
+The actual tree continues through all legal moves until the game reaches a terminal state or the search is stopped.
+
+WHY SEARCH TREES MATTER:
+They allow an AI to reason about the consequences of its actions instead of choosing moves without considering the future.
+
+4. REWARD VALUES AND EVALUATING GAME OUTCOMES
+
+Computers need a way to compare possible outcomes. One common approach is to assign numerical values to game states.
+
+A reward or evaluation value represents how desirable an outcome is for a particular player.
+
+For a simple game, a scoring system might be:
+
+- +1: Win for the AI.
+- 0: Draw.
+- -1: Loss for the AI.
+
+The AI can examine the possible outcomes and try to choose actions that lead to the highest value.
+
+For example:
+- A move that guarantees a win is highly desirable.
+- A move that prevents an unavoidable loss may be the best available choice.
+- A move that produces a draw may be preferable to one that leads to defeat.
+
+The exact scoring system depends on the game and the algorithm being used. Some systems use more detailed numerical evaluations instead of only win, loss, and draw values.
+
+Important distinction:
+A reward is a numerical signal used to evaluate an outcome or encourage certain behavior. A value estimate predicts how beneficial a state or action is expected to be.
+
+5. THE MINIMAX ALGORITHM
+
+Minimax is a decision-making algorithm used in two-player, turn-based, competitive games.
+
+It assumes that both players make the best possible decisions for their own interests.
+
+The AI tries to maximize its outcome, while its opponent tries to minimize that outcome.
+
+How minimax works:
+
+Step 1: Generate possible moves.
+The AI identifies the legal moves available from the current state.
+
+Step 2: Explore future states.
+It considers the possible responses to each move.
+
+Step 3: Evaluate the outcomes.
+Terminal states receive scores, or nonterminal states receive estimated values.
+
+Step 4: Alternate between maximizing and minimizing.
+- At a maximizing node, the AI selects the highest available value.
+- At a minimizing node, the AI assumes the opponent selects the lowest available value.
+
+Step 5: Select the best move.
+The algorithm works backward through the tree to determine which initial action produces the best outcome against an optimal opponent.
+
+Example:
+
+Suppose the AI has two possible moves.
+
+Move A:
+- Opponent response 1 leads to a score of +1.
+- Opponent response 2 leads to a score of 0.
+
+Move B:
+- Opponent response 1 leads to a score of -1.
+- Opponent response 2 leads to a score of 0.
+
+Because the opponent is assumed to choose the response least favorable to the AI:
+- Move A has a worst-case value of 0.
+- Move B has a worst-case value of -1.
+
+The AI chooses Move A because it offers the better worst-case outcome.
+
+The main idea is that the AI should not simply choose the move with the most promising result. It should account for how an intelligent opponent might respond.
+
+WHY IS IT CALLED MINIMAX?
+- MAX represents the player trying to maximize the score.
+- MIN represents the opponent trying to minimize that score.
+
+POLICY:
+A policy is a strategy or rule for selecting actions in different states. A minimax-based policy selects actions using the outcomes predicted by the search process.
+
+When a game tree is completely searched and its rules and outcomes are evaluated correctly, minimax can determine an optimal move under its assumptions.
+
+6. WHY TIC-TAC-TOE CAN BE SOLVED
+
+Tic-tac-toe has a relatively small number of possible game states compared with games such as chess and Go.
+
+An AI can search through the possible moves and determine which actions lead to wins, losses, or draws.
+
+Although the number of possible board configurations depends on how they are counted, the complete game tree is small enough for exhaustive search on modern computers.
+
+As a result, an AI can play optimally:
+- It can win when the opponent makes mistakes that allow a win.
+- It can force a draw against an opponent who also plays optimally.
+- It will not lose when it plays correctly from a valid starting position.
+
+This illustrates the concept of a solved game.
+
+A solved game is one for which the theoretically optimal outcome or strategy has been determined from a given starting position or class of positions.
+
+For standard tic-tac-toe, perfect play by both players results in a draw.
+
+IMPORTANT:
+An AI that always plays optimally does not necessarily win every game. If the opponent also plays optimally, the best possible outcome in some games is a draw.
+
+7. THE PROBLEM OF COMBINATORIAL EXPLOSION
+
+Exhaustively searching every possible move becomes impractical as a game grows more complex.
+
+This problem is known as combinatorial explosion: the number of possibilities increases dramatically as the search becomes deeper or each state offers more choices.
+
+Approximate estimates of the number of possible game states illustrate the challenge:
+
+- Checkers: Often estimated around 10^20 possible positions.
+- Chess: Commonly estimated around 10^50 possible positions.
+- Go: Estimates can reach around 10^170 to 10^250 or more, depending on what is being counted and how states are defined.
+
+These are approximate estimates, not exact counts of every legally reachable position.
+
+For perspective, the number of atoms in the observable universe is commonly estimated to be around 10^80.
+
+The important lesson is that the search spaces of some games are far too large for straightforward exhaustive search.
+
+Why can't an AI simply examine every possibility?
+- Each position can lead to many possible future positions.
+- Exploring more moves creates additional branches.
+- The number of states can exceed the computational resources available.
+- Real-time games impose strict time limits on decision-making.
+
+Even extremely powerful computers cannot solve every game by simply enumerating every possible state.
+
+KEY IDEA:
+A major challenge in AI game-playing is deciding which possibilities deserve attention when examining everything is impractical.
+
+8. MONTE CARLO TREE SEARCH (MCTS)
+
+Monte Carlo Tree Search is a search algorithm that explores a game tree selectively instead of examining every possible state.
+
+It uses repeated simulations and statistical estimates to determine which moves appear most promising.
+
+The term "Monte Carlo" refers to the use of randomness and repeated sampling to estimate outcomes.
+
+How Monte Carlo Tree Search works:
+
+1. Selection
+   Begin at the current game state and follow the tree toward a promising action. The algorithm balances exploring unfamiliar actions with revisiting actions that have performed well.
+
+2. Expansion
+   Add one or more new states to the search tree when the algorithm reaches a state that has not been fully explored.
+
+3. Simulation
+   Play out a possible continuation of the game from the selected state. Depending on the system, moves may be selected randomly, guided by a policy, or chosen using a learned model.
+
+4. Backpropagation
+   Send the simulation result back through the visited nodes and update their statistics, such as average reward or estimated success rate.
+
+5. Repeat
+   Perform many simulations and use the accumulated evidence to choose an action.
+
+Example:
+
+Suppose an AI has three possible moves.
+
+- Move A has a high estimated chance of success based on previous simulations.
+- Move B has a moderate estimated chance of success.
+- Move C has been explored very little.
+
+The algorithm may investigate Move A because it appears promising, while also exploring Move C to determine whether it could be even better.
+
+After many simulations, the AI uses the accumulated statistics to select its next move.
+
+WHY IS MCTS USEFUL?
+- It avoids exploring every possible continuation.
+- It focuses computational effort on promising parts of the game tree.
+- It can improve its estimates as more simulations are performed.
+- It is useful for games with enormous search spaces.
+
+MCTS does not guarantee that an estimate is correct. Its effectiveness depends on the number of simulations, the search strategy, the quality of its evaluation methods, and the available computation.
+
+9. HOW MODERN GAME AI COMBINES SEARCH AND LEARNING
+
+Modern game-playing systems often combine tree search with machine learning.
+
+For example, AlphaGo combined neural networks with Monte Carlo Tree Search.
+
+Neural networks helped estimate promising moves and the likelihood of winning from different positions. Tree search then used these estimates to explore the most promising possibilities.
+
+This combination is powerful because:
+- Machine learning helps the system recognize useful patterns.
+- Search examines possible future consequences.
+- Simulations provide evidence about the outcomes of different strategies.
+- The system can focus on promising moves rather than treating every move equally.
+
+A neural network can provide a policy estimate, which suggests which actions are promising, and a value estimate, which predicts how favorable a position is.
+
+Tree search can use both estimates to improve decision-making.
+
+This is an example of how different AI techniques can work together rather than operating as completely separate approaches.
+
+10. AI IN REAL-TIME STRATEGY GAMES
+
+Not all games resemble chess or Go.
+
+Real-time strategy games, such as StarCraft II, require players to make decisions while the game continues to unfold.
+
+An AI must often manage:
+- Limited resources.
+- Units and structures.
+- Movement and positioning.
+- Opponent strategies.
+- Long-term plans.
+- Short-term emergencies.
+- Decisions under time pressure.
+
+Unlike traditional turn-based games, a real-time strategy game may require many decisions within a short period.
+
+This makes exhaustive search especially difficult.
+
+AI systems can use learned policies, simulations, and planning methods to select actions quickly. The system must balance strategic planning with immediate responses to changes in the environment.
+
+KEY IDEA:
+Real-time games test an AI's ability to make effective decisions under time constraints, uncertainty, and changing conditions.
+
+11. QUESTION-ANSWERING SYSTEMS: IBM WATSON
+
+AI game-playing research also includes games that depend on language and knowledge rather than moving pieces on a board.
+
+IBM Watson competed against human champions on the television quiz show Jeopardy! in 2011.
+
+Watson had to:
+- Interpret clues expressed in natural language.
+- Identify important keywords and relationships.
+- Retrieve relevant information.
+- Evaluate possible answers.
+- Estimate confidence in its response.
+- Respond quickly enough to compete with human contestants.
+
+Watson used language-processing techniques and structured knowledge resources to help identify likely answers.
+
+A knowledge graph is a structured representation of entities and their relationships. For example, a graph might connect a city to its country or a scientist to a discovery.
+
+Watson demonstrated that AI could perform impressively on complex question-answering tasks. However, it could still make mistakes when interpreting context or resolving ambiguity.
+
+This illustrates an important principle:
+Success on a specific task does not mean an AI fully understands language in the same way humans do.
+
+12. EVOLUTIONARY NEURAL NETWORKS
+
+Evolutionary approaches improve AI systems by generating multiple candidate solutions and selecting those that perform well.
+
+They are inspired by biological evolution, in which traits that improve survival and reproduction can become more common across generations.
+
+In evolutionary neural networks, a population may contain neural networks with different:
+- Weights.
+- Structures.
+- Connections.
+- Strategies.
+- Other design choices.
+
+A simplified evolutionary process works as follows:
+
+Step 1: Initialize a population.
+Create several candidate neural networks, often with different parameters or structures.
+
+Step 2: Evaluate performance.
+Run each network in an environment and measure how well it performs.
+
+Step 3: Select successful candidates.
+Give better-performing candidates a greater chance of contributing to the next generation.
+
+Step 4: Create variations.
+Use methods such as mutation, recombination, or other search operations to generate new candidates.
+
+Step 5: Repeat.
+Evaluate the new population and continue improving across generations.
+
+The goal is to find networks or strategies that perform increasingly well on the task.
+
+Important terms:
+
+- Population: A group of candidate solutions.
+- Fitness: A measure of how well a candidate performs.
+- Selection: Choosing candidates based on their performance.
+- Mutation: Making changes to a candidate solution.
+- Generation: One iteration of the evolutionary process.
+
+Evolutionary methods can be combined with neural networks and reinforcement learning, but these approaches are not identical.
+
+13. EXAMPLE: MARIO GAME AI
+
+An example of evolutionary learning is MarI/O, a project that demonstrated how an AI could learn to play a Super Mario World level.
+
+The system receives information about the game and chooses from available controller actions, such as moving left, moving right, or jumping.
+
+Its performance can be evaluated using a fitness measure that rewards progress through the level.
+
+A simplified learning process looks like this:
+
+1. Generate a candidate strategy.
+2. Let the AI play the level.
+3. Measure how far it progresses and how well it performs.
+4. Keep or favor strategies that achieve better results.
+5. Introduce variations into successful strategies.
+6. Repeat with new generations.
+
+At first, many actions may appear ineffective or random. Over time, successful behaviors can become more common because they receive better fitness scores.
+
+The AI does not necessarily understand Mario's world as a human player does. It learns patterns of actions that improve the numerical objective it has been given.
+
+REWARD DESIGN MATTERS:
+If the AI is rewarded for moving to the right, it may learn to maximize rightward progress. However, a poorly designed objective might encourage behavior that increases the score without actually completing the level successfully.
+
+A good fitness function should reflect the intended goal as accurately as possible.
+
+14. REINFORCEMENT LEARNING AND EVOLUTIONARY METHODS
+
+Reinforcement learning (RL) and evolutionary methods can both train agents through interaction with an environment, but they use different learning mechanisms.
+
+Reinforcement learning:
+- An agent takes actions in an environment.
+- It receives rewards or penalties.
+- It learns a policy intended to maximize cumulative reward.
+- Learning may update a value function, policy, or other model parameters.
+
+Evolutionary methods:
+- Multiple candidate solutions are evaluated.
+- Better-performing candidates are favored.
+- Variations are introduced to create new candidates.
+- Successful characteristics may persist across generations.
+
+Some systems combine these approaches. For example, an evolutionary algorithm may search for effective neural network parameters or architectures, while reinforcement learning updates a policy through experience.
+
+KEY DISTINCTION:
+Reinforcement learning commonly improves an agent using reward-driven experience, while evolutionary methods improve a population by selecting and varying candidate solutions.
+
+15. CAN HUMANS STILL BEAT AI AT GAMES?
+
+AI has achieved remarkable success in many structured games, but some games remain challenging because they require skills that are difficult to represent, evaluate, or predict.
+
+A. Language and Wordplay
+
+Games involving language may require understanding:
+- Humor.
+- Irony.
+- Metaphors.
+- Sarcasm.
+- Ambiguous expressions.
+- Cultural references.
+- Context-dependent meanings.
+
+AI can perform well on many language tasks, but subtle meanings and unexpected interpretations can still create challenges.
+
+B. Social Reasoning
+
+Some games require predicting how other people will behave.
+
+Human players may:
+- Make mistakes.
+- Act emotionally.
+- Use unconventional strategies.
+- Hide their intentions.
+- Bluff or mislead opponents.
+
+A system that assumes everyone will always make the mathematically optimal move may struggle against players who behave unpredictably.
+
+C. Bluffing Games
+
+Poker illustrates the difficulty of making decisions under uncertainty.
+
+A player does not know every opponent's cards and must make decisions based on incomplete information.
+
+Successful play may require estimating probabilities, managing risk, inferring opponents' strategies, and deciding when to bluff.
+
+AI systems have achieved major success in poker, so uncertainty and bluffing do not automatically give humans an advantage.
+
+D. Creativity and Surprise
+
+Some games reward creative or unexpected actions.
+
+Creativity is difficult to evaluate with a simple numerical score. A computer can be rewarded for winning a chess game or reaching the end of a level, but measuring originality, humor, or artistic quality is more complicated.
+
+Games such as charades, Pictionary, and hide-and-seek may involve a mixture of perception, communication, creativity, physical interaction, and reasoning about other people.
+
+However, these games are not necessarily safe from AI. Modern systems can perform well in some of these areas, and future performance depends on the specific task and technology.
+
+IMPORTANT CONCLUSION:
+There is no guarantee that any particular type of game will remain beyond AI's abilities. Performance depends on the game's rules, objectives, information, environment, and required skills.
+
+16. LIMITATIONS OF GAME-PLAYING AI
+
+Although AI can perform extremely well in games, several limitations remain.
+
+- Computational cost: Large search spaces can make exhaustive exploration impossible.
+- Time constraints: Some games require decisions faster than a system can search deeply.
+- Imperfect evaluation: A numerical score may fail to capture every important aspect of a situation.
+- Uncertainty: The AI may not know the opponent's intentions or all relevant information.
+- Generalization: A system trained for one game may not automatically perform well in another.
+- Reward design: The AI may optimize the provided objective without achieving the broader intention behind it.
+- Context and interpretation: Language-based games may depend on subtle social or cultural meanings.
+
+These limitations encourage researchers to develop more efficient search techniques, better evaluation functions, and more adaptable learning systems.
+
+17. IMPORTANT VOCABULARY
+
+Artificial Intelligence (AI):
+The development of computer systems that perform tasks associated with intelligent behavior.
+
+Game State:
+The current configuration of a game, including relevant information such as the board and whose turn it is.
+
+Action:
+A move or decision available to an agent.
+
+Search Tree:
+A structure representing possible sequences of actions and their resulting states.
+
+Terminal State:
+A state in which a game has ended.
+
+Reward:
+A numerical signal indicating the desirability of an outcome or behavior.
+
+Value Function:
+A function that estimates the expected future return associated with a state or action.
+
+Policy:
+A strategy or rule that determines which action an agent should take in a given state.
+
+Minimax:
+A search algorithm that selects moves by maximizing the AI's outcome while assuming the opponent minimizes it.
+
+Combinatorial Explosion:
+The rapid growth in the number of possible combinations or states as a problem becomes more complex.
+
+Monte Carlo Tree Search (MCTS):
+A search method that uses repeated simulations and statistics to explore promising parts of a game tree.
+
+Simulation:
+A model-based attempt to reproduce possible future events or outcomes.
+
+Neural Network:
+A machine-learning model that learns patterns from data and can produce predictions or action recommendations.
+
+Evolutionary Algorithm:
+An optimization method that develops candidate solutions across generations using selection and variation.
+
+Fitness Function:
+A numerical measure used to evaluate the performance of candidate solutions in evolutionary methods.
+
+Knowledge Graph:
+A structured representation of entities and the relationships between them.
+
+Reinforcement Learning:
+A machine-learning approach in which an agent learns through actions, environmental feedback, and rewards.
+
+18. KEY TAKEAWAYS
+
+1. Games are valuable AI research environments because they provide clear objectives and measurable results.
+
+2. AI systems can learn from expert games, repeated attempts, self-play, simulations, and feedback.
+
+3. A search tree represents the possible moves and outcomes available in a game.
+
+4. Reward and evaluation values allow an AI to compare different outcomes numerically.
+
+5. Minimax chooses moves by assuming that both players make the best possible decisions for their own interests.
+
+6. Tic-tac-toe can be solved through exhaustive search because its search space is small enough.
+
+7. More complex games, such as chess and Go, have enormous search spaces that make exhaustive search impractical.
+
+8. Monte Carlo Tree Search uses repeated simulations and statistical estimates to focus on promising parts of a search tree.
+
+9. Modern game-playing AI often combines neural networks, search algorithms, and simulations.
+
+10. Evolutionary algorithms improve candidate solutions across generations by evaluating performance and selecting successful candidates.
+
+11. Reinforcement learning and evolutionary methods can both improve game-playing behavior, but they use different learning mechanisms.
+
+12. AI has achieved major victories in chess, checkers, Go, poker, and real-time strategy games.
+
+13. Games involving language, social behavior, creativity, or uncertainty may present different challenges from games with clearly defined rules and rewards.
+
+14. AI performance depends heavily on how the task is represented, what information is available, and how success is measured.
+
+19. REVIEW QUESTIONS
+
+1. Why are games useful for AI research?
+
+2. How can an AI generate training data by playing against itself?
+
+3. What is a game state, and how is it represented in a search tree?
+
+4. How does a search tree help an AI evaluate possible moves?
+
+5. What do the numbers +1, 0, and -1 represent in a simple game evaluation system?
+
+6. Explain how the minimax algorithm works.
+
+7. Why does minimax assume that an opponent will make the best possible move?
+
+8. Why can tic-tac-toe be solved using exhaustive search?
+
+9. What is combinatorial explosion, and why does it create problems for game-playing AI?
+
+10. How does Monte Carlo Tree Search differ from exhaustive search?
+
+11. What are the main stages of Monte Carlo Tree Search?
+
+12. How can neural networks improve game-tree search?
+
+13. How does an evolutionary algorithm improve an AI that plays a video game?
+
+14. What is the difference between reinforcement learning and evolutionary methods?
+
+15. Why might language-based or social games be difficult for AI?
+
+16. Why is it important to design a reward or fitness function carefully?
+
+17. Give an example of how AI has achieved success in a game and explain the techniques that contributed to its performance.
+
+20. PRACTICE ACTIVITY
+
+Imagine that you are building an AI to play tic-tac-toe.
+
+Complete the following steps:
+
+A. Define the goal.
+- What counts as a win?
+- What counts as a draw?
+- What counts as a loss?
+
+B. Represent the state.
+- How will the board be stored?
+- How will the system know whose turn it is?
+- How will it identify legal moves?
+
+C. Design the evaluation system.
+- What score will a win receive?
+- What score will a draw receive?
+- What score will a loss receive?
+
+D. Apply minimax.
+- List the possible moves.
+- Consider the opponent's responses.
+- Evaluate the outcomes.
+- Select the move with the best worst-case result.
+
+E. Test the AI.
+- Play against the AI.
+- Record whether it wins, loses, or draws.
+- Try different strategies.
+- Determine whether the AI can be forced to lose.
+
+F. Extend the project.
+- Imagine the game has many more possible moves.
+- Explain why searching every possibility might become too expensive.
+- Describe how simulations or Monte Carlo Tree Search could help.
+
+FINAL CONCEPT:
+Teaching an AI to play games involves more than choosing moves. It requires representing a problem, defining success, exploring possible outcomes, evaluating strategies, and learning how to make effective decisions within computational limits.

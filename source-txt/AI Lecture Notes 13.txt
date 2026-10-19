@@ -1,0 +1,937 @@
+ARTIFICIAL INTELLIGENCE NOTES: BUILDING A GAME-PLAYING AI WITH NEURAL NETWORKS AND GENETIC ALGORITHMS
+
+1. INTRODUCTION: USING VIDEO GAMES TO STUDY AI
+
+Video games provide a useful environment for developing and testing artificial intelligence (AI). Games often have defined rules, clear objectives, and measurable outcomes, making it easier to evaluate how well an AI system performs.
+
+AI researchers use games to explore skills such as:
+- Strategy and planning.
+- Decision-making.
+- Coordination.
+- Pattern recognition.
+- Reflexes and timing.
+- Learning from experience.
+- Responding to changing environments.
+
+AI systems have achieved impressive results in complex games, including Go and StarCraft II. In this lesson, the goal is to build an AI that learns to play a custom video game called TrashBlaster.
+
+The project demonstrates how neural networks and genetic algorithms can work together to improve an AI's performance over many attempts.
+
+KEY IDEA:
+A video game can act as a training environment where an AI repeatedly makes decisions, receives feedback, and improves its behavior.
+
+2. UNDERSTANDING THE TRASHBLASTER GAME
+
+TrashBlaster is a game in which the player controls a small character, John-Green-bot, swimming through an ocean and destroying pieces of trash.
+
+The game has several rules:
+- The player can move around the ocean.
+- The player can fire blasts at pieces of trash.
+- Blasts can destroy trash when they hit it.
+- Some trash may split into smaller pieces when hit.
+- If the player touches a piece of trash, the player loses and the game restarts.
+- The player's performance is tracked using a scoreboard.
+
+The AI must learn to balance two important objectives:
+1. Avoid colliding with trash.
+2. Destroy trash by aiming and firing blasts.
+
+Simply surviving is not necessarily enough to achieve a high score, and firing constantly may not be an effective strategy either.
+
+The AI needs to learn a balance between survival, movement, aiming, and shooting.
+
+3. BUILDING THE GAME ENVIRONMENT
+
+Before creating an AI that can play a game, developers must build the environment in which it will operate.
+
+The example project uses Python and Google Colaboratory, an online environment for writing and executing Python code.
+
+The project also uses libraries such as Pygame to support game development and graphics.
+
+A. Importing Libraries
+
+Libraries are collections of reusable code that provide functionality developers can use in their programs.
+
+For example, a game-development library may provide tools for:
+- Displaying images.
+- Handling movement.
+- Detecting collisions.
+- Updating graphics.
+- Managing game events.
+
+The project imports the required libraries before building the game.
+
+B. Defining Game Objects
+
+The game contains several objects that interact with one another.
+
+**1. Hero**
+
+The hero is the character controlled by the AI.
+
+Its properties may include:
+- Position.
+- Movement speed.
+- Direction.
+- Appearance.
+- Blaster behavior.
+
+**2. Blaster**
+
+The blaster creates projectiles used to destroy trash.
+
+Its properties may include:
+- Firing direction.
+- Projectile speed.
+- Appearance.
+- Collision behavior.
+- Effects when a projectile hits trash.
+
+**3. Trash**
+
+Trash objects are the targets the player must destroy while avoiding collisions.
+
+Their properties may include:
+- Position.
+- Size.
+- Velocity.
+- Appearance.
+- Collision behavior.
+- Whether they split into smaller pieces when hit.
+
+**4. Background**
+
+The background represents the ocean in which the game takes place.
+
+The game uses a toroidal world, meaning that its boundaries wrap around.
+
+For example, if the player moves off the right edge of the screen, the player reappears on the left edge. The same wrapping behavior can apply to other objects.
+
+This matters because objects near one edge may actually be close to the player when distance is calculated across the boundary.
+
+**5. Scoreboard**
+
+The scoreboard displays information about the player's performance.
+
+In this project, it can display the AI's fitness score, which measures how well the AI is performing according to a predefined objective.
+
+C. The Game Loop
+
+The game uses a main loop, implemented through a function called `run`, to repeatedly update the environment.
+
+A simplified game loop works as follows:
+
+1. Check whether the game has ended.
+2. Update the positions of objects.
+3. Process player actions.
+4. Check collisions.
+5. Update the score.
+6. Create new trash when necessary.
+7. Refresh the display.
+8. Repeat until the game ends.
+
+The game loop is essential because it allows the environment to change continuously while the AI makes decisions.
+
+KEY IDEA:
+The game environment defines the rules, objects, actions, and outcomes that the AI must learn to handle.
+
+4. INTRODUCTION TO NEURAL NETWORKS
+
+A neural network is a machine-learning model that learns patterns by adjusting numerical parameters called weights.
+
+A neural network typically contains three main types of layers:
+
+- Input layer: Receives information about the environment.
+- Hidden layers: Process the input and learn useful relationships.
+- Output layer: Produces predictions or action values.
+
+In TrashBlaster, the neural network receives information about nearby trash and produces actions controlling the hero and the blaster.
+
+The neural network acts as the AI's decision-making system.
+
+5. DESIGNING THE INPUT LAYER
+
+The AI needs information about the environment to decide what to do.
+
+The TrashBlaster model considers the five pieces of trash closest to the hero.
+
+For each piece of trash, the network receives five measurements:
+
+1. Relative X position.
+2. Relative Y position.
+3. Relative X velocity.
+4. Relative Y velocity.
+5. Size of the trash.
+
+Relative position describes where an object is located in relation to the hero rather than simply using its absolute screen coordinates.
+
+Relative velocity describes how the object's movement compares with the hero's movement.
+
+For example, the AI may need to determine:
+- Is the trash approaching?
+- Is it moving away?
+- Is it likely to collide with the hero?
+- Is the trash large or small?
+- Where should the hero move to avoid it?
+
+Because there are five measurements for each of five trash objects, the input layer contains 25 input values.
+
+Calculation:
+
+Number of trash objects × Measurements per object
+
+5 × 5 = 25 inputs
+
+The AI therefore receives 25 numerical inputs describing nearby threats.
+
+IMPORTANT:
+The closest trash might appear on the opposite side of the screen because the game world wraps around. The input calculations must account for the toroidal boundaries so that the AI receives meaningful relative positions.
+
+6. DESIGNING THE HIDDEN LAYERS
+
+The example neural network begins with two hidden layers containing 15 nodes each.
+
+The architecture is therefore:
+
+Input layer: 25 nodes
+        ↓
+Hidden layer 1: 15 nodes
+        ↓
+Hidden layer 2: 15 nodes
+        ↓
+Output layer: 5 nodes
+
+A node, also called a neuron, processes information received from previous layers.
+
+Connections between nodes have weights that determine how strongly one node influences another.
+
+The hidden layers allow the model to learn relationships between the input measurements and useful actions.
+
+For example, the network might learn that certain combinations of relative position, velocity, and object size indicate a dangerous collision.
+
+The choice of 15 nodes per hidden layer is an initial design decision, not a universal rule. Developers can experiment with different architectures to see how they affect performance.
+
+7. DESIGNING THE OUTPUT LAYER
+
+The neural network produces five outputs that control the hero's behavior.
+
+The outputs represent:
+
+1. X movement.
+2. Y movement.
+3. X direction for aiming the blaster.
+4. Y direction for aiming the blaster.
+5. Whether to fire the blaster.
+
+The first four outputs influence movement and aiming, while the fifth determines firing behavior.
+
+These outputs are translated into actions in the game environment.
+
+For example:
+- Movement outputs can determine the direction in which the hero swims.
+- Aiming outputs can determine where the blaster points.
+- The firing output can determine whether the hero shoots.
+
+The network's job is to map the current input information to an appropriate set of actions.
+
+The exact interpretation of the numerical outputs depends on the game's implementation.
+
+8. NEURAL NETWORK WEIGHTS
+
+Weights are numerical parameters that determine how information flows through a neural network.
+
+The initial weights influence the network's first decisions.
+
+In the example project, the weights are initially set to zero. Consequently, the network initially produces unhelpful behavior, such as remaining still or repeatedly choosing ineffective actions.
+
+The genetic algorithm will later modify these weights to produce different behaviors.
+
+A simplified neural network calculation can be represented as:
+
+Output = Activation(Weighted Sum of Inputs + Bias)
+
+The weighted sum combines input values according to their connection weights. An activation function then transforms the result.
+
+During training, the network's weights can change, which changes the actions it produces.
+
+KEY IDEA:
+The neural network provides the mechanism for selecting actions, while the genetic algorithm provides a method for searching for better network weights.
+
+9. WHY ORDINARY SUPERVISED LEARNING IS NOT THE MAIN APPROACH
+
+Supervised learning trains a model using examples that contain inputs and their desired outputs.
+
+For example, a supervised learning dataset might contain:
+- A picture of a cat.
+- The correct label: "cat."
+
+A model learns by comparing its predictions with the correct answers.
+
+However, TrashBlaster presents a different challenge.
+
+There is not necessarily one correct action at every moment. A move that appears unhelpful immediately may lead to a better outcome later, and mistakes can accumulate over the entire game.
+
+For example:
+- Moving away from a threat may improve survival.
+- Shooting may destroy trash and increase the score.
+- Shooting in the wrong direction may waste a shot.
+- A sequence of small mistakes may eventually cause a collision.
+
+It can be difficult to label the ideal action for every possible game situation.
+
+Instead, the project evaluates the AI based on its performance across a complete game.
+
+This is closely related to reinforcement learning, in which an agent learns from rewards associated with its actions and experiences.
+
+However, the particular training method used in this example is a genetic algorithm that evolves neural network weights according to their fitness scores.
+
+10. INTRODUCTION TO GENETIC ALGORITHMS
+
+A genetic algorithm (GA) is an optimization method inspired by biological evolution.
+
+It searches for good solutions by creating a population of candidates, evaluating their performance, and producing new candidates based on the more successful ones.
+
+In biology, individuals with traits that improve their chances of surviving and reproducing may pass those traits to future generations.
+
+A genetic algorithm applies a similar idea to candidate solutions.
+
+In TrashBlaster, each candidate is a neural network that controls one AI player.
+
+The algorithm repeatedly:
+1. Creates a population of AI models.
+2. Tests each model in the game.
+3. Measures each model's performance.
+4. Selects the better-performing models.
+5. Copies selected models.
+6. Mutates some of their weights.
+7. Tests the resulting population.
+8. Repeats the process.
+
+Over time, successful behaviors may become more common in the population.
+
+11. POPULATION AND INITIALIZATION
+
+A population is the collection of candidate solutions being evaluated during a generation.
+
+The TrashBlaster project begins with a population of 200 AI models.
+
+Each model has a neural network whose weights initially provide little or no useful behavior.
+
+The models play the game, and their fitness scores are recorded.
+
+Even if most models perform poorly, their results will differ because of their network parameters and the actions they produce.
+
+Some models may survive longer, destroy more trash, or achieve better overall scores.
+
+The algorithm uses these differences to decide which models should contribute to future generations.
+
+IMPORTANT TERMS:
+
+- Population: The group of AI models being evaluated.
+- Individual: One candidate AI model.
+- Generation: One cycle of evaluation and reproduction.
+- Fitness: The score used to compare the quality of candidate models.
+
+12. FITNESS FUNCTIONS: DEFINING SUCCESS
+
+The fitness function is one of the most important parts of this project.
+
+A fitness function calculates a numerical score that represents how well a candidate solution performs.
+
+The genetic algorithm uses these scores to identify models that should be copied and varied to produce future generations.
+
+For TrashBlaster, the AI has two main goals:
+- Stay alive.
+- Destroy trash.
+
+It also has a reason to avoid wasting shots.
+
+The example fitness function assigns:
+
+- +1 point for every second the hero stays alive.
+- +10 points for every piece of trash destroyed.
+- -2 points for every blast fired.
+
+The total fitness can be expressed as:
+
+Fitness = Survival Reward + Destruction Reward - Shooting Penalty
+
+More explicitly:
+
+Fitness = (1 × Seconds Alive) + (10 × Trash Destroyed) - (2 × Blasts Fired)
+
+Example:
+
+Suppose an AI:
+- Survives for 20 seconds.
+- Destroys 3 pieces of trash.
+- Fires 5 blasts.
+
+Its fitness score is:
+
+Fitness = (1 × 20) + (10 × 3) - (2 × 5)
+
+Fitness = 20 + 30 - 10
+
+Fitness = 40
+
+This score allows the genetic algorithm to compare this model with other models.
+
+The values in the fitness function are design choices. Different values can produce very different behaviors.
+
+13. WHY FITNESS FUNCTION DESIGN MATTERS
+
+The AI does not automatically understand what the developer wants. It learns to perform well according to the objective that the developer defines.
+
+This creates a potential problem: the AI may optimize the score without behaving as intended.
+
+A. Rewarding Only Survival
+
+Suppose fitness depends only on how long the hero remains alive.
+
+The AI may learn to avoid trash indefinitely without firing its blaster.
+
+This could create a strong survival strategy, but it would fail to accomplish the game's goal of destroying trash.
+
+B. Rewarding Only Destruction
+
+Suppose fitness depends only on how many pieces of trash the hero destroys.
+
+The AI may fire constantly, potentially wasting ammunition or exposing itself to danger.
+
+C. Balancing Multiple Objectives
+
+A better fitness function combines several goals.
+
+For example:
+- Reward survival.
+- Reward destroying trash.
+- Penalize excessive firing.
+
+This encourages the AI to balance survival and offensive behavior.
+
+However, the chosen values still matter. If the shooting penalty is too high, the AI might rarely fire. If the destruction reward is too high, it might take unnecessary risks.
+
+The goal is to create a scoring system that encourages behavior consistent with the intended task.
+
+This issue is related to reward design in reinforcement learning and objective design in optimization.
+
+KEY IDEA:
+An AI can only optimize the objective it is given. A poorly designed fitness function can lead to unexpected or undesirable behavior.
+
+14. SELECTION: CHOOSING THE BEST MODELS
+
+After the population plays the game, the genetic algorithm ranks the models according to their fitness scores.
+
+The example project selects the 100 highest-scoring models from the population of 200.
+
+These selected models are used to produce offspring for the next generation.
+
+The basic process is:
+
+1. Run the games.
+2. Calculate each model's fitness.
+3. Sort the models from highest to lowest fitness.
+4. Select the 100 highest-scoring models.
+5. Copy the selected models.
+
+Selection increases the likelihood that successful network parameters will remain in the population.
+
+However, a high score does not necessarily prove that a model has discovered a consistently effective strategy. Random chance may help a model achieve a high score during one game.
+
+Repeated evaluation can help distinguish consistent performance from luck.
+
+15. REPRODUCTION AND CLONING
+
+In a genetic algorithm, reproduction means creating new candidate solutions from selected candidates.
+
+In this project, the 100 selected models are cloned.
+
+Cloning creates copies of the original neural network parameters.
+
+The process produces 100 copied models that can then be modified through mutation.
+
+The original models are also retained, allowing the algorithm to compare mutated candidates against the unmodified candidates.
+
+Keeping strong original models can help prevent useful solutions from being lost because of harmful mutations.
+
+This is related to the concept of elitism in evolutionary algorithms, where some high-performing candidates are preserved unchanged.
+
+16. MUTATION: INTRODUCING VARIATION
+
+Mutation changes selected parameters of a candidate solution.
+
+In TrashBlaster, mutation changes neural network weights.
+
+The example uses a 5% chance that any given weight will be mutated.
+
+When a weight is selected for mutation, its value is changed by a randomly chosen amount.
+
+A mutation might:
+- Make a small adjustment to a weight.
+- Make a larger adjustment.
+- Improve the network's behavior.
+- Make the network's behavior worse.
+
+Mutation allows the algorithm to explore different neural network configurations.
+
+Without variation, simply cloning the same models would produce copies with identical behavior.
+
+A. Mutation Rate
+
+The mutation rate determines how likely a parameter is to be changed.
+
+In the example:
+- Mutation probability = 5% per weight.
+
+A higher mutation rate introduces more variation, but it may also disrupt useful behaviors.
+
+A lower mutation rate preserves more of the existing solution, but it may make it harder to discover better alternatives.
+
+B. Mutation Magnitude
+
+The mutation magnitude determines how much a selected weight changes.
+
+Even if two models have the same mutation rate, they may behave very differently if the size of their weight changes differs.
+
+C. Balancing Exploration and Stability
+
+The algorithm must balance:
+- Exploring new behaviors.
+- Preserving successful behaviors.
+- Making small improvements.
+- Allowing occasional large changes.
+
+Mutation has a role somewhat analogous to a learning rate because both influence the scale of changes made during learning or optimization. However, they are not the same mechanism.
+
+A learning rate commonly scales parameter updates during gradient-based training, while genetic algorithms use mutation rules to introduce variation into candidate solutions.
+
+17. CREATING THE NEXT GENERATION
+
+The example project combines two groups:
+
+- 100 unmutated original models.
+- 100 mutated copies.
+
+This produces a population of 200 models for the next round of evaluation.
+
+The new population is tested by having each model play the game.
+
+The genetic algorithm then:
+1. Measures the new fitness scores.
+2. Selects the better-performing models.
+3. Clones them.
+4. Mutates copies.
+5. Creates another population.
+6. Repeats the process.
+
+This cycle is the core of the genetic algorithm.
+
+The expectation is that models with useful parameter combinations will be more likely to achieve high fitness and contribute to future generations.
+
+Over many generations, the population may gradually develop more effective strategies.
+
+IMPORTANT:
+Improvement is not guaranteed in every generation. Random mutations can make models worse, and selection can sometimes favor a model that performed well because of luck.
+
+18. TRAINING THE AI EFFICIENTLY
+
+Training can be computationally expensive because every candidate model must play the game before its fitness can be evaluated.
+
+If 200 models are evaluated one after another, the process may take a long time.
+
+The project uses multiprocessing to evaluate multiple models in parallel.
+
+Multiprocessing allows a program to run work in separate processes so that multiple game simulations can be performed at the same time.
+
+A simplified training workflow is:
+
+1. Initialize 200 models.
+2. Run 200 game simulations, potentially in parallel.
+3. Calculate fitness scores.
+4. Select the top 100 models.
+5. Clone and mutate the selected models.
+6. Build a new population of 200.
+7. Run the next set of simulations.
+8. Repeat for many iterations.
+
+Parallel execution can substantially reduce training time, depending on the computer's hardware and the way the code is implemented.
+
+This is especially useful when each game simulation can run independently.
+
+19. EVALUATING EARLY TRAINING RESULTS
+
+During early training, the AI may behave poorly.
+
+For example, it might:
+- Remain nearly motionless.
+- Fire in one direction.
+- Fail to aim at trash.
+- Survive for a short time.
+- Achieve a high score by chance.
+
+The first generation is not expected to be perfect.
+
+After a round of selection, the average fitness of the selected models should generally be higher than the average fitness of the entire population, because the selected models were specifically chosen for their scores.
+
+This does not automatically prove that the entire AI population is improving, but it shows that selection is working as intended.
+
+Researchers can examine:
+- Average fitness.
+- Best fitness.
+- Survival time.
+- Number of trash objects destroyed.
+- Number of shots fired.
+- Actual gameplay replays.
+
+These measurements provide different perspectives on performance.
+
+20. WHY VISUALIZING THE NEURAL NETWORK CAN HELP
+
+The project includes a visual representation of the neural network.
+
+Connections between nodes are displayed using colors to represent the magnitude or sign of weights, depending on the visualization's implementation.
+
+A strong connection may be shown with a more intense color.
+
+However, a network diagram with many connections can be difficult to interpret.
+
+A large weight does not automatically mean that a connection is beneficial. Its influence depends on other weights, the input values, activation functions, and the overall network.
+
+The visualization is useful for examining the network's structure and parameter patterns, but observing gameplay and measuring performance are generally more informative when determining whether the AI has learned an effective strategy.
+
+21. TRAINING OVER MANY ITERATIONS
+
+A single generation may not be enough to produce an effective AI.
+
+The project therefore repeats the genetic algorithm many times.
+
+Each iteration includes evaluating models, selecting high-performing candidates, creating mutated copies, and testing the resulting population.
+
+As training continues, successful behaviors may become more common.
+
+For example, the AI might gradually learn to:
+- Move away from nearby threats.
+- Aim toward trash.
+- Fire when a shot is likely to be useful.
+- Combine survival and destruction.
+- Avoid unnecessary shots.
+
+After many iterations, the example AI can achieve much better gameplay performance than its initial population.
+
+The demonstration reports a result after approximately 15,600 training iterations.
+
+This illustrates how repeated evaluation and selection can improve a neural network without requiring a human to label the correct action at every moment.
+
+However, the number of iterations required depends on the game, fitness function, network design, mutation strategy, random initialization, and computing resources.
+
+22. WHY THE AI CAN IMPROVE WITHOUT EXPLICITLY LEARNING EACH ACTION
+
+The genetic algorithm does not need to know the correct action for every possible situation.
+
+Instead, it evaluates the overall performance of each network.
+
+If a particular set of weights leads to a higher score, the corresponding model is more likely to be selected.
+
+Its copied and mutated descendants may preserve useful behavior while exploring alternatives.
+
+This is a form of optimization through trial and evaluation.
+
+The process does not directly explain which individual action caused a model to succeed. It only measures the final performance according to the fitness function.
+
+Consequently, it may take many trials to discover effective combinations of actions.
+
+This is one reason genetic algorithms can work well for small, clearly defined problems but become less reliable or efficient when the search space grows very large.
+
+23. LIMITATIONS OF GENETIC ALGORITHMS
+
+Genetic algorithms are useful, but they also have limitations.
+
+A. Randomness
+
+Mutations are random, so they do not always produce improvements.
+
+B. Computational Cost
+
+Each candidate must be evaluated. Large populations and many generations can require substantial computing time.
+
+C. Large Search Spaces
+
+As neural networks become more complex, the number of possible weight combinations increases dramatically.
+
+Random mutation may struggle to find consistently good solutions in such large spaces.
+
+D. Premature Convergence
+
+The population may become too similar, reducing the diversity needed to discover new strategies.
+
+E. Fitness Function Problems
+
+The AI may optimize a poorly designed fitness function without learning the intended behavior.
+
+F. Inconsistent Performance
+
+A model may score highly during one game because of luck rather than because it has learned a reliable strategy.
+
+Possible improvements include:
+- Adjusting the population size.
+- Experimenting with mutation rates.
+- Changing mutation magnitudes.
+- Improving the fitness function.
+- Preserving diversity within the population.
+- Evaluating models over multiple games.
+- Changing the neural network architecture.
+
+24. EXPERIMENTS TO TRY
+
+The TrashBlaster project can be modified to explore how different AI design decisions affect learning.
+
+Experiment 1: Change the Fitness Function
+
+Increase or decrease the reward for destroying trash.
+
+Questions:
+- Does the AI become more aggressive?
+- Does it destroy more trash?
+- Does its survival time change?
+
+Experiment 2: Change the Survival Reward
+
+Give the AI a larger reward for remaining alive.
+
+Questions:
+- Does it avoid dangerous situations more effectively?
+- Does it stop shooting as often?
+- Does its overall fitness improve?
+
+Experiment 3: Change the Shooting Penalty
+
+Increase the penalty for firing blasts.
+
+Questions:
+- Does the AI become more selective about shooting?
+- Does it destroy fewer trash objects?
+- Is the trade-off between survival and destruction better?
+
+Experiment 4: Change the Mutation Rate
+
+Compare mutation rates such as 1%, 5%, and 10%.
+
+Questions:
+- Which rate produces the most consistent improvement?
+- Does a high mutation rate disrupt successful behavior?
+- Does a low mutation rate limit exploration?
+
+Experiment 5: Change the Mutation Magnitude
+
+Allow small mutations in one experiment and larger mutations in another.
+
+Questions:
+- Are small changes better for refining an existing strategy?
+- Do larger changes sometimes discover better behaviors?
+- Which setting produces the most reliable results?
+
+Experiment 6: Change the Neural Network Structure
+
+Try adding hidden nodes, removing hidden nodes, or changing the number of layers.
+
+Questions:
+- Does a larger network perform better?
+- Does it take longer to train?
+- Does a smaller network learn more efficiently?
+
+Experiment 7: Change the Game Speed
+
+Increase how frequently the game updates and the AI can act.
+
+Questions:
+- Can the AI react to threats more quickly?
+- Does the change affect the difficulty of the game?
+- Are the input and output updates synchronized correctly?
+
+IMPORTANT:
+Changing the game's update rate does not automatically guarantee better decision-making. The AI must still receive appropriate information and choose effective actions.
+
+25. IMPORTANT VOCABULARY
+
+Artificial Intelligence (AI):
+Computer systems designed to perform tasks associated with intelligent behavior.
+
+Neural Network:
+A machine-learning model made up of connected computational units that learn patterns through adjustable parameters.
+
+Input Layer:
+The part of a neural network that receives input information.
+
+Hidden Layer:
+An intermediate layer that processes information between the input and output layers.
+
+Output Layer:
+The part of a neural network that produces predictions or actions.
+
+Node (Neuron):
+A computational unit within a neural network.
+
+Weight:
+A numerical parameter controlling the influence of one connected unit on another.
+
+Fitness Function:
+A function that calculates how well a candidate solution performs according to a defined objective.
+
+Genetic Algorithm (GA):
+An optimization method that uses selection and variation to improve a population of candidate solutions.
+
+Population:
+A group of candidate solutions evaluated during an evolutionary process.
+
+Generation:
+One cycle of evaluation, selection, and reproduction in a genetic algorithm.
+
+Selection:
+Choosing candidate solutions based on their performance.
+
+Cloning:
+Copying a candidate solution so its parameters can be preserved or modified.
+
+Mutation:
+Randomly changing some parameters of a candidate solution to explore alternative possibilities.
+
+Mutation Rate:
+The probability that a parameter will be selected for mutation.
+
+Mutation Magnitude:
+The size of the change applied to a parameter during mutation.
+
+Multiprocessing:
+Running tasks in separate processes, potentially allowing several tasks to execute in parallel.
+
+Reinforcement Learning:
+A machine-learning approach in which an agent learns from actions and feedback in an environment.
+
+Supervised Learning:
+A machine-learning approach that trains a model using examples paired with target outputs.
+
+Game Loop:
+The repeated sequence of operations that updates a game's state, checks events, and refreshes the display.
+
+Toroidal World:
+A game environment in which the edges wrap around, allowing objects that leave one edge to reappear at the opposite edge.
+
+26. KEY TAKEAWAYS
+
+1. Games provide controlled environments in which AI systems can practice and be evaluated.
+
+2. TrashBlaster requires an AI to survive, avoid trash, aim, and destroy targets.
+
+3. The game environment must be built before the AI can interact with it.
+
+4. A neural network converts information about nearby objects into gameplay actions.
+
+5. The example network uses 25 input values, two hidden layers of 15 nodes each, and five output values.
+
+6. Supervised learning is not always the most convenient approach when success depends on a sequence of actions rather than a single labeled decision.
+
+7. A genetic algorithm improves candidate neural networks by evaluating fitness, selecting strong candidates, cloning them, and mutating their weights.
+
+8. The fitness function defines what the AI is rewarded for doing.
+
+9. Poorly designed fitness functions can cause unexpected behavior, such as avoiding every enemy or firing constantly.
+
+10. Mutation introduces variation, helping the algorithm explore different network configurations.
+
+11. Multiprocessing can speed up training by running independent game simulations in parallel.
+
+12. Training usually requires many iterations because successful strategies may take time to emerge.
+
+13. Genetic algorithms can work well on relatively small problems but may struggle with very large search spaces.
+
+14. Developers can improve results by experimenting with network structure, fitness rewards, population size, mutation rate, and mutation magnitude.
+
+15. The quality of the training objective is just as important as the learning algorithm itself.
+
+27. REVIEW QUESTIONS
+
+1. Why are video games useful for training and testing AI systems?
+
+2. What are the main objects in the TrashBlaster game, and what does each one do?
+
+3. What is the purpose of the game loop?
+
+4. What is a neural network, and what are its three main types of layers?
+
+5. Why does the TrashBlaster neural network use 25 input values?
+
+6. What information does the AI receive about each nearby piece of trash?
+
+7. What are the five outputs of the neural network?
+
+8. Why might supervised learning be difficult to apply directly to this game?
+
+9. What is a genetic algorithm, and how does it imitate aspects of biological evolution?
+
+10. What is the purpose of the fitness function?
+
+11. Calculate the fitness of an AI that survives for 30 seconds, destroys 4 pieces of trash, and fires 10 blasts using the example scoring rules.
+
+12. What could happen if the AI receives a reward only for staying alive?
+
+13. Explain the difference between selection, cloning, and mutation.
+
+14. How does a mutation rate affect the genetic algorithm?
+
+15. Why does the project preserve unmutated models alongside mutated copies?
+
+16. How can multiprocessing improve training speed?
+
+17. Why might a high fitness score be caused by luck rather than a consistently effective strategy?
+
+18. What are two limitations of genetic algorithms?
+
+19. How could changing the fitness function alter the AI's behavior?
+
+20. Why is it important to evaluate actual gameplay instead of relying only on the neural network's visualization?
+
+28. PRACTICE ACTIVITY: DESIGN YOUR OWN FITNESS FUNCTION
+
+Imagine that you are designing a fitness function for a game-playing AI.
+
+Your AI receives:
+- +2 points for every second it survives.
+- +15 points for every target destroyed.
+- -3 points for every shot fired.
+
+During one game, the AI survives for 25 seconds, destroys 4 targets, and fires 10 shots.
+
+Step 1: Calculate the survival reward.
+
+Survival reward = 2 × 25 = 50
+
+Step 2: Calculate the target-destruction reward.
+
+Destruction reward = 15 × 4 = 60
+
+Step 3: Calculate the shooting penalty.
+
+Shooting penalty = 3 × 10 = 30
+
+Step 4: Calculate total fitness.
+
+Fitness = 50 + 60 - 30
+
+Fitness = 80
+
+Now consider these questions:
+- What happens if the destruction reward increases to 25 points?
+- What happens if the survival reward decreases to 1 point per second?
+- Could the AI learn to avoid shooting because of the penalty?
+- What changes would encourage the AI to survive while also destroying more targets?
+
+The goal is to understand how the numerical definition of success shapes the behavior of the AI.
+
+FINAL CONCEPT
+
+The TrashBlaster project demonstrates how a neural network can control an AI player and how a genetic algorithm can improve that network through repeated evaluation, selection, cloning, and mutation.
+
+Rather than manually specifying every correct action, the developer defines a fitness function that measures success. The AI then explores different network configurations, and better-performing candidates are more likely to influence future generations.
+
+The most important lesson is that successful AI development requires more than choosing an algorithm. It also requires a well-designed environment, useful inputs, appropriate outputs, a meaningful objective, and careful evaluation of the results.

@@ -1,0 +1,1111 @@
+ARTIFICIAL INTELLIGENCE — CLASS NOTES
+Lecture 1: Introduction to Artificial Intelligence, Its History, and the AI Revolution
+
+======================================================================
+1. INTRODUCTION TO ARTIFICIAL INTELLIGENCE
+======================================================================
+
+Artificial Intelligence (AI) is a field of computer science focused on developing machines and computer programs that can perform tasks that typically require some form of human intelligence.
+
+AI is already part of everyday life. It helps people make decisions, process information, recognize patterns, and complete tasks more efficiently.
+
+Examples of AI in everyday life include:
+
+- Banking: Evaluating loan applications and identifying potentially fraudulent transactions.
+- Healthcare: Helping doctors analyze medical information and identify possible diseases.
+- Smartphones: Powering voice assistants, predictive text, and facial recognition.
+- Online entertainment: Recommending YouTube videos, music, and other content based on user activity.
+- Online shopping: Predicting which products customers may want to purchase.
+- Social media: Selecting advertisements and recommending posts.
+- Transportation: Supporting navigation systems and the development of self-driving vehicles.
+- Home automation: Powering smart speakers and robotic vacuum cleaners.
+
+AI is not limited to robots or machines that look like humans. Many AI systems operate invisibly within software, websites, applications, and other digital services.
+
+KEY IDEA:
+Artificial intelligence is already influencing how people work, communicate, shop, learn, and make decisions.
+
+----------------------------------------------------------------------
+1.1 Benefits and Concerns About AI
+----------------------------------------------------------------------
+
+People have different opinions about the effects AI may have on society.
+
+Potential benefits include:
+
+1. Improved healthcare
+   AI may help doctors identify diseases, analyze medical images, and provide more personalized care.
+
+2. Increased safety
+   AI-powered transportation systems may help reduce certain types of accidents by identifying hazards and responding to changing conditions.
+
+3. Automation
+   AI can perform repetitive or time-consuming tasks, allowing people to focus on other responsibilities.
+
+4. Personalized services
+   AI can analyze individual preferences to recommend products, entertainment, educational resources, and services.
+
+5. Better decision support
+   AI can process large amounts of information to help people evaluate options and make informed decisions.
+
+Potential concerns include:
+
+1. Job displacement
+   Automation may replace some tasks currently performed by humans, changing the types of jobs available and the skills workers need.
+
+2. Privacy and surveillance
+   AI can analyze large amounts of personal information, raising concerns about how governments, companies, and other organizations monitor people.
+
+3. Unfair decisions
+   AI systems may produce biased outcomes when trained on biased or unrepresentative data.
+
+4. Dependence on technology
+   People and organizations may rely too heavily on automated systems without understanding their limitations.
+
+5. Future risks
+   Some researchers are concerned about the risks associated with increasingly capable AI systems.
+
+IMPORTANT DISTINCTION:
+Some concerns involve existing AI systems, such as privacy, bias, and employment changes. Other concerns, such as machines developing human-level general intelligence, involve capabilities that current AI systems do not fully possess.
+
+Understanding AI helps society evaluate its benefits, recognize its limitations, and make informed decisions about its use.
+
+======================================================================
+2. WHAT IS ARTIFICIAL INTELLIGENCE?
+======================================================================
+
+A machine can be considered to have artificial intelligence when it can process or interpret information, potentially learn from data, and use what it has learned to pursue specific goals.
+
+AI systems can be designed to perform tasks such as:
+
+- Recognizing objects in images.
+- Understanding or generating language.
+- Identifying patterns in data.
+- Making predictions.
+- Recommending products or content.
+- Supporting decision-making.
+- Controlling machines or other automated systems.
+
+AI does not necessarily mean that a machine thinks, feels, or understands the world exactly as a human does.
+
+Many AI systems are designed to perform one specific task rather than a wide variety of unrelated tasks.
+
+----------------------------------------------------------------------
+2.1 Narrow AI
+----------------------------------------------------------------------
+
+Narrow AI, also called Artificial Narrow Intelligence (ANI), refers to AI systems designed to perform specific tasks or a limited range of related tasks.
+
+Examples include:
+
+- A facial recognition system that identifies a particular person.
+- An email filter that detects spam.
+- A recommendation system that suggests videos.
+- A navigation system that calculates routes.
+- A program that predicts whether a transaction may be fraudulent.
+
+A narrow AI system may perform its assigned task extremely well without being able to perform other tasks that humans consider simple.
+
+For example, a facial recognition program may identify a person in a photograph but be unable to navigate a city, cook a meal, or carry on a meaningful conversation.
+
+This illustrates an important characteristic of many modern AI systems: their capabilities are specialized.
+
+----------------------------------------------------------------------
+2.2 Artificial General Intelligence
+----------------------------------------------------------------------
+
+Artificial General Intelligence (AGI) refers to a proposed form of AI that could learn, understand, and perform a broad range of intellectual tasks across different situations, with flexibility comparable to human intelligence.
+
+A hypothetical AGI system might be able to:
+
+- Learn unfamiliar tasks.
+- Apply knowledge from one field to another.
+- Solve many different types of problems.
+- Adapt to unfamiliar situations.
+- Perform a broad range of intellectual activities.
+
+AGI is different from narrow AI because it would not be restricted to a single specialized task.
+
+The concept is common in science fiction, where intelligent machines can converse, reason, learn, and act much like humans.
+
+However, current AI capabilities should not be confused with the hypothetical goal of human-level general intelligence. Today's AI systems have important limitations and do not reliably possess the full range of flexible abilities associated with human intelligence.
+
+KEY COMPARISON:
+
+Narrow AI:
+Designed for specific tasks.
+
+Artificial General Intelligence:
+A proposed form of AI capable of handling a broad range of intellectual tasks.
+
+======================================================================
+3. HOW AN AI SYSTEM LEARNS TO RECOGNIZE INFORMATION
+======================================================================
+
+Consider an AI program designed to recognize a particular person's face in photographs.
+
+The program must learn to distinguish photographs of that person from photographs of other people.
+
+This example demonstrates how data can be used to develop an AI system.
+
+----------------------------------------------------------------------
+3.1 Step 1: Collect Data
+----------------------------------------------------------------------
+
+First, the system receives a collection of photographs.
+
+The collection contains examples of the person it must recognize and examples of other people.
+
+The photographs serve as data that the AI system can analyze.
+
+The quality and variety of the data can affect how well the system performs.
+
+----------------------------------------------------------------------
+3.2 Step 2: Prepare and Label the Data
+----------------------------------------------------------------------
+
+The photographs may be labeled according to the information the system needs to learn.
+
+For example:
+
+- Photograph A: Person of interest.
+- Photograph B: Different person.
+- Photograph C: Person of interest.
+- Photograph D: Different person.
+
+These labels provide information about the correct classification for each photograph.
+
+When an AI system learns from examples that have already been labeled with the correct answers, the process is called supervised learning.
+
+Supervised learning is one of the major approaches to machine learning.
+
+----------------------------------------------------------------------
+3.3 Step 3: Train the Model
+----------------------------------------------------------------------
+
+During training, the system analyzes the photographs and learns patterns that help distinguish one category from another.
+
+For a facial recognition task, those patterns may involve features such as the arrangement of facial characteristics.
+
+The system adjusts its internal parameters during training to improve its predictions.
+
+The trained system is called a model.
+
+A model is a computational representation of patterns learned from data. It uses those patterns to make predictions or produce outputs when given new inputs.
+
+----------------------------------------------------------------------
+3.4 Step 4: Test the Model With New Data
+----------------------------------------------------------------------
+
+After training, the system receives a photograph it has not previously seen during training.
+
+It analyzes the photograph and predicts whether it contains the person it was trained to recognize.
+
+For example:
+
+Input:
+A new photograph of the person.
+
+Output:
+"Person of interest detected."
+
+The system's prediction can then be compared with the correct answer to evaluate its performance.
+
+A system that performs well on new, previously unseen examples has demonstrated an ability to generalize beyond its training data.
+
+----------------------------------------------------------------------
+3.5 Limitations of Specialized AI
+----------------------------------------------------------------------
+
+A facial recognition system does not automatically gain the ability to perform unrelated tasks.
+
+It may not be able to:
+
+- Identify unfamiliar objects.
+- Navigate a physical environment.
+- Understand a complex conversation.
+- Make reliable decisions in unrelated situations.
+
+These tasks require different capabilities and may require different models, training data, or system designs.
+
+IMPORTANT CONCEPT:
+An AI system's capabilities depend on its design, training, available data, and intended purpose. Success at one task does not automatically imply general intelligence.
+
+======================================================================
+4. USES OF ARTIFICIAL INTELLIGENCE IN EVERYDAY LIFE
+======================================================================
+
+AI is used in many industries, including areas where people may not realize an AI system is involved.
+
+----------------------------------------------------------------------
+4.1 Banking and Finance
+----------------------------------------------------------------------
+
+Financial institutions use AI to analyze information and support decisions.
+
+Applications include:
+
+- Assessing loan applications.
+- Detecting unusual financial transactions.
+- Estimating financial risks.
+- Identifying possible fraud.
+- Supporting customer service.
+
+For example, a lending system may analyze information about an applicant to estimate the likelihood that a loan will be repaid.
+
+However, automated decisions can raise concerns about fairness, transparency, privacy, and the accuracy of the information used.
+
+----------------------------------------------------------------------
+4.2 Healthcare
+----------------------------------------------------------------------
+
+AI can assist healthcare professionals by analyzing large amounts of medical information.
+
+Applications include:
+
+- Analyzing medical images.
+- Identifying patterns associated with diseases.
+- Supporting clinical decision-making.
+- Helping prioritize patients for further evaluation.
+- Supporting the development of personalized treatment plans.
+
+AI is generally best understood as a tool that can assist healthcare professionals rather than an automatic replacement for professional medical judgment.
+
+----------------------------------------------------------------------
+4.3 Shopping and Retail
+----------------------------------------------------------------------
+
+Retailers use AI to predict customer demand and improve inventory management.
+
+Applications include:
+
+- Estimating which products customers are likely to buy.
+- Predicting how many items a store should stock.
+- Recommending products.
+- Analyzing purchasing patterns.
+- Supporting pricing and inventory decisions.
+
+For example, a retailer may analyze previous sales, seasonal trends, and purchasing patterns to estimate how much of a product to order.
+
+----------------------------------------------------------------------
+4.4 Advertising and Social Media
+----------------------------------------------------------------------
+
+Social media platforms and advertising systems use AI to analyze user activity and personalize content.
+
+Examples include:
+
+- Selecting advertisements.
+- Recommending posts and videos.
+- Predicting which content a user may find interesting.
+- Ranking content in a feed.
+- Identifying certain types of inappropriate or suspicious content.
+
+These systems may use information such as viewing history, clicks, likes, searches, and interactions.
+
+Their recommendations can influence what users see online, which may affect their interests, opinions, and purchasing decisions.
+
+----------------------------------------------------------------------
+4.5 Employment and Education
+----------------------------------------------------------------------
+
+AI may be used to support the evaluation of job and college applications.
+
+Possible applications include:
+
+- Organizing application materials.
+- Matching qualifications to stated requirements.
+- Screening applications.
+- Identifying relevant skills.
+- Supporting administrative decisions.
+
+These applications require careful oversight because automated screening may disadvantage people when the underlying data, evaluation criteria, or model are biased.
+
+An AI system should not automatically be assumed to make a fair or accurate decision simply because it uses a computer.
+
+----------------------------------------------------------------------
+4.6 Smart Devices and Home Automation
+----------------------------------------------------------------------
+
+Examples include:
+
+- Voice assistants such as Siri and Alexa.
+- Robotic vacuum cleaners.
+- Smart home systems.
+- Voice recognition tools.
+- Automated scheduling and reminder systems.
+
+These technologies use different combinations of software, sensors, machine learning, and automation. Not every automated device necessarily uses AI.
+
+KEY TAKEAWAY:
+AI is not limited to robots. It is frequently embedded in ordinary software and digital services that analyze data, make predictions, or personalize experiences.
+
+======================================================================
+5. THE HISTORY OF ARTIFICIAL INTELLIGENCE
+======================================================================
+
+Artificial intelligence developed over many decades. Its progress was shaped by scientific research, technological limitations, new ideas, and improvements in computing.
+
+The history of AI helps explain why today's systems are much more capable than many earlier systems.
+
+----------------------------------------------------------------------
+5.1 The Dartmouth Conference of 1956
+----------------------------------------------------------------------
+
+The term "artificial intelligence" was introduced in connection with the Dartmouth Summer Research Project on Artificial Intelligence in 1956.
+
+The project was organized by computer scientist John McCarthy and brought together researchers interested in machine intelligence.
+
+It is commonly known as the Dartmouth Conference.
+
+The conference lasted approximately eight weeks and involved researchers from several disciplines, including:
+
+- Computer science.
+- Mathematics.
+- Cognitive psychology.
+- Related fields concerned with intelligence and computation.
+
+Researchers discussed whether aspects of human intelligence could be described precisely enough for machines to simulate or reproduce them.
+
+The conference became an important milestone in the establishment of AI as a distinct research field.
+
+----------------------------------------------------------------------
+5.2 Why the Dartmouth Conference Was Important
+----------------------------------------------------------------------
+
+The Dartmouth Conference helped establish artificial intelligence as an organized area of scientific investigation.
+
+Researchers explored ideas related to:
+
+- Machine reasoning.
+- Problem-solving.
+- Learning.
+- Representing knowledge.
+- Artificial neural networks.
+
+An artificial neural network is a computational model inspired in part by the organization of biological neural systems. Neural networks are now an important component of many machine learning applications.
+
+The conference encouraged researchers to investigate whether computers could perform tasks associated with intelligence.
+
+However, the optimism of early AI researchers sometimes led to predictions that proved unrealistic.
+
+----------------------------------------------------------------------
+5.3 Early Predictions About AI
+----------------------------------------------------------------------
+
+Some early AI researchers expected human-level machine intelligence to arrive much sooner than it actually did.
+
+Marvin Minsky, a prominent researcher in artificial intelligence and cognitive science, predicted in 1970 that a machine with the general intelligence of an average human might be developed within three to eight years.
+
+That prediction did not come true.
+
+Developing AI capable of reliably performing a wide range of complex, real-world tasks proved much more difficult than early researchers anticipated.
+
+One major reason was that AI systems needed more data, computing power, and sophisticated methods than were available at the time.
+
+LESSON FROM HISTORY:
+Scientific progress often takes longer than expected. A promising idea may still face substantial practical challenges before it becomes useful in the real world.
+
+======================================================================
+6. WHY EARLY AI SYSTEMS FACED LIMITATIONS
+======================================================================
+
+Early researchers recognized that computers might perform tasks associated with human intelligence, but the technology available in the 1950s imposed major limitations.
+
+Two particularly important requirements for modern AI are:
+
+1. Sufficient data.
+2. Sufficient computing power.
+
+AI systems also require suitable algorithms, appropriate training methods, and reliable evaluation.
+
+----------------------------------------------------------------------
+6.1 The Importance of Data
+----------------------------------------------------------------------
+
+Data are the information used by an AI system to identify patterns, learn relationships, or make predictions.
+
+Examples of data include:
+
+- Photographs.
+- Written documents.
+- Audio recordings.
+- Medical records.
+- Financial transactions.
+- Sensor readings.
+- Video recordings.
+
+Consider how a human baby learns about the world.
+
+A baby receives information through sight, hearing, touch, taste, and other senses. Through experience, the baby learns to recognize objects, distinguish sounds, understand relationships, and respond to different situations.
+
+For example, repeated experiences help a baby learn which objects are edible and which are not.
+
+AI systems generally do not learn through the same complete range of human experiences. Their learning depends on the data and computational processes available to them.
+
+A facial recognition model, for example, may learn from thousands of labeled photographs rather than from a human-like experience of interacting with people.
+
+The data must be appropriate for the task. Poor-quality, incomplete, or biased data can lead to unreliable results.
+
+----------------------------------------------------------------------
+6.2 Why Data Labeling Matters
+----------------------------------------------------------------------
+
+In supervised learning, examples are paired with labels that indicate the correct answers.
+
+For example, an image dataset used to classify animals might contain:
+
+- Image 1: Cat.
+- Image 2: Dog.
+- Image 3: Cat.
+- Image 4: Bird.
+
+The model analyzes the examples and attempts to learn patterns associated with each category.
+
+Once trained, it can attempt to classify new images.
+
+The labels help the model learn what it should predict, but labeling alone does not guarantee success. The quality of the examples, the model design, and the training process also matter.
+
+Not all AI systems require labeled training data. Other learning approaches use unlabeled data, feedback from actions, or other forms of supervision.
+
+----------------------------------------------------------------------
+6.3 The Importance of Computing Power
+----------------------------------------------------------------------
+
+Computing power refers to a computer's ability to perform calculations and process information.
+
+Many AI systems require large numbers of calculations to train models and generate predictions.
+
+More computing power can make certain tasks faster or enable the use of larger models and datasets.
+
+However, computing power alone does not guarantee intelligent behavior. A powerful computer still needs suitable software, algorithms, data, and training methods.
+
+In the early days of AI, computers were much slower and had less memory and storage than modern machines. This limited the size and complexity of the problems they could solve.
+
+======================================================================
+7. THE AI WINTER
+======================================================================
+
+The term "AI winter" describes a period when enthusiasm, funding, and progress in artificial intelligence declined because systems failed to meet high expectations.
+
+AI research has experienced multiple periods of reduced enthusiasm and investment. Therefore, AI winter does not refer to one single, uninterrupted period.
+
+----------------------------------------------------------------------
+7.1 Why AI Winters Occurred
+----------------------------------------------------------------------
+
+Early AI researchers sometimes expected machines to achieve sophisticated capabilities within a short time.
+
+However, many systems struggled with complex tasks outside controlled environments.
+
+Contributing factors included:
+
+- Limited computing power.
+- Insufficient training data.
+- Difficulty handling uncertainty.
+- Challenges representing real-world knowledge.
+- Limited ability to generalize to unfamiliar situations.
+- A gap between ambitious predictions and actual results.
+
+When AI systems did not deliver the expected results, some researchers, organizations, and investors reduced their support for the field.
+
+----------------------------------------------------------------------
+7.2 What Changed?
+----------------------------------------------------------------------
+
+Over time, several technological and scientific developments made more capable AI systems practical.
+
+Important changes included:
+
+- Faster processors.
+- Increased memory and storage.
+- Larger datasets.
+- Improved machine learning algorithms.
+- Greater internet connectivity.
+- More powerful computing infrastructure.
+
+These developments helped AI research advance and eventually contributed to the rapid expansion of modern AI applications.
+
+IMPORTANT IDEA:
+The modern AI revolution did not begin with one isolated invention. It emerged from many improvements in computing, data availability, algorithms, and research over time.
+
+======================================================================
+8. THE GROWTH OF COMPUTING POWER
+======================================================================
+
+One of the most important developments behind modern AI is the dramatic increase in computing power.
+
+Computers that once occupied entire rooms have been replaced by devices that fit in our pockets while performing vastly more calculations.
+
+----------------------------------------------------------------------
+8.1 The IBM 7090
+----------------------------------------------------------------------
+
+During the Dartmouth Conference in 1956, the IBM 7090 was one of the advanced computers of its era.
+
+The machine:
+
+- Occupied substantial physical space.
+- Used magnetic tape and other early data-storage technologies.
+- Received instructions through methods that included punched cards.
+- Performed calculations for scientific, engineering, and other computational tasks.
+
+The lecture uses an illustrative comparison of approximately 200,000 operations per second for the IBM 7090.
+
+At one operation per second, a person would need approximately 55.6 hours to perform 200,000 operations without taking a break.
+
+This comparison illustrates how difficult it would be for a person to match even the computational throughput of an early computer.
+
+Early computers were valuable for many practical applications, but they lacked the capacity required by many of today's complex AI systems.
+
+----------------------------------------------------------------------
+8.2 Transistors and Computer Performance
+----------------------------------------------------------------------
+
+A transistor is a fundamental electronic component used to control or amplify electrical signals. Transistors are essential building blocks of modern processors.
+
+Processors contain large numbers of transistors that work together to carry out computational operations.
+
+Over time, advances in semiconductor manufacturing have allowed engineers to place more transistors into increasingly compact devices.
+
+Greater transistor density, along with improvements in processor architecture, memory, parallel processing, and software, has helped computers become more capable.
+
+The historical trend of transistor density increasing over time is commonly associated with Moore's law.
+
+Moore's law describes an observed trend in the growth of transistor counts on integrated circuits. It is not a guarantee that every aspect of computing performance will double at a fixed rate.
+
+IMPORTANT DISTINCTION:
+More transistors do not automatically mean that every program runs proportionally faster. Actual performance depends on many factors, including processor design, memory, software, and the type of computation.
+
+----------------------------------------------------------------------
+8.3 The Growth of Smartphone Computing
+----------------------------------------------------------------------
+
+Modern smartphones contain powerful processors capable of performing many calculations in a very short time.
+
+The lecture compares an early iPhone with the iPhone X to illustrate how dramatically mobile computing improved over approximately a decade.
+
+The comparison gives approximate figures of:
+
+- Original iPhone: 400 million operations per second.
+- iPhone X: 600 billion operations per second.
+
+These figures are illustrative historical comparisons, not directly interchangeable measures of all forms of processor performance.
+
+The broader lesson is that computing capabilities increased dramatically, allowing sophisticated applications to operate on small personal devices.
+
+Modern smartphones can support AI-related tasks such as image processing, voice recognition, and other forms of on-device computation.
+
+----------------------------------------------------------------------
+8.4 Supercomputers
+----------------------------------------------------------------------
+
+A supercomputer is a high-performance computing system designed to perform extremely demanding computational tasks.
+
+Supercomputers can perform large numbers of calculations in parallel and are used in areas such as:
+
+- Scientific research.
+- Climate modeling.
+- Physics simulations.
+- Engineering.
+- Advanced AI research.
+
+The lecture describes modern supercomputers as capable of performing more than 30 quadrillion operations per second in the historical comparison being discussed.
+
+A quadrillion is:
+
+1,000,000,000,000,000
+
+That is 10^15, or one thousand trillion.
+
+The lecture also estimates that a calculation taking a modern supercomputer one second could take the IBM 7090 approximately 4,753 years.
+
+These comparisons depend on the particular computers, workloads, and definitions of computational performance being used.
+
+----------------------------------------------------------------------
+8.5 Understanding FLOPS
+----------------------------------------------------------------------
+
+FLOPS stands for Floating-Point Operations Per Second.
+
+It measures how many floating-point calculations a computing system can perform per second.
+
+A floating-point operation is a calculation involving numbers represented using a format that supports fractional values and a wide range of magnitudes.
+
+FLOPS is frequently used to compare the computational performance of systems used in scientific computing and AI.
+
+However, FLOPS is not a universal measure of every type of computer operation.
+
+Two systems with different architectures may perform differently on the same task, even if their theoretical FLOPS ratings are similar.
+
+KEY TAKEAWAY:
+Increasing computing power made it possible to train and run AI models that would have been impractical on earlier computers.
+
+======================================================================
+9. THE INTERNET AND THE EXPLOSION OF DATA
+======================================================================
+
+Computing power is only one part of the modern AI revolution.
+
+The second major development emphasized in the lecture is the enormous increase in data generated by internet-connected devices, online services, and digital activities.
+
+The internet allows people, businesses, devices, and institutions to exchange information on a global scale.
+
+Many everyday actions generate digital records that can be stored, analyzed, and used by software systems.
+
+----------------------------------------------------------------------
+9.1 Examples of Data Generation
+----------------------------------------------------------------------
+
+Online activities that generate data include:
+
+- Uploading photographs.
+- Watching videos.
+- Clicking links.
+- Searching the internet.
+- Liking or commenting on posts.
+- Posting on social media.
+- Shopping online.
+- Using transportation applications.
+- Supporting online fundraising campaigns.
+- Sending messages.
+- Using digital payment systems.
+
+Other activities may generate data even when they do not appear to involve the internet directly.
+
+For example:
+
+- Applying for a loan.
+- Using a passport at an airport.
+- Making an insurance claim.
+- Completing an application for college or employment.
+
+Depending on the organization and system involved, these activities may produce digital records that are stored, processed, or shared.
+
+Not every record is necessarily used to train an AI model. Data may instead be used for recordkeeping, analytics, security, administration, or other purposes.
+
+----------------------------------------------------------------------
+9.2 How AI Uses Large Datasets
+----------------------------------------------------------------------
+
+Large datasets can help AI systems learn patterns that would be difficult to identify from a small number of examples.
+
+For example, a recommendation system may analyze patterns in users' viewing histories to estimate which videos they might enjoy.
+
+A fraud detection model may analyze historical financial transactions to identify patterns associated with suspicious activity.
+
+A language model may be trained on large collections of text to learn statistical relationships between words and other elements of language.
+
+The amount of data needed depends on the task, model architecture, training method, and desired performance.
+
+More data does not automatically guarantee a better AI system. The data must be relevant, sufficiently reliable, and appropriate for the task.
+
+----------------------------------------------------------------------
+9.3 Data, Privacy, and Responsibility
+----------------------------------------------------------------------
+
+The growing collection of personal information raises important questions.
+
+Examples include:
+
+- What information is being collected?
+- Who owns or controls the information?
+- How is the information being used?
+- How long is it stored?
+- Is it shared with other organizations?
+- Can people access, correct, or delete it?
+- Is the information being used to make consequential decisions?
+
+AI systems can create privacy risks when sensitive information is collected or processed without adequate safeguards.
+
+Organizations must consider security, transparency, fairness, and appropriate data-use practices when developing and deploying AI.
+
+Individuals can also benefit from understanding privacy settings, data permissions, and the ways digital services use personal information.
+
+KEY IDEA:
+The combination of large datasets and powerful computing systems has helped make modern AI applications more practical and capable.
+
+======================================================================
+10. WHY THE MODERN AI REVOLUTION HAPPENED
+======================================================================
+
+The modern AI revolution developed through the interaction of several important factors.
+
+The lecture emphasizes two particularly significant developments:
+
+1. Increased computing power.
+2. The availability of large amounts of data.
+
+These developments work together.
+
+----------------------------------------------------------------------
+10.1 Computing Power + Data
+----------------------------------------------------------------------
+
+Consider an AI system designed to recognize objects in photographs.
+
+The system may need thousands or millions of examples to learn useful patterns, depending on the task and approach.
+
+A computer must perform calculations to process those examples and train the model.
+
+If the computer is too slow or lacks sufficient memory, training may take an impractical amount of time or may not be possible at the desired scale.
+
+If the available data are insufficient or inappropriate, the system may fail to learn the patterns required for the task.
+
+When computing resources, suitable data, and effective algorithms are available together, more sophisticated systems become practical.
+
+A simplified representation is:
+
+Modern AI Progress
+    =
+Suitable Data
+    +
+Computing Power
+    +
+Effective Algorithms
+    +
+Research and Engineering
+
+This is a conceptual relationship rather than a mathematical formula. Each component contributes to the development of useful AI systems.
+
+----------------------------------------------------------------------
+10.2 Other Important Factors
+----------------------------------------------------------------------
+
+Although the lecture focuses on computing power and data, additional factors have also contributed to modern AI progress.
+
+These include:
+
+- Improvements in machine learning algorithms.
+- Advances in artificial neural networks.
+- Better software tools and programming frameworks.
+- Access to cloud computing and specialized hardware.
+- Improvements in training techniques.
+- Greater investment in AI research.
+- Better methods for evaluating model performance.
+
+Modern AI is therefore the result of multiple developments working together rather than a single breakthrough.
+
+----------------------------------------------------------------------
+10.3 AI and the Industrial Revolution
+----------------------------------------------------------------------
+
+The lecture compares the effects of AI and automation with the Industrial Revolution of the eighteenth century.
+
+The Industrial Revolution transformed manufacturing, transportation, labor, and economic organization through technologies such as mechanized production.
+
+Similarly, AI and automation are changing how people perform tasks, how businesses operate, and how decisions are made.
+
+Both transformations have created opportunities while raising concerns about employment, inequality, and the distribution of economic benefits.
+
+AI may automate certain tasks, change existing occupations, and create demand for new skills and roles.
+
+Its effects will vary across industries, jobs, and communities.
+
+The comparison emphasizes that major technological changes can reshape society over time.
+
+======================================================================
+11. RESPONSIBLE AI AND SOCIETY
+======================================================================
+
+Because AI influences important decisions and everyday experiences, people need to understand how these systems work and where their limitations lie.
+
+AI literacy means developing the knowledge needed to understand, evaluate, and use AI responsibly.
+
+----------------------------------------------------------------------
+11.1 Understanding AI Decisions
+----------------------------------------------------------------------
+
+An AI system may produce a prediction or recommendation without providing a complete explanation that a person can easily understand.
+
+For example, a loan assessment system may estimate whether an applicant is likely to repay a loan.
+
+Important questions include:
+
+- What information influenced the decision?
+- Was the data accurate?
+- Was the model evaluated for bias?
+- Can the decision be reviewed?
+- Is human oversight available when necessary?
+
+Understanding these questions is particularly important when AI affects employment, healthcare, education, financial services, or other consequential areas.
+
+----------------------------------------------------------------------
+11.2 Bias and Fairness
+----------------------------------------------------------------------
+
+AI systems learn patterns from data and are influenced by their design and training process.
+
+If the training data reflect historical discrimination or fail to represent certain groups adequately, an AI system may produce unfair outcomes.
+
+For example, an automated hiring tool trained on biased historical hiring data could learn patterns that disadvantage qualified applicants.
+
+Reducing these risks requires careful data selection, evaluation, monitoring, and oversight.
+
+Fairness cannot be guaranteed simply by using an algorithm or removing an obvious sensitive variable.
+
+----------------------------------------------------------------------
+11.3 Privacy and Security
+----------------------------------------------------------------------
+
+AI systems may process personal, financial, medical, or other sensitive information.
+
+Responsible development requires appropriate safeguards, including:
+
+- Limiting data collection to legitimate needs.
+- Protecting stored and transmitted information.
+- Controlling who can access sensitive data.
+- Evaluating security risks.
+- Following applicable laws and policies.
+- Explaining relevant data practices to users.
+
+Privacy and security should be considered throughout the development and deployment of an AI system.
+
+----------------------------------------------------------------------
+11.4 Human Oversight
+----------------------------------------------------------------------
+
+AI can help people analyze information, but its output may be incorrect, incomplete, or biased.
+
+Human oversight can be especially important when decisions have serious consequences.
+
+A responsible approach considers:
+
+- Whether AI is appropriate for the task.
+- Whether its predictions are reliable.
+- When human review is required.
+- How errors can be corrected.
+- Who is accountable for the final decision.
+
+The goal is not simply to use AI whenever possible, but to use it where it provides meaningful value and where its risks can be managed.
+
+======================================================================
+12. KEY TERMINOLOGY
+======================================================================
+
+Artificial Intelligence (AI):
+A field of computer science concerned with creating systems that perform tasks associated with intelligence.
+
+Narrow AI:
+An AI system designed for a specific task or a limited set of related tasks.
+
+Artificial General Intelligence (AGI):
+A proposed form of AI capable of handling a broad range of intellectual tasks with generality comparable to human intelligence.
+
+Data:
+Information that can be collected, stored, processed, and analyzed.
+
+Training Data:
+Examples used to develop or train an AI model.
+
+Data Label:
+A piece of information identifying the correct category, value, or answer associated with an example.
+
+Machine Learning:
+A branch of AI in which systems learn patterns from data to make predictions or perform tasks.
+
+Supervised Learning:
+A machine learning approach that learns from examples paired with known labels or target answers.
+
+Model:
+A computational system that uses learned patterns to generate predictions, classifications, or other outputs.
+
+Algorithm:
+A defined procedure or set of computational steps used to solve a problem or perform a task.
+
+Artificial Neural Network:
+A computational model inspired in part by biological neural systems and used to learn patterns from data.
+
+Computing Power:
+A computer's ability to carry out calculations and process information.
+
+Transistor:
+An electronic component used as a fundamental building block of modern processors and other circuits.
+
+Moore's Law:
+An observed historical trend in which the number of transistors that could be placed on an integrated circuit increased substantially over time.
+
+Supercomputer:
+A high-performance computing system designed to perform extremely demanding calculations.
+
+FLOPS:
+Floating-Point Operations Per Second, a measure of computational throughput for floating-point calculations.
+
+AI Winter:
+A period of reduced enthusiasm, investment, or progress in AI research following unmet expectations or disappointing results.
+
+AI Revolution:
+The broad transformation of technology and society associated with the increasing capabilities and use of AI systems.
+
+Data Privacy:
+The protection and appropriate handling of information relating to individuals.
+
+AI Bias:
+Systematic unfairness in AI outputs that can arise from data, design, assumptions, or deployment practices.
+
+======================================================================
+13. IMPORTANT CONCEPTS TO REMEMBER
+======================================================================
+
+1. AI is already used in banking, healthcare, education, shopping, social media, entertainment, and many other areas.
+
+2. AI does not have to look or behave like a human. Many AI systems are software programs designed to perform specific tasks.
+
+3. Narrow AI focuses on specific tasks, while AGI refers to a proposed form of intelligence capable of handling a broad range of intellectual tasks.
+
+4. Many AI systems learn patterns from data and use those patterns to make predictions or classifications.
+
+5. Training data, labels, algorithms, and computing resources can all affect model performance.
+
+6. The Dartmouth Conference of 1956 was an important milestone in establishing AI as a distinct research field.
+
+7. Early AI researchers sometimes underestimated the difficulty of creating systems that could handle complex real-world tasks.
+
+8. AI winters demonstrate that technological progress does not always match early expectations.
+
+9. Improvements in computing power helped make it practical to train and run more sophisticated AI systems.
+
+10. The internet and digital services created enormous amounts of data that can support AI development.
+
+11. Modern AI progress depends on several factors, including data, computing power, algorithms, research, and engineering.
+
+12. AI can create benefits while also raising concerns about employment, privacy, bias, security, and accountability.
+
+13. Understanding AI helps individuals and organizations make informed decisions about its use.
+
+======================================================================
+14. REVIEW QUESTIONS
+======================================================================
+
+Question 1:
+What is artificial intelligence, and what kinds of tasks can AI systems perform?
+
+Question 2:
+What is the difference between narrow AI and artificial general intelligence?
+
+Question 3:
+Give three examples of AI being used in everyday life.
+
+Question 4:
+How might a facial recognition system learn to identify a particular person?
+
+Question 5:
+What is the difference between training data and a trained model?
+
+Question 6:
+What is supervised learning, and why are labels important in this approach?
+
+Question 7:
+What was the Dartmouth Conference, and why is it significant in the history of AI?
+
+Question 8:
+Why did some early predictions about the development of AI prove unrealistic?
+
+Question 9:
+What does the term "AI winter" mean?
+
+Question 10:
+How has increasing computing power contributed to AI development?
+
+Question 11:
+What are transistors, and why are they important to modern computers?
+
+Question 12:
+What does FLOPS measure, and why is it useful when discussing computing performance?
+
+Question 13:
+How does the internet contribute to the availability of data for AI systems?
+
+Question 14:
+Why does having more data not automatically guarantee a better AI model?
+
+Question 15:
+Explain how computing power, data, and algorithms work together to support modern AI.
+
+Question 16:
+How is the AI revolution similar to the Industrial Revolution?
+
+Question 17:
+What are two potential benefits and two potential risks of AI?
+
+Question 18:
+Why are fairness, privacy, and human oversight important when AI is used to make consequential decisions?
+
+======================================================================
+15. REVIEW QUESTIONS — SUGGESTED ANSWERS
+======================================================================
+
+Answer 1:
+Artificial intelligence is a field of computer science focused on systems that perform tasks associated with intelligence, such as recognizing images, processing language, identifying patterns, and making predictions.
+
+Answer 2:
+Narrow AI is designed for specific tasks, while AGI is a proposed form of AI that could perform a broad range of intellectual tasks with flexibility comparable to human intelligence.
+
+Answer 3:
+Examples include voice assistants, video recommendations, facial recognition, fraud detection, medical image analysis, and online advertising.
+
+Answer 4:
+A facial recognition system can be trained on photographs, learn patterns associated with a particular person's face, and then use those patterns to classify new photographs.
+
+Answer 5:
+Training data are the examples used to develop a system. A trained model is the computational result of the training process that uses learned patterns to make predictions or generate outputs.
+
+Answer 6:
+Supervised learning uses examples paired with known labels or answers. The labels help the model learn the relationship between inputs and the expected outputs.
+
+Answer 7:
+The Dartmouth Conference was an eight-week research project held in 1956 that helped establish AI as a distinct research field and brought together researchers interested in machine intelligence.
+
+Answer 8:
+Researchers underestimated the data, computing power, and technical methods needed to handle complex real-world tasks.
+
+Answer 9:
+An AI winter is a period when enthusiasm, funding, or progress in AI declines because the field does not meet expectations.
+
+Answer 10:
+More powerful computers can process larger datasets and perform the calculations needed to train and run more sophisticated AI models.
+
+Answer 11:
+Transistors are fundamental electronic components used to build processors. Advances in semiconductor technology have allowed increasingly capable computing systems to be built in compact devices.
+
+Answer 12:
+FLOPS measures floating-point operations per second. It is useful for describing computational throughput, particularly in scientific computing and AI.
+
+Answer 13:
+Internet-connected services generate digital records through activities such as searching, shopping, viewing videos, and interacting on social media. Some of this data can be used to train or operate AI systems.
+
+Answer 14:
+Data must be relevant, sufficiently reliable, and appropriate for the task. Poor-quality or biased data can lead to poor results even when large quantities are available.
+
+Answer 15:
+Data provide examples for learning, algorithms define computational methods for processing those examples, and computing power enables the required calculations to be completed efficiently.
+
+Answer 16:
+Both transformations have changed how people work, how businesses operate, and how economic activity is organized. Both create opportunities while raising concerns about employment and social change.
+
+Answer 17:
+Potential benefits include improved medical analysis and more efficient services. Potential risks include privacy violations, biased decisions, and changes to employment.
+
+Answer 18:
+AI decisions can affect people's opportunities and well-being. Fairness, privacy protections, and human oversight help identify errors, reduce harm, protect sensitive information, and support accountability.
+
+======================================================================
+16. PREVIEW OF THE NEXT TOPIC
+======================================================================
+
+The next stage of studying artificial intelligence is to examine machine learning in greater detail.
+
+Three major learning approaches are:
+
+1. Supervised Learning
+   The model learns from examples that include known labels or answers.
+
+2. Unsupervised Learning
+   The model identifies patterns or structures in data without relying on labeled answers for every example.
+
+3. Reinforcement Learning
+   An agent learns to choose actions through interaction with an environment and feedback that may include rewards or penalties.
+
+These approaches provide different ways for AI systems to learn from data or experience.
+
+Future lessons can explore how each approach works, what problems it is suited for, and how to evaluate whether a machine learning algorithm is performing well.

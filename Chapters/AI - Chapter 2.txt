@@ -1,0 +1,491 @@
+1Intelligent AgentsCS 4400 : Artificial Intelligence
+1.  Agents
+1.   Vacuumworld
+2.   Rationality
+2.  Task environments
+1.   PEAS d escriptions
+2.   Prop ertiesof task environments
+3.  Agentarchitecture
+2Contents
+3Discussion
+□Godel’s  theorem assures us that humans will always be superior to 
+machines.
+□A robot/agent can never be aware of itself (be self -conscious).
+41/3. Agent
+□An agent  is anything that can be viewed as perceiving  its 
+environment through sensors  and acting  upon that 
+environment through actuators
+□Human agent:  
+     eyes, ears, and other organs for sensors; 
+     hands, legs, mouth, and other body parts for actuators
+□Robotic agent:  
+     cameras and infrared range finders for sensors; 
+     various motors for actuators
+51/3. Agent  and environments
+• Perception (sensors)
+• Action (actuators)• Reasoning / cognition
+Percept : perceptual inputs at any given instant. 
+Agent function (behavior): Percept sequence : complete history of everything the agent has ever perceived.
+a percept sequence    ↦ an actionreasoning
+51/3. Agent  and environments
+□The agent  function  maps from percept histories to 
+actions:
+[f: P* → A]
+□The agent  program  runs on the physical architecture  to 
+produce f
+□agent = architecture + program
+
+Two locations (A & B)
+Vacuum agent perceives
+ presence of dirtthe location and the
+Vacuum agent canmove left,right, suck, nothing
+6Vacuum world
+• Environment :  squares 𝐴 & 𝐵 
+• Percepts :  [𝐴, Dirty] 
+square the vacuum 
+cleaner is in state of 
+the square
+• Actions :  left, right, suck, nothing
+
+An agent is fully characterized by the agent
+function: percept sequence → action
+7Agent function
+
+Need a performance measure to evaluate how desirable
+an agent’s
+Maximize
+Maximize
+Maximizebehavior is
+amount of dirt picked up?
+ratio of dirt to energy expended?
+ratio of dirt to combination of energy and time?
+Wrong performance measures lead to rational but
+unwanted outcome
+Vacuum: Maximize amount of dirt → ?
+TheMatrix/Skyne t:Endpain andbring peacetotheworld→?
+8Evaluating the basic agent
+9Rationality
+□Rational  Agent : For each possible percept sequence, a rational agent 
+should select an action that is expected  to maximize its performance 
+measure , based on the evidence provided by the percept sequence and 
+whatever built -in knowledge the agent has .
+□What is rational depends on four things: 
+ performance measure An objective criterion for success of an 
+agent's behavior
+ prior knowledge of the environment
+ performable  actions by the agent
+ perceptual sequence to date
+A rational agent should select an action expected to maximize its 
+performance measure. 
+9Omniscience vs Rationality
+Rationality  ≠  omniscience ≠  perfection• An omniscient agent  knows the actual outcome of its
+   actions. 
+Impossible in reality!
+• Rationality maximizes the expected performance.
+ Learn as much as it perceives.
+ Does not require omniscience.
+• Perfection maximizes actual performance.
+The definition of rationality implies that a rational
+agent should be able to
+explore the world to gather information
+learn from what it perceives
+ autonomous rather than follow what it’sdesigned todo
+10Rationality
+Task environment
+is the “problem” we would like to solve
+involves both the agent and the environments
+Task environments are best
+descriptiondescribed byPEAS
+P:
+E:
+A:
+S:Performance measure
+Environment
+Actuators (= effectors) 
+Sensors2/3. Task environments
+11
+Performance measure
+Maximize ratio of dirt to energy/time
+Environmentusage
+Two squares A&B, with/without
+Actuators
+Wheels, vacuum
+Sensors
+Location, dirt sensordirt
+12PEAS for vacuum problem
+Performance measure
+Safe, fast, legal, economical, and comfortable trip
+Environment
+Road, traffic, pedestrian, passenger
+Actuators
+Steering, accelerator, brake, signal, horn, display
+Sensors
+Cameras, rangefinder, speedometer, GPS, odometer,
+accelerometer, etc.
+13PEAS for automated taxi
+Performance measure
+Terrain explored and reported,
+analyzed
+Environment
+Vehicle, lander, Mars
+Actuatorssamples gathered and
+Wheels/legs, sample collection device, analysis
+device, radio transmitter
+Sensors
+All things in automated taxi and more
+14PEAS for Mars Rovers
+Performance measure
+Healthy patient, minimize costs, lawsuits
+ Environment
+Patient, hospital, staff
+Actuators
+Screen display (questions, tests, diagnoses, treatment, referrals)
+Sensors
+ Keyboard (entry of symptoms, findings, patient’s answers)
+15PEAS for  Medical diagnosis system
+15PEAS for  Other Agents
+
+PEAS describes the basics components of a
+task environment
+To design the agent, the properties of the task
+environment should be further
+Fully, partially, or not observable
+Deterministic or stochastic
+Single or multi -agent
+Episodic or sequential
+Static or dynamic
+Discrete or continuousanalyzed
+16Properties of task environments
+Observability
+Can the agent get all relevant information
+environment using its sensors? 
+Fully observable
+Chess: Positions of all the playing piecesfrom the
+AI enemy in first -person shooter video
+Partially observable
+Poker: Only the cards in your hand
+“You” in first -person shooter game
+Unobservable
+No sensor at allgame
+17Properties of task environments
+Fully  observable  (vs. partially  observable) : An agent's  
+sensors  give the agent  access  to the complete  state  
+of the environment  at each  point  in time .
+Deterministic vs Stochastic
+Is the next state of the world determined completely
+the current state of the world and the action?
+Vacuum world
+Deterministic: suction and motor wheels always work
+Stochastic: unreliable suction and/or motor wheels
+Chess: deter ministic,except for the actions of other 
+agents
+Automated taxi: stochastic
+Single vs Multi -agentby
+Competitive, cooperative, or mi xed
+18Properties of task environments
+Deterministic  (vs. stochastic) : The next  state  of the environment  is completely  
+determined  by the current  state  and the action  executed  by the agent . (If the 
+environment  is deterministic  except  for the actions  of other  agents,  then  the 
+environment  is strategic )
+Single  agent  (vs. multi -agent) : An agent  
+operating  by itself  in an environment . Does  
+the other  agent  interfere  with  my 
+performance  measure?
+Episodic vs. Sequential
+Episodic: current action affects only the current episode
+Sequential: future episodes as well (e.g., chess, or taxi driving)
+Static vs. Dynamic
+Static: time halts while agent makes a decision
+Turn-based games (e.g., Monopoly)
+Dynamic: world changes on while agent decides
+Pac-man
+Semi -dynamic: world stands still, but decision time
+an effect on performance score
+Tournament -level chesshas
+19Properties of task environments
+Episodic  (vs. sequential) : if the agent’s  experience  is 
+divided  into atomic  episodes,  among  which  one does  
+not depend  on the actions  taken  in previous  ones .
+Discrete vs. Continuous
+Is
+Is
+Istime handled in chunks or continuously?
+a state … ?
+an action … ?
+Examples: chess vs automated taxi
+Known vs. Unknown
+Known:agentknowshow its action affects 
+the w orldthe state of
+Unknown environments (Part 3 Reinforcement  learning)
+20Properties of task environments
+Discrete  (vs. continuous) : A limited  
+number  of distinct,  clearly  defined  
+percepts  and actions .
+Internet book -shopping: buying a used AI textbook online
+P: quality/price
+E: used book sales websites (E -bay, Amazon, Craigslist, etc)
+A: clicking links or buttons
+S: web -browser
+21Examples of task environments
+22Examples
+Internet book -shopping
+Sequential? Episodic?
+Static?  Dynamic?
+Single -agent? Multi -agent?
+No absolutely true answer; depends on how to formulate the task
+23Examples
+24Examples
+Real world problems:
+partially observable, stochastic, sequential, dynamic, 
+continuous, multi -agent
+Properties of the task environment largely
+determines the agent design
+25Examples
+task 
+environm.observable determ./
+stochasticepisodic/
+sequentialstatic/
+dynamicdiscrete/
+continuousagents
+crossword
+puzzlefully determ. sequential static discrete single
+chess with
+clockfully strategic sequential semi discrete multi
+poker
+back
+gammon
+taxi
+drivingpartial stochastic sequential dynamic continuous multi
+medical
+diagnosispartial stochastic sequential dynamic continuous single
+image 
+analysisfully determ. episodic semi continuous single
+partpicking
+robotpartial stochastic episodic dynamic continuous single
+refinery 
+controllerpartial stochastic sequential dynamic continuous single
+interact.
+Eng. tutorpartial stochastic sequential dynamic discrete multi
+task 
+environm.observable determ./
+stochasticepisodic/
+sequentialstatic/
+dynamicdiscrete/
+continuousagents
+crossword
+puzzlefully determ. sequential static discrete single
+chess with
+clockfully strategic sequential semi discrete multi
+poker partial stochastic sequential static discrete multi
+back
+gammon
+taxi
+drivingpartial stochastic sequential dynamic continuous multi
+medical
+diagnosispartial stochastic sequential dynamic continuous single
+image 
+analysisfully determ. episodic semi continuous single
+partpicking
+robotpartial stochastic episodic dynamic continuous single
+refinery 
+controllerpartial stochastic sequential dynamic continuous single
+interact.
+Eng. tutorpartial stochastic sequential dynamic discrete multi
+task 
+environm.observable determ./
+stochasticepisodic/
+sequentialstatic/
+dynamicdiscrete/
+continuousagents
+crossword
+puzzlefully determ. sequential static discrete single
+chess with
+clockfully strategic sequential semi discrete multi
+poker partial stochastic sequential static discrete multi
+back
+gammonfully stochastic sequential static discrete multi
+taxi
+drivingpartial stochastic sequential dynamic continuous multi
+medical
+diagnosispartial stochastic sequential dynamic continuous single
+image 
+analysisfully determ. episodic semi continuous single
+partpicking
+robotpartial stochastic episodic dynamic continuous single
+refinery 
+controllerpartial stochastic sequential dynamic continuous single
+interact.
+Eng. tutorpartial stochastic sequential dynamic discrete multi
+Five different designs of
+Reflex agentagents
+Model -based reflex
+Goal -based agent
+Utility -based agentagent
+Learning agent
+263/3. Agent architecture
+Simplest kind of agents
+Choose action based on the current percept,
+ignoring the percept history
+Biologic organisms: sub -agents of a bigger
+agent
+Closing eyes when something approaches eyes
+Move the hand away when it touches something hot
+27Reflex agent
+Condition -action rules:
+if (status==dirty):
+return suck
+if (location==A):
+return moveRight
+if (location==B):
+returnmoveLeft
+28Reflex agent
+NO MEMORY
+Fails if environment
+is partially observable
+Rectangles: agent’s current internal state 
+Ovals: background information used in the process.• Implemented through 
+condition -action  rule.
+30Vacuum -Cleaner World (Revisited)
+if status == Dirty then return Suck
+else if location == A then return Right
+else if location == B then return Left
+30Simple Reflex Agent
+ Limited intelligence
+It will work only if the correct decision can be made based on
+only the current percept, i.e.,  only if the environment is fully
+observable.
+In partially observable task environments
+Need to keep track of unseen portions of the
+Memoryworld
+Internal state: guess of
+Models
+How the world evolves
+What my actions do
+Examples
+searching a mazeunobserved portions
+pass ingacarin a sing le-laneroad
+29Model -based reflex agent
+Model the state of the world by modeling how the 
+world changes & how its actions change the world 
+Memory
+Models
+30Model -based reflex agent
+• Partially observable 
+   environment.
+• Need to maintain some 
+   internal state.
+• Update it using knowledge .
+ How does the world change?
+ How do actions affect the 
+    world?Model  of the world
+30Model -based reflex agent
+• It is rarely possible to describe the exact current state of the environment.
+• The maintained “ state ” does not have to describe the world.
+Best current action is chosen by higher -level
+goals, not just the current percept
+Goal: “arriving at destination x” for automated taxi
+Find a sequence of actions to achieve the goal
+Actions: “left turn, drive 0.5 mile , right turn,
+miles,…”drive 1.2
+Main design for Part 1 of the course
+31Goal -based agent
+Goals provide reason to prefer one action over the other.
+We need to predict the future: we need to plan & search
+32Goal -based agent
+• Needs also some goal
+   information describing
+   desirable situations.
+• Search  and planning
+when a long sequence of 
+actions is required to find 
+the goal.
+• Difference in taking the
+   future into account .
+32Goal -based agent
+Goal   Hit an in -flight object to a target. 
+• Models: impact dynamics,  
+                aerodynamics & 
+                robot kinematics 
+• State estimation: uses an extended 
+          Kalman filter (EKF) to track
+          the velocity & angular velocity
+          of the flying object. 
+• Planner: determines the time 
+        instant of hitting and the 
+        bat’s position and velocity 
+        at this instant.   • Sensors: 2 high -speed cameras
+• Actuators: 4 -DOF WAM Arm
+IEEE Transactions on Robotics , vol. 38, no. 5, pp. 3187 -3202, 2022https://www.youtube.com/watch?v=dGBevZ54E3s
+Goal -based agent: successful or not
+Multiple goals: taxi
+Goal
+Goal
+Goal1:
+2:
+3:arrive at destination
+minimize time/fuelconsumption 
+passenger safety/comfort
+Utility can resolve multiple conflicting goals
+Maximize the utility as the weight edsum of multiple goals
+Further more,if theenvironment task is stochastic, 
+maximize the expected utility
+More in depth in Part 3 Utility theory
+33Utility -based agent
+Some solutions to goal states are better than others.
+Which one is best is given by a utility function.
+Which combination of goals is preferred?
+34Utility -based agent
+• Different ways to achieve
+   a goal sometimes.
+• Use a utility function that 
+   maps a (sequence of 
+   states) to a real number 
+   (utility )
+internal performance measure
+• Maximize expected utility.
+• Goal improvements:
+ selection among conflicting goals
+ selection based on likelihood of success
+    and goal importance
+If we have intermediate feedbacks (in addition
+final evaluation) on the agent’s performance,
+use it to refine the agent function
+Components of a learning agentto
+Performance element
+Critic
+Learning element
+Problem generator(=non -learning part)
+More in depth in Part 3 machine learning
+35Learning agent
+36Learning agent
+• Learning element Introduces 
+  improvements in performance 
+  element.• Critic  provides feedback on the
+  agent’s performance based on
+  fixed performance standard.
+• Performance element selects 
+   actions based on the percepts. 
+• Problem generator suggests actions
+   that will lead to new and informative
+   experiences. 
+36Suggests 
+Exploratory 
+ActionsMakes
+ImprovementsProvides
+FeedbackLearning agent
+Reading (Ch2)
+37Reminder
+37Quiz 1
+•Q1 : True or False? (3pts)
+–a) The task environment of a taxi -driving agent is episodic
+–b) A rational will always achieve its goal
+•Q2. Consider two intelligent agents playing chess with a clock. One of them is 
+called “Deep Blue”, while the other is called Gary Kasparov (7pts)
+–a) Roughly specify the task environment for Deep Blue. (This means specify each letter in 
+“PEAS”)
+–b) Determine each of the following properties of this task environment: 1) fully observable or 
+partially observable, 2) deterministic or stochastic, 3) episodic or sequential, 4) static or 
+dynamic or semidynamic , 5) discrete or continuous, 6) single agent or multi -agent. Explain 
+you answer
+
+

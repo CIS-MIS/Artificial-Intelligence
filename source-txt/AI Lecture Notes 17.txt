@@ -1,0 +1,1083 @@
+ARTIFICIAL INTELLIGENCE NOTES
+Topic: Search Engines and Knowledge Bases
+Course: Artificial Intelligence
+
+============================================================
+1. INTRODUCTION TO SEARCH ENGINES
+============================================================
+
+A search engine is a system that helps users find information in a large collection of data.
+
+Modern search engines use algorithms and artificial intelligence techniques to identify, organize, rank, and retrieve relevant information.
+
+Examples include:
+- Google
+- Microsoft Bing
+- DuckDuckGo
+- Search features in digital assistants such as Siri and Alexa
+
+Search engines help people:
+- Answer questions.
+- Find websites and articles.
+- Locate businesses and places.
+- Research topics.
+- Discover products and services.
+- Access information quickly.
+
+Search engines are important because the amount of information available online is too large for people to examine manually.
+
+The basic idea behind a search engine is similar to how a library works. A library collects books, organizes them using a catalog or classification system, and helps people find the information they need.
+
+A web search engine performs a similar task on a much larger scale.
+
+The main stages of a traditional web search engine are:
+
+1. Gather information from web pages.
+2. Organize the information in an index.
+3. Process a user's search query.
+4. Retrieve relevant pages.
+5. Rank the pages according to their likely usefulness.
+6. Display the results to the user.
+
+Some modern systems also use knowledge bases and other AI techniques to provide direct answers instead of only returning links.
+
+============================================================
+2. THE INTERNET VERSUS THE WORLD WIDE WEB
+============================================================
+
+The Internet and the World Wide Web are related, but they are not the same thing.
+
+A. THE INTERNET
+
+The Internet is a global network of connected computer systems that communicate using networking technologies and protocols.
+
+It supports many different services, including:
+- Email
+- Online gaming
+- Video streaming
+- File transfers
+- The World Wide Web
+- Voice and video calls
+
+For example, a streaming service can use the Internet to deliver a movie to a television.
+
+B. THE WORLD WIDE WEB
+
+The World Wide Web, also called the Web, is a system of linked documents and other resources that can be accessed over the Internet.
+
+Web pages are commonly accessed through browsers such as:
+- Google Chrome
+- Apple Safari
+- Microsoft Edge
+- Mozilla Firefox
+
+Web pages can contain:
+- Text
+- Images
+- Videos
+- Links
+- Interactive elements
+
+A web browser displays web content, while a search engine helps users find relevant content.
+
+KEY DISTINCTION:
+
+The Internet is the underlying network infrastructure. The Web is one of the services that operates over that network.
+
+Not everything on the Internet is part of the Web.
+
+============================================================
+3. STEP 1: GATHERING WEB DATA
+============================================================
+
+Before a search engine can find relevant web pages, it needs information about those pages.
+
+One way search engines collect this information is through a program called a web crawler.
+
+A web crawler is a program that automatically discovers and downloads web pages by following links and other available discovery methods.
+
+Web crawlers are also called spiders or bots.
+
+------------------------------------------------------------
+3.1. HOW A WEB CRAWLER WORKS
+------------------------------------------------------------
+
+A simplified crawling process works as follows:
+
+Step 1: Select a starting page.
+
+The starting page is called a seed URL.
+
+Step 2: Download the page.
+
+The crawler retrieves the page's content.
+
+Step 3: Extract links.
+
+The crawler identifies links to other pages.
+
+Step 4: Visit additional pages.
+
+The crawler follows selected links and retrieves more content.
+
+Step 5: Repeat the process.
+
+The crawler continues discovering pages and following links.
+
+Step 6: Send collected information for processing.
+
+The search engine can analyze the pages and use the resulting information to build or update its index.
+
+Example:
+
+Page A links to Page B and Page C.
+
+Page B links to Page D.
+
+Starting with Page A, a crawler may discover Pages B, C, and D by following the links.
+
+------------------------------------------------------------
+3.2. LIMITATIONS OF WEB CRAWLING
+------------------------------------------------------------
+
+The Web is extremely large and constantly changing.
+
+A crawler cannot necessarily discover or access every page.
+
+Some challenges include:
+- Pages that are not linked from other accessible pages.
+- Pages that require authentication.
+- Content generated dynamically.
+- Websites that restrict crawling.
+- Pages that have been removed or moved.
+- Duplicate or low-quality content.
+- Limits on how frequently a website should be accessed.
+
+Search engines must also decide which pages to crawl, how often to revisit them, and how to use their limited computing resources.
+
+Important:
+Crawling the Web does not mean downloading and storing every piece of Internet content. Search engines select and process content according to their systems, policies, and technical limitations.
+
+============================================================
+4. STEP 2: ORGANIZING INFORMATION WITH AN INDEX
+============================================================
+
+After gathering information, a search engine needs a way to find relevant pages quickly.
+
+Searching every web page from scratch whenever someone submits a query would be extremely inefficient.
+
+Instead, search engines create an index.
+
+An index is an organized data structure that allows a system to locate information efficiently.
+
+A familiar example is the index at the back of a textbook. It lists important words and the pages where those words appear.
+
+Search engines use specialized indexes to retrieve relevant web pages without examining the entire collection for every query.
+
+One important structure is the inverted index.
+
+============================================================
+5. INVERTED INDEX
+============================================================
+
+An inverted index maps each term to the documents or web pages in which that term appears.
+
+Instead of listing every word belonging to each page, the index lists a word and the pages containing that word.
+
+For example, suppose a search engine has three pages:
+
+Page 0: About Genghis Khan
+Page 1: About Marco Polo, mentioning Genghis Khan
+Page 2: About the Mongols
+
+A simplified inverted index might look like this:
+
+Word          | Pages containing the word
+--------------|--------------------------
+Genghis       | 0, 1
+Khan          | 0, 1
+Marco         | 1
+Mongols       | 2
+Polo          | 1
+History       | 0, 1, 2
+
+This makes it easier to locate pages containing a particular word.
+
+If someone searches for "Genghis Khan," the search engine can look up both terms and retrieve pages associated with them.
+
+------------------------------------------------------------
+5.1. HOW A SEARCH ENGINE USES AN INVERTED INDEX
+------------------------------------------------------------
+
+Suppose the user searches:
+
+"Who is Genghis Khan?"
+
+A simplified search process might be:
+
+1. Receive the query.
+2. Process the query into useful search terms.
+3. Look up those terms in the inverted index.
+4. Retrieve pages associated with the terms.
+5. Evaluate which pages are most relevant.
+6. Rank the pages.
+7. Display the results.
+
+The search engine may identify pages containing "Genghis" and "Khan," along with other potentially useful terms.
+
+However, simply finding matching words is not enough.
+
+A page could contain the word "Khan" because it discusses a completely different topic, such as a movie character.
+
+The search engine must therefore consider relevance and context, not only the presence of individual words.
+
+------------------------------------------------------------
+5.2. WHY AN INVERTED INDEX IS USEFUL
+------------------------------------------------------------
+
+An inverted index offers several advantages:
+
+- Fast retrieval of documents containing particular terms.
+- Efficient searching across large collections of text.
+- A practical way to organize information from many web pages.
+- Support for combining multiple search terms.
+
+However, an inverted index alone does not fully understand the meaning of a query.
+
+For example, a search for "best place to eat near me" requires more than matching the words "place," "eat," and "me."
+
+The system may also need location information, ranking algorithms, language processing, and other contextual signals.
+
+KEY IDEA:
+The inverted index helps a search engine find candidate documents. Additional processes help determine which candidates are most useful.
+
+============================================================
+6. STEP 3: RANKING SEARCH RESULTS
+============================================================
+
+A search query may match thousands or millions of pages.
+
+The search engine must decide which results should appear first.
+
+This process is called ranking.
+
+Ranking is the process of ordering candidate results according to their estimated relevance, usefulness, quality, or suitability for a particular query.
+
+For example, a search for "Who was Genghis Khan?" should ideally place reliable historical information above pages that mention the same words but discuss unrelated topics.
+
+Search engines can use many signals when ranking results, including:
+- Relevance to the query.
+- The meaning and context of the words.
+- The quality and usefulness of the page.
+- Links and relationships between pages.
+- Freshness, when relevant.
+- The user's location, for location-dependent searches.
+- Other query and system-specific signals.
+
+The exact ranking methods used by major search engines are complex and may change over time.
+
+------------------------------------------------------------
+6.1. LEARNING FROM USER BEHAVIOR
+------------------------------------------------------------
+
+Search engines can also analyze patterns in how people interact with search results.
+
+Examples include:
+- Which result a user clicks.
+- Whether the user returns quickly to the results page.
+- Whether the user continues exploring other results.
+- Whether the user changes the query.
+- Whether the user appears to complete the task.
+
+These interactions can provide information about the usefulness of search results.
+
+For example:
+
+1. A user searches for "Who was Genghis Khan?"
+2. The user clicks an unrelated page about a fictional character.
+3. The user quickly returns to the search results.
+4. The user clicks a historical article and reads it.
+
+The first interaction may suggest that the result did not meet the user's needs. The second may provide stronger evidence of relevance.
+
+However, these signals are imperfect.
+
+A quick return to the results page does not always mean a page was bad. The user may have found the answer immediately.
+
+Likewise, spending a long time on a page does not always mean it was useful.
+
+Modern ranking systems combine multiple signals rather than assuming that one behavior provides a definitive answer.
+
+------------------------------------------------------------
+6.2. CLICK-THROUGH RATE
+------------------------------------------------------------
+
+Click-through rate, or CTR, measures the proportion of times an item is clicked relative to the number of times it is shown.
+
+Formula:
+
+CTR = Number of Clicks / Number of Impressions
+
+For example:
+
+A result is displayed 1,000 times and receives 100 clicks.
+
+CTR = 100 / 1,000
+    = 0.10
+    = 10%
+
+A high click-through rate may indicate that a result attracts attention, but it does not necessarily prove that the result satisfies the user's needs.
+
+------------------------------------------------------------
+6.3. BOUNCING AND RETURNING TO RESULTS
+------------------------------------------------------------
+
+A bounce-back behavior occurs when a user visits a page and quickly returns to the search results.
+
+This may indicate that the page did not answer the question, but it can have other explanations.
+
+For example:
+- The user found the answer immediately.
+- The page loaded slowly.
+- The user clicked accidentally.
+- The user wanted to compare several sources.
+
+Therefore, search engines must interpret behavior carefully.
+
+A good ranking system should not rely on one simplistic rule.
+
+============================================================
+7. TRAINING SEARCH ENGINES
+============================================================
+
+Machine learning systems need data to learn patterns and improve their predictions.
+
+Search engines can use several sources of information, including:
+- Web page content.
+- Links between pages.
+- Human-created relevance judgments.
+- User interaction patterns.
+- Other signals that help estimate result quality.
+
+Human evaluators may assess whether search results are useful for particular queries. These evaluations can help developers measure and improve ranking systems.
+
+User behavior can also provide useful information at scale.
+
+However, it is inaccurate to assume that every click directly trains a search engine in real time or that all ranking systems learn in exactly the same way.
+
+Search engines use different combinations of algorithms, training data, evaluation processes, and updates.
+
+KEY IDEA:
+Search engines use information about both web content and user interactions to improve the process of finding relevant results.
+
+============================================================
+8. SEARCH ENGINES VERSUS DIRECT-ANSWER SYSTEMS
+============================================================
+
+Not every question requires a list of web pages.
+
+Sometimes users want a direct answer.
+
+For example:
+
+Question: "What is the weather in Indianapolis?"
+
+A traditional search result might display links to weather websites.
+
+A digital assistant might instead provide the current temperature and forecast directly.
+
+Question: "Who wrote The Bluest Eye?"
+
+A system with access to suitable information may respond that Toni Morrison wrote the novel.
+
+This distinction introduces two important approaches:
+
+A. DOCUMENT RETRIEVAL
+
+The system finds documents or web pages relevant to the query.
+
+B. KNOWLEDGE-BASED QUESTION ANSWERING
+
+The system uses structured information to identify an answer to the question.
+
+These approaches can be combined. A search engine may use an index to retrieve web pages and other systems to extract information and present a direct answer.
+
+============================================================
+9. KNOWLEDGE BASES
+============================================================
+
+A knowledge base is an organized collection of information about entities, facts, and relationships.
+
+In symbolic AI, knowledge bases often represent information as structured facts that a computer can process.
+
+For example:
+
+Mozart — musicGenre — Classical
+
+Jimi Hendrix — plays — Guitar
+
+Darth Vader — hasChild — Luke Skywalker
+
+Each fact describes a relationship between entities.
+
+A knowledge base can represent information such as:
+- People and their relationships.
+- Authors and books.
+- Musicians and instruments.
+- Places and geographical relationships.
+- Products and their properties.
+- Events and their participants.
+
+A knowledge base differs from a conventional inverted index.
+
+An inverted index identifies documents containing particular terms.
+
+A knowledge base explicitly represents facts and relationships that can be queried.
+
+------------------------------------------------------------
+9.1. REPRESENTING FACTS AS TRIPLES
+------------------------------------------------------------
+
+One common way to represent structured knowledge is with a triple.
+
+A triple contains three parts:
+
+Subject — Predicate — Object
+
+The subject is the entity being described.
+
+The predicate is the relationship or property.
+
+The object is the entity or value related to the subject.
+
+Example:
+
+Toni Morrison — wrote — The Bluest Eye
+
+Subject: Toni Morrison
+Predicate: wrote
+Object: The Bluest Eye
+
+Another example:
+
+Mozart — musicGenre — Classical
+
+Subject: Mozart
+Predicate: musicGenre
+Object: Classical
+
+Triples provide a structured way to represent facts.
+
+A collection of triples can form a graph in which entities are nodes and relationships are edges.
+
+Such a structure is often called a knowledge graph.
+
+============================================================
+10. WHY KNOWLEDGE BASES ARE DIFFICULT TO BUILD
+============================================================
+
+A major challenge is the enormous amount of information that exists in the world.
+
+Humans rely on common sense and background knowledge that is often left unstated.
+
+For example, a person may understand that:
+- A dog is an animal.
+- A book has an author.
+- A person can travel between locations.
+- A cup can contain liquid.
+
+A computer system may need explicit facts, learned patterns, or suitable reasoning methods to use such information reliably.
+
+It is difficult to manually write down every fact about the world because:
+- There are too many facts.
+- New information appears constantly.
+- Facts can change over time.
+- Some information is ambiguous.
+- Sources may disagree.
+- Some facts are difficult to verify.
+- Context can change the meaning of a statement.
+
+Researchers have developed systems that attempt to extract structured knowledge automatically from text on the Web.
+
+One example discussed in this lesson is NELL.
+
+============================================================
+11. NELL: NEVER-ENDING LANGUAGE LEARNING
+============================================================
+
+NELL stands for Never-Ending Language Learning.
+
+It is a research system developed by researchers at Carnegie Mellon University, beginning around 2010.
+
+NELL was designed to read web pages, identify patterns, extract candidate facts, and gradually expand a knowledge base.
+
+Rather than requiring humans to manually enter every fact, NELL uses existing knowledge to help discover additional information.
+
+The general idea is that a small set of known facts can help a system recognize patterns in text and learn new facts.
+
+------------------------------------------------------------
+11.1. STEP 1: BEGIN WITH HUMAN-PROVIDED FACTS
+------------------------------------------------------------
+
+A system such as NELL can start with facts supplied or defined by humans.
+
+For example:
+
+Mozart — musicGenre — Classical
+
+Jimi Hendrix — plays — Guitar
+
+Darth Vader — hasChild — Luke Skywalker
+
+These initial facts provide examples of entities and relationships.
+
+The system can use them as starting points for discovering additional information.
+
+------------------------------------------------------------
+11.2. STEP 2: SEARCH FOR PATTERNS IN TEXT
+------------------------------------------------------------
+
+The system examines web pages and looks for language patterns associated with known relationships.
+
+Suppose it already knows that "plays" can connect a musician to an instrument.
+
+It encounters the sentence:
+
+"Mozart plays the piano."
+
+The system may identify:
+- Subject: Mozart
+- Relationship: plays
+- Object: Piano
+
+It can then add the candidate fact:
+
+Mozart — plays — Piano
+
+This process helps the knowledge base grow.
+
+However, extracting facts from language is difficult. A word or phrase may have several meanings, and sentences can contain negation, uncertainty, metaphor, or false statements.
+
+A system must therefore evaluate whether the extracted relationship is appropriate.
+
+------------------------------------------------------------
+11.3. STEP 3: LEARN NEW ENTITIES AND RELATIONSHIPS
+------------------------------------------------------------
+
+Once a system recognizes a pattern, it may discover new entities or relationships.
+
+For example, the system might encounter a sentence mentioning a previously unknown instrument.
+
+It may then:
+1. Identify the relationship in the sentence.
+2. Identify the new entity.
+3. Add a candidate fact.
+4. Use the new fact to guide further searches.
+
+This creates a cycle of knowledge expansion.
+
+The system can use known entities to discover new relationships and known relationships to identify new entities.
+
+------------------------------------------------------------
+11.4. STEP 4: EVALUATE CONFIDENCE
+------------------------------------------------------------
+
+Not every sentence on the Web is true.
+
+A web page might contain:
+- An incorrect claim.
+- A fictional story.
+- A joke.
+- A rumor.
+- An ambiguous sentence.
+- A statement taken out of context.
+
+Therefore, a knowledge extraction system needs methods for estimating whether a candidate fact is reliable.
+
+One useful signal is repetition across multiple sources.
+
+If several independent sources support the same relationship, the system may have stronger evidence than if the claim appears only once.
+
+However, repetition does not guarantee truth. Many websites can repeat the same incorrect claim.
+
+A reliable system should consider source quality, independence, context, and other evidence when evaluating facts.
+
+============================================================
+12. NELL'S CONTINUOUS LEARNING PROCESS
+============================================================
+
+NELL's general approach can be understood as an iterative learning cycle.
+
+1. Begin with a collection of known facts.
+2. Search web pages for language patterns related to those facts.
+3. Extract candidate entities and relationships.
+4. Estimate the confidence of the candidate facts.
+5. Add suitable facts to the knowledge base.
+6. Use the expanded knowledge base to discover more patterns.
+7. Repeat the process.
+
+For example:
+
+Initial fact:
+Jimi Hendrix — plays — Guitar
+
+The system may learn a pattern connecting musicians with instruments.
+
+It may then encounter text describing another musician and another instrument.
+
+The system can use the pattern to propose another relationship.
+
+As the knowledge base grows, it can provide more information for future searches and extraction.
+
+This illustrates how machine learning and structured knowledge can work together.
+
+Important:
+Automatically extracted facts should not be treated as unquestionably true. Systems need ways to handle uncertainty and errors.
+
+============================================================
+13. ANSWERING QUESTIONS WITH A KNOWLEDGE BASE
+============================================================
+
+A question-answering system can transform a natural-language question into a structured query.
+
+Consider the question:
+
+"Who wrote The Bluest Eye?"
+
+The system needs to identify:
+- The entity: The Bluest Eye
+- The relationship: wrote
+- The missing information: the author
+
+Conceptually, it can search for a fact matching:
+
+? — wrote — The Bluest Eye
+
+The question mark represents the unknown entity.
+
+If the knowledge base contains:
+
+Toni Morrison — wrote — The Bluest Eye
+
+The system can return Toni Morrison as the answer.
+
+This is a simplified explanation. Real systems may need to identify entities, determine the relationship being asked about, resolve ambiguity, and rank possible answers.
+
+------------------------------------------------------------
+13.1. UNDERSTANDING DIFFERENT QUESTION WORDS
+------------------------------------------------------------
+
+Question words often indicate the type of information requested.
+
+WHO
+Usually asks about a person or group.
+
+Example:
+"Who wrote The Bluest Eye?"
+
+Expected answer:
+A person — Toni Morrison.
+
+WHEN
+Usually asks about a time or date.
+
+Example:
+"When was the novel published?"
+
+Expected answer:
+A date or time period.
+
+WHERE
+Usually asks about a location.
+
+Example:
+"Where is the museum?"
+
+Expected answer:
+A place.
+
+HOW MANY
+Usually asks for a quantity.
+
+Example:
+"How many books are in the collection?"
+
+Expected answer:
+A number.
+
+A question-answering system can use language-processing techniques to recognize these patterns.
+
+Part-of-speech tagging is one language-processing technique that assigns grammatical categories to words, such as nouns, verbs, adjectives, and pronouns.
+
+Other natural language processing methods can identify entities, relationships, and the intended meaning of a question.
+
+============================================================
+14. LIMITATIONS OF SEARCH ENGINES AND KNOWLEDGE BASES
+============================================================
+
+Even advanced search engines and knowledge-based systems have limitations.
+
+A. INCOMPLETE KNOWLEDGE
+
+The system may not have enough information to answer a question.
+
+Example:
+"How many trees are currently in Ohio?"
+
+Answering this accurately would require suitable data, a clear definition of what counts as a tree, and a reliable way to estimate or count the trees.
+
+B. RARE OR UNUSUAL QUESTIONS
+
+Some questions are asked infrequently or involve facts that are not well represented in available data.
+
+The system may struggle because there are few examples or reliable sources.
+
+C. AMBIGUITY
+
+Words can have multiple meanings.
+
+For example, "Khan" may refer to a historical leader, a surname, or a fictional character.
+
+A system must determine which meaning is relevant to the user's question.
+
+D. CONTEXT AND NUANCE
+
+Human language contains humor, sarcasm, fiction, uncertainty, and implied meanings.
+
+A sentence that appears to state a fact may not be intended literally.
+
+For example, a question about who invented a fictional time machine cannot be answered in the same way as a question about a real historical invention.
+
+E. INCORRECT INFORMATION
+
+A web page may contain false information. A system that extracts information without checking it carefully may add incorrect facts to its knowledge base.
+
+F. OUTDATED INFORMATION
+
+Some facts change over time.
+
+Examples include:
+- Weather
+- Current officeholders
+- Business opening hours
+- Prices
+- Population estimates
+
+A knowledge base may need regular updates to remain accurate.
+
+G. QUANTITATIVE QUESTIONS
+
+Questions that ask for precise counts or totals can require specialized datasets or calculations.
+
+Finding pages that mention a topic is not the same as having enough information to calculate an accurate answer.
+
+KEY IDEA:
+Search engines can find information, but finding information is not always the same as understanding it, verifying it, or calculating a correct answer.
+
+============================================================
+15. BIAS IN SEARCH ENGINES
+============================================================
+
+Search engines learn from web content and other available data. If those sources contain biases, search results may reflect or amplify them.
+
+Bias is a systematic pattern that can produce unfair, distorted, or unrepresentative results.
+
+For example, an image search for "nurses" might return mostly images of women if the underlying data reflects historical stereotypes about nursing.
+
+This does not mean that all nurses are women. It means the search results may reflect patterns in the available images, labels, and ranking processes.
+
+------------------------------------------------------------
+15.1. WHERE SEARCH BIAS CAN COME FROM
+------------------------------------------------------------
+
+A. BIASED TRAINING DATA
+
+If the training data does not adequately represent different groups or situations, the system may produce unbalanced results.
+
+B. HISTORICAL STEREOTYPES
+
+Online content may reflect longstanding social stereotypes.
+
+A model trained on this content can learn and reproduce those associations.
+
+C. LABELING DECISIONS
+
+People who categorize or label training data may introduce their own assumptions.
+
+D. RANKING OBJECTIVES
+
+The system's ranking goals may favor some content over other content.
+
+For example, optimizing for clicks alone may favor sensational content over more informative material.
+
+E. UNEQUAL ONLINE REPRESENTATION
+
+Some groups, languages, and topics may be represented more heavily than others in available data.
+
+------------------------------------------------------------
+15.2. WHY BIAS MATTERS
+------------------------------------------------------------
+
+Biased search results can:
+- Reinforce stereotypes.
+- Make some groups less visible.
+- Misrepresent the world.
+- Influence people's understanding of social roles.
+- Affect which sources and perspectives users encounter.
+
+Search results are not necessarily a neutral reflection of reality. They are shaped by the data, design choices, and objectives of the search system.
+
+============================================================
+16. HOW CAN SEARCH SYSTEMS BE IMPROVED?
+============================================================
+
+Developers can use several approaches to improve the quality and reliability of search systems.
+
+1. IMPROVE DATA QUALITY
+Use reliable sources and address missing, inaccurate, or duplicated information.
+
+2. EVALUATE SEARCH RESULTS
+Test whether results actually answer users' questions.
+
+3. CHECK FOR BIAS
+Examine whether different groups, topics, or perspectives are represented fairly.
+
+4. USE MULTIPLE SOURCES
+Compare information from independent sources when verifying important facts.
+
+5. HANDLE UNCERTAINTY
+Avoid presenting weakly supported claims as certain facts.
+
+6. UPDATE INFORMATION
+Refresh data that may become outdated.
+
+7. IMPROVE CONTEXTUAL UNDERSTANDING
+Develop better methods for recognizing ambiguity, relationships, and the user's intended meaning.
+
+8. PROVIDE TRANSPARENCY
+Help users understand where information comes from and when a result may be uncertain.
+
+9. COMBINE DIFFERENT METHODS
+Use document retrieval, structured knowledge, language processing, and other techniques when appropriate.
+
+10. INCLUDE HUMAN OVERSIGHT
+For important or high-impact decisions, use appropriate human review rather than relying entirely on automated output.
+
+============================================================
+17. COMPARING SEARCH COMPONENTS
+============================================================
+
+COMPONENT 1: WEB CRAWLER
+
+Purpose:
+Discovers and downloads web pages.
+
+Main question:
+"What content can the search engine find?"
+
+COMPONENT 2: INVERTED INDEX
+
+Purpose:
+Organizes terms and identifies documents containing them.
+
+Main question:
+"Which pages contain these words?"
+
+COMPONENT 3: RANKING ALGORITHM
+
+Purpose:
+Orders candidate results by estimated relevance and usefulness.
+
+Main question:
+"Which results should appear first?"
+
+COMPONENT 4: KNOWLEDGE BASE
+
+Purpose:
+Stores structured facts and relationships.
+
+Main question:
+"What facts and relationships are represented in the system?"
+
+COMPONENT 5: QUESTION-ANSWERING SYSTEM
+
+Purpose:
+Interprets a question and uses available information to generate an answer.
+
+Main question:
+"What answer best addresses the question?"
+
+COMPONENT 6: BIAS EVALUATION
+
+Purpose:
+Identifies patterns that may create unfair or unrepresentative outcomes.
+
+Main question:
+"Are the results reliable and appropriately representative?"
+
+These components can work together in a larger search system.
+
+============================================================
+18. IMPORTANT TERMS TO REMEMBER
+============================================================
+
+SEARCH ENGINE
+A system that retrieves and ranks information in response to a query.
+
+WEB CRAWLER
+A program that systematically discovers and downloads web pages.
+
+SEED URL
+A starting page used to begin a crawling process.
+
+INDEX
+An organized data structure that helps a system locate information efficiently.
+
+INVERTED INDEX
+A structure that maps terms to the documents containing them.
+
+SEARCH QUERY
+The words or instructions a user submits to find information.
+
+RANKING
+The process of ordering search results by estimated relevance or usefulness.
+
+CLICK-THROUGH RATE
+The proportion of impressions that result in clicks.
+
+KNOWLEDGE BASE
+A structured collection of facts, entities, and relationships.
+
+TRIPLE
+A structured fact represented as subject, predicate, and object.
+
+KNOWLEDGE GRAPH
+A graph representing entities as nodes and relationships as edges.
+
+NELL
+Never-Ending Language Learning, a research system that learns to extract facts from web pages and expand a knowledge base.
+
+ENTITY
+A person, place, object, concept, or other thing represented in a system.
+
+RELATIONSHIP
+A connection between two entities.
+
+NATURAL LANGUAGE PROCESSING
+A field of AI concerned with processing and analyzing human language.
+
+PART-OF-SPEECH TAGGING
+A technique that assigns grammatical categories to words.
+
+BIAS
+A systematic pattern that can lead to distorted or unfair results.
+
+============================================================
+19. MAIN TAKEAWAYS
+============================================================
+
+1. Search engines help people locate relevant information within enormous collections of data.
+
+2. The Internet and the World Wide Web are related but distinct. The Web is one service that uses the Internet.
+
+3. Web crawlers discover and retrieve pages so search engines can process their content.
+
+4. An inverted index maps words to the pages that contain them, making document retrieval more efficient.
+
+5. Ranking algorithms determine which candidate results are most likely to satisfy a user's query.
+
+6. User interactions can provide useful evidence about the relevance of search results, but individual behaviors are imperfect signals.
+
+7. Knowledge bases store structured facts and relationships, allowing systems to answer some questions directly.
+
+8. NELL illustrates how AI systems can use known facts and language patterns to extract additional information from web pages.
+
+9. Repetition across sources can increase confidence in a candidate fact, but repetition alone does not prove that the fact is true.
+
+10. Question-answering systems must identify the entities and relationships involved in a question.
+
+11. Search engines can struggle with ambiguity, rare questions, incomplete information, outdated facts, and precise calculations.
+
+12. Search systems may reproduce biases present in web content, training data, labels, and ranking objectives.
+
+13. Improving search requires attention to accuracy, relevance, context, uncertainty, fairness, and data quality.
+
+14. A result appearing at the top of a search page is not automatically true. Important claims should be checked against reliable sources.
+
+============================================================
+20. REVIEW QUESTIONS
+============================================================
+
+1. What is a search engine, and why is it useful?
+
+2. Explain the difference between the Internet and the World Wide Web.
+
+3. What is a web crawler?
+
+4. What is a seed URL, and how does it help begin a crawling process?
+
+5. What is an index, and why do search engines need one?
+
+6. Explain how an inverted index works.
+
+7. Why is matching the words in a query not enough to guarantee a relevant result?
+
+8. What is ranking, and why is it important?
+
+9. How can user behavior help a search engine evaluate its results?
+
+10. Why should click-through rates and quick returns to search results be interpreted carefully?
+
+11. What is a knowledge base?
+
+12. Explain the subject-predicate-object structure of a triple.
+
+13. What is the difference between an inverted index and a knowledge base?
+
+14. What is NELL, and how does it expand its knowledge base?
+
+15. Why does repeated information from several websites not always prove that a fact is true?
+
+16. How can a question-answering system use a knowledge base to answer "Who wrote The Bluest Eye?"
+
+17. Why are questions involving exact quantities sometimes difficult for search engines?
+
+18. Give two examples of how bias can affect search results.
+
+19. Identify three ways developers can improve search-system reliability.
+
+20. Why should users verify important claims rather than automatically trusting the first search result?
+
+============================================================
+21. PRACTICE SCENARIO
+============================================================
+
+SCENARIO:
+
+A student searches for "nurses" using an image search engine. Most of the displayed images show women. The student concludes that nursing is a profession for women.
+
+QUESTIONS:
+
+A. What might explain the search results?
+
+The available image data, labels, historical stereotypes, and ranking process may collectively favor images of women.
+
+B. Does the result prove that most or all nurses are women?
+
+No. Search results are selected outputs, not a complete or necessarily representative picture of reality.
+
+C. What type of AI problem does this illustrate?
+
+Potential bias in data and ranking.
+
+D. How could developers investigate the problem?
+
+They could examine the dataset, analyze the distribution of results, test different queries, evaluate ranking behavior, and assess whether the system reproduces stereotypes.
+
+E. What should the student do before accepting the conclusion?
+
+Consult reliable sources containing representative information about the nursing profession rather than relying only on the image results.
+
+FINAL LESSON:
+
+Search engines are powerful tools for finding and organizing information, but their outputs depend on the data they collect, the structures they use, and the algorithms that rank results. Understanding these components helps users search more critically and helps developers build systems that are more accurate, useful, and fair.

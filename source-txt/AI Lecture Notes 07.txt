@@ -1,0 +1,1227 @@
+ARTIFICIAL INTELLIGENCE CLASS NOTES
+Topic: Natural Language Processing (NLP), Language Modeling, and Word Representations
+
+============================================================
+1. INTRODUCTION TO NATURAL LANGUAGE PROCESSING
+============================================================
+
+Language is one of the most important ways humans communicate information. We use language to share knowledge, ask questions, give instructions, express emotions, and understand one another.
+
+Languages can take different forms:
+- Spoken language.
+- Written language.
+- Sign language.
+- Systems of words, symbols, and characters used to communicate meaning.
+
+Different languages have different structures. For example, English uses 26 letters in its basic alphabet, while Chinese uses thousands of characters.
+
+Artificial intelligence has made significant progress in processing images, but language is another major area of AI because people frequently interact with computers through text and speech.
+
+Examples of everyday language-based AI:
+- Search engines interpreting search queries.
+- Smartphones responding to voice commands.
+- Translation systems converting text from one language to another.
+- Email filters identifying spam.
+- Virtual assistants answering questions.
+- Chatbots generating responses.
+- AI systems summarizing long documents.
+
+Definition:
+Natural Language Processing (NLP) is a field of artificial intelligence that focuses on enabling computers to process, analyze, interpret, and generate human language.
+
+NLP combines ideas from computer science, machine learning, linguistics, and statistics to help computers work with written and spoken language.
+
+============================================================
+2. THE TWO MAIN AREAS OF NLP
+============================================================
+
+Natural Language Processing can be divided into two broad areas:
+
+A. NATURAL LANGUAGE UNDERSTANDING (NLU)
+
+Natural Language Understanding focuses on interpreting language and extracting meaning from it.
+
+The goal is to help a computer understand what a person means when they communicate.
+
+Examples:
+- Determining whether an email is spam.
+- Understanding a search query.
+- Identifying whether a customer is satisfied or frustrated.
+- Interpreting a question asked to a virtual assistant.
+- Understanding a command given to a robot.
+
+Example:
+A person types, "Find me a bank near my house."
+
+An NLU system must interpret "bank" as a financial institution rather than the land beside a river.
+
+B. NATURAL LANGUAGE GENERATION (NLG)
+
+Natural Language Generation focuses on producing language from information, knowledge, or other inputs.
+
+Examples:
+- Translating English into Spanish.
+- Summarizing a document.
+- Generating chatbot responses.
+- Producing answers to questions.
+- Writing a description of an image.
+- Creating spoken responses for a virtual assistant.
+
+Example:
+A translation system receives an English sentence and generates a Spanish sentence with a similar meaning.
+
+KEY DIFFERENCE
+
+Natural Language Understanding:
+Language → Interpreted meaning
+
+Natural Language Generation:
+Information or meaning → Generated language
+
+Many modern AI systems combine both capabilities. A chatbot, for example, may interpret a user's question and then generate a relevant response.
+
+============================================================
+3. WHY UNDERSTANDING LANGUAGE IS DIFFICULT
+============================================================
+
+One of the biggest challenges in NLP is that words do not always have a single, fixed meaning.
+
+Humans assign meaning to words and symbols through experience, communication, and context.
+
+For example, the word "cat" does not physically contain information about an animal's appearance or behavior. People learn what the word means by encountering cats, hearing descriptions, and connecting the word with other information.
+
+The same principle applies to other languages. Different words can refer to the same concept in different languages.
+
+Examples include:
+- Cat in English.
+- Gato in Spanish.
+- Other words for the same animal in other languages.
+
+A computer must learn relationships between words and the meanings or concepts they represent.
+
+A major difficulty is that language can be ambiguous.
+
+Definition:
+Ambiguity occurs when a word, phrase, or sentence can have more than one interpretation.
+
+EXAMPLE 1: THE WORD "BANK"
+
+Sentence: "I am going to the bank."
+
+Possible meanings:
+- A financial institution where people deposit or withdraw money.
+- The land beside a river.
+
+Without additional context, the intended meaning may be unclear.
+
+EXAMPLE 2: SARCASM
+
+Sentence A: "This fridge is great!"
+
+The speaker may genuinely like the refrigerator.
+
+Sentence B: "This fridge was great. It lasted a whole week before breaking."
+
+The speaker is probably being sarcastic.
+
+Although the word "great" appears in both sentences, its intended meaning differs because of context and tone.
+
+EXAMPLE 3: CONTEXT
+
+Sentence: "I need a mouse."
+
+Depending on the context, this could mean:
+- A computer mouse.
+- A small animal.
+
+The words around a term and the situation in which it appears help determine its meaning.
+
+Important lesson:
+Understanding individual words is not enough. An NLP system must also consider context, relationships between words, sentence structure, and sometimes tone or the speaker's intentions.
+
+============================================================
+4. MORPHOLOGY: HOW WORDS CHANGE FORM
+============================================================
+
+Morphology is the study of the internal structure of words and how words are formed.
+
+Many words contain meaningful parts that can be combined or modified according to language rules.
+
+Example: The Root Word "Swim"
+
+- Swim: The basic action.
+- Swimming: The action in progress.
+- Swimmer: A person who swims.
+
+Other examples:
+- Drink → drinking → drinker.
+- Think → thinking → thinker.
+- Teach → teaching → teacher.
+
+The root word and its related forms share recognizable spelling patterns and related meanings.
+
+Morphology can help NLP systems identify relationships between words.
+
+For example, a system may recognize that "swimming" and "swimmer" are related to "swim."
+
+However, morphology has limitations.
+
+EXAMPLE: "CAR" AND "CAT"
+
+These words differ by only one letter, but they refer to very different concepts.
+
+Their spelling similarity does not mean their meanings are similar.
+
+EXAMPLE: "CAT" AND "FELIDAE"
+
+"Felidae" is the scientific family that includes cats and other feline animals.
+
+Although "cat" and "Felidae" are closely related in meaning, they share very few letters.
+
+This demonstrates an important principle:
+
+Words that look similar do not necessarily have similar meanings, and words with similar meanings do not necessarily look similar.
+
+Morphology is useful, but it cannot fully explain meaning on its own.
+
+============================================================
+5. DISTRIBUTIONAL SEMANTICS
+============================================================
+
+One way to estimate the meaning of a word is to examine the other words that frequently appear near it.
+
+This idea is called distributional semantics.
+
+Definition:
+Distributional semantics is an approach to representing and understanding word meaning based on the contexts in which words appear.
+
+The basic idea is that words occurring in similar contexts may have related meanings.
+
+For example, consider these sentences:
+
+1. "The cat chased the mouse."
+2. "The kitten chased the mouse."
+3. "The cat slept on the sofa."
+4. "The kitten slept on the sofa."
+
+The words "cat" and "kitten" appear in similar contexts. This provides evidence that they have related meanings.
+
+A famous principle associated with linguist John Firth expresses this idea: a word can be understood partly by the company it keeps.
+
+In other words, the surrounding words provide clues about what a word means.
+
+EXAMPLES
+
+Words associated with "chocolate":
+- Cocoa.
+- Candy.
+- Dessert.
+- Cake.
+- Milk.
+
+Words associated with "physics":
+- Newton.
+- Energy.
+- Universe.
+- Force.
+- Motion.
+
+Words that frequently appear in similar contexts may share semantic relationships.
+
+Why is this useful?
+
+Computers cannot automatically understand word meaning in the same way humans do. However, they can analyze large amounts of text to identify recurring patterns and relationships.
+
+Distributional semantics allows computers to use these patterns as clues about meaning.
+
+Important clarification:
+Words appearing in similar contexts are not guaranteed to be synonyms. Contextual similarity provides useful evidence, but words may still have different meanings or functions.
+
+============================================================
+6. COUNT VECTORS
+============================================================
+
+One basic way to represent distributional relationships mathematically is through count vectors.
+
+Definition:
+A count vector represents a word using numerical counts of how frequently it appears with other words or in selected contexts.
+
+A computer can analyze articles, sentences, books, or other collections of text and record word co-occurrences.
+
+A co-occurrence happens when two words appear together within a defined context, such as the same sentence or a nearby window of words.
+
+EXAMPLE
+
+Suppose we analyze several documents and focus on these context words:
+
+- Animal.
+- Pet.
+- Engine.
+- Road.
+
+We might represent each target word using a vector of counts.
+
+Illustrative example:
+
+Word       Animal   Pet   Engine   Road
+Cat           8      6       0       0
+Kitten        7      5       0       0
+Car           0      0       7       6
+
+The values are hypothetical and are included only to demonstrate the concept.
+
+The vectors for "cat" and "kitten" are similar because both frequently appear in contexts involving animals and pets.
+
+The vector for "car" is different because it appears in contexts involving engines and roads.
+
+A model can compare these vectors to estimate which words have similar contextual relationships.
+
+HOW COUNT VECTORS WORK
+
+1. Collect a large amount of text.
+2. Identify the words that appear in the text.
+3. Select the context words or context windows to measure.
+4. Count how often each target word appears with the selected context words.
+5. Store the counts in a numerical vector.
+6. Compare vectors to identify similarities.
+
+Count vectors transform information from text into numerical data that a computer can analyze.
+
+============================================================
+7. FUNCTION WORDS AND STOP WORDS
+============================================================
+
+When analyzing text, some words appear extremely frequently.
+
+Examples:
+- The.
+- And.
+- Of.
+- In.
+- A.
+- An.
+
+These words often help establish grammatical relationships and sentence structure.
+
+For example:
+- "An apple" refers to an apple without identifying a specific one.
+- "The apple" can refer to a particular apple understood from context.
+
+These words contribute to meaning, but they may not be the most useful features when the immediate goal is to distinguish topics or concepts.
+
+A common text-processing technique is to remove selected stop words.
+
+Definition:
+Stop words are words that a particular text-processing method treats as less useful for a specific analysis, often because they occur very frequently.
+
+Stop-word removal can make some word comparisons more informative.
+
+For example, if nearly every article contains "the," "and," and "of," those words may contribute little to distinguishing an article about cars from one about animals.
+
+However, stop words should not always be removed.
+
+They can be important for:
+- Grammar.
+- Meaning.
+- Sentiment.
+- Questions and negation.
+- Language generation.
+- Context-sensitive interpretation.
+
+For example, removing "not" from "I am not happy" could reverse the intended meaning.
+
+Important lesson:
+Text preprocessing choices depend on the task. A step that helps one NLP application may harm another.
+
+============================================================
+8. LIMITATIONS OF COUNT VECTORS
+============================================================
+
+Count vectors are useful for representing word relationships, but they have important limitations.
+
+1. LARGE STORAGE REQUIREMENTS
+
+A vocabulary may contain tens of thousands or millions of distinct words.
+
+If every word needs a count for every possible context word, the resulting representation can become extremely large.
+
+2. HIGH-DIMENSIONAL DATA
+
+A vector may require one position for every word in the selected vocabulary or context list.
+
+This can create vectors with thousands of dimensions.
+
+3. MANY VALUES MAY BE ZERO
+
+Most words do not appear alongside every other word.
+
+As a result, many positions in a count vector may contain zero.
+
+4. LIMITED REPRESENTATION OF MEANING
+
+Counts record how often words appear together, but they do not automatically provide a complete understanding of meaning, grammar, or intent.
+
+5. CONTEXT DEPENDENCE
+
+A word may have different meanings in different situations.
+
+For example, "bank" can refer to a financial institution or the side of a river. A single aggregate count vector may combine evidence from both meanings.
+
+THE GOAL
+
+Researchers want representations that preserve useful semantic relationships while being more compact and efficient than enormous count tables.
+
+This leads to the idea of learned word representations.
+
+============================================================
+9. WORD VECTORS AND WORD REPRESENTATIONS
+============================================================
+
+Computers operate on numerical data. To process words with neural networks, we need to represent words numerically.
+
+A vector is an ordered list of numbers.
+
+Example:
+
+The word "cat" might initially be represented by a vector such as:
+
+[0.12, -0.45, 0.81, 0.27]
+
+These numbers are illustrative. A real model may use vectors with many more dimensions.
+
+At the beginning of training, word vectors can be initialized randomly.
+
+The model then adjusts these vectors while learning from language data.
+
+Definition:
+A word embedding is a learned numerical vector representing a word in a way that can capture useful relationships between words.
+
+During training, words that occur in similar contexts may develop similar vector representations.
+
+For example:
+- "Chocolate" may become associated with "cocoa" and "candy."
+- "Physics" may become associated with "Newton" and "universe."
+
+These relationships can be explored by comparing or visualizing word vectors.
+
+WHY WORD VECTORS ARE USEFUL
+
+- They convert words into numerical inputs that neural networks can process.
+- They can capture patterns in how words are used.
+- They provide a more compact representation than many large count tables.
+- They help models identify similarities between words.
+- They can support tasks such as language modeling, translation, and text classification.
+
+Important clarification:
+Similar vectors do not guarantee that two words are identical in meaning. A vector reflects patterns learned from training data, and those patterns may capture associations, related concepts, or similarities in usage.
+
+============================================================
+10. UNSUPERVISED LEARNING AND LANGUAGE
+============================================================
+
+In an earlier lesson, unsupervised learning was introduced as a way for AI systems to discover patterns in data without relying on externally supplied target labels.
+
+Language provides an enormous source of information that can be used for learning.
+
+Examples of language data include:
+- Books.
+- Articles.
+- Websites.
+- Conversations.
+- Transcripts of speech.
+- Other collections of written or spoken language.
+
+A model can analyze this data to learn patterns such as:
+- Which words tend to appear together.
+- Which words are used in similar contexts.
+- Which words are likely to follow other words.
+- How sentences are structured.
+- Which patterns are associated with different topics.
+
+The model does not need a person to manually label every word with its complete meaning.
+
+Instead, the structure of the text provides a learning signal.
+
+For example, a model may learn that "chocolate cake" is a common combination because it encounters the phrase repeatedly in its training data.
+
+This is an important foundation for language modeling.
+
+============================================================
+11. LANGUAGE MODELING
+============================================================
+
+Definition:
+Language modeling is the task of learning patterns in language so that a model can estimate how likely a sequence of words is or predict which word or token should come next.
+
+A language model learns from examples of text and develops the ability to predict likely continuations.
+
+A simple way to understand language modeling is through a fill-in-the-blank exercise.
+
+EXAMPLE 1
+
+Sentence:
+"I'm kind of hungry. I think I'd like some chocolate _____."
+
+Possible answers:
+- Cake.
+- Milk.
+- Ice cream.
+
+An answer such as "potatoes" may be less likely in this context.
+
+The model uses patterns learned from its training data to estimate which continuation is most likely.
+
+EXAMPLE 2
+
+Sentence:
+"Dianna, a friend of mine from San Diego who really loves physics, is having a birthday party next week, so I want to find a present for _____."
+
+A likely answer is "her."
+
+To predict this word successfully, the model must connect the blank to information provided earlier in the sentence.
+
+EXAMPLE 3
+
+Sentence:
+"Dianna loves physics, so I want to find a present for her that has to do with _____."
+
+A model may predict a word associated with physics because that information appeared earlier.
+
+These examples show that language modeling involves more than identifying which words are common. The model must learn patterns that connect words across different parts of a sentence.
+
+IMPORTANT POINT
+
+A language model does not necessarily know that an answer is factually true. It estimates likely continuations based on patterns learned from its data.
+
+A likely completion may still be incorrect, misleading, or inappropriate for the situation.
+
+============================================================
+12. CONTEXT AND LONG-RANGE DEPENDENCIES
+============================================================
+
+Context is the information surrounding a word or sentence that helps determine its meaning.
+
+Some language predictions depend on nearby words. Others depend on information introduced much earlier.
+
+Example:
+
+"Dianna is my friend. She loves physics. I want to buy her a birthday present related to _____."
+
+The final blank depends on the earlier statement that Dianna loves physics.
+
+This is an example of a long-range dependency: a relationship between parts of a sequence that are separated by other words.
+
+An effective language model needs to preserve important information as it processes a sentence.
+
+Relevant information may include:
+- Names.
+- People and objects mentioned earlier.
+- Pronouns referring to those people or objects.
+- Important facts.
+- Relationships between words.
+- Grammatical structure.
+- The topic of the sentence.
+
+If a model loses relevant information, it may make an incorrect prediction.
+
+For example, it might fail to connect "her" with Dianna or fail to remember that the conversation concerns physics.
+
+The challenge is to build internal representations that retain the information needed for later predictions.
+
+============================================================
+13. ENCODER-DECODER MODELS
+============================================================
+
+An encoder-decoder model is a framework in which one component processes input information into a representation and another component uses that representation to produce an output.
+
+The encoder and decoder have different roles.
+
+A. ENCODER
+
+The encoder processes the input and creates an internal representation.
+
+For language, the input might be a sentence or part of a sentence.
+
+The encoder attempts to capture useful information, including:
+- Word relationships.
+- Sentence structure.
+- Context.
+- Relevant facts.
+- The order in which words appear.
+
+B. INTERNAL REPRESENTATION
+
+The internal representation is a numerical description of the information processed by the encoder.
+
+It helps the model retain information that may be needed to generate an output.
+
+For example, the representation may preserve the fact that Dianna is the person being discussed and that she likes physics.
+
+C. DECODER
+
+The decoder uses the representation to produce an output.
+
+Depending on the task, that output could be:
+- A predicted next word.
+- A translation.
+- An answer to a question.
+- A summary.
+- A response in a conversation.
+
+GENERAL STRUCTURE
+
+Input text
+    ↓
+Encoder
+    ↓
+Internal representation
+    ↓
+Decoder
+    ↓
+Output text or prediction
+
+EXAMPLES OF ENCODER-DECODER APPLICATIONS
+
+Machine translation:
+English sentence → Representation → Spanish sentence
+
+Question answering:
+Question and relevant information → Representation → Answer
+
+Text summarization:
+Long document → Representation → Shorter summary
+
+Language modeling:
+Previous words or tokens → Representation → Predicted continuation
+
+Important clarification:
+Not every language model uses a traditional encoder-decoder architecture. Some models use only a decoder, while others use an encoder or a combination of components. The encoder-decoder framework is a useful general concept rather than a description of every modern NLP system.
+
+============================================================
+14. RECURRENT NEURAL NETWORKS (RNNs)
+============================================================
+
+A Recurrent Neural Network (RNN) is a type of neural network designed to process sequential data.
+
+Sequential data is information in which order matters.
+
+Examples:
+- Sentences.
+- Audio recordings.
+- Time-series measurements.
+- Sequences of events.
+
+In language, the order of words can change the meaning of a sentence.
+
+For example:
+- "The dog chased the cat."
+- "The cat chased the dog."
+
+The same words appear in both sentences, but their order changes who performs the action.
+
+RNNs were designed to process a sequence step by step while carrying information forward.
+
+HOW AN RNN PROCESSES LANGUAGE
+
+1. Receive the representation of the first word.
+2. Process the word and update the hidden state.
+3. Receive the next word.
+4. Combine information from the new word with information carried forward from the previous step.
+5. Update the hidden state again.
+6. Continue until the required portion of the sentence has been processed.
+
+The hidden state is an internal representation that can carry information about the sequence processed so far.
+
+SIMPLE EXAMPLE
+
+Sentence:
+"The student studied artificial intelligence."
+
+An RNN reads the words in sequence:
+
+"The"
+    ↓
+"student"
+    ↓
+"studied"
+    ↓
+"artificial"
+    ↓
+"intelligence"
+
+As each word is processed, the hidden state is updated to reflect information from the sequence.
+
+The resulting state can be used to help predict the next word.
+
+WHY RNNs USE RECURRENCE
+
+The recurrent structure allows the network to reuse the same general computation at each step instead of requiring an entirely separate set of parameters for every word position.
+
+This makes the architecture suitable for sequences of varying lengths.
+
+============================================================
+15. HIDDEN STATES AND MEMORY IN RNNs
+============================================================
+
+The hidden state is one of the most important concepts in a Recurrent Neural Network.
+
+Definition:
+A hidden state is an internal numerical representation that is updated as the model processes each new element in a sequence.
+
+For language, the hidden state may contain information about:
+- Earlier words.
+- The sentence's topic.
+- Grammatical relationships.
+- Relevant names or entities.
+- Patterns useful for predicting the next word.
+
+The hidden state is not a perfect record of everything that has appeared.
+
+It has a limited capacity to preserve information, and important details may be lost, especially across long sequences.
+
+This creates a challenge for traditional RNNs.
+
+For example, in a long sentence, the model may need to remember a name or grammatical relationship introduced many words earlier.
+
+Traditional RNNs can struggle to learn long-range dependencies because information and training signals may become difficult to preserve over many steps.
+
+Specialized architectures, such as Long Short-Term Memory networks (LSTMs) and Gated Recurrent Units (GRUs), were developed to improve how recurrent models retain and use information.
+
+Transformers, which use attention mechanisms, are another major approach to processing language and are widely used in modern NLP.
+
+============================================================
+16. TURNING WORDS INTO NUMBERS
+============================================================
+
+Neural networks operate on numerical inputs rather than directly processing words as ordinary human-readable text.
+
+To use language in a neural network, the text must be converted into a numerical representation.
+
+A simplified process is:
+
+STEP 1: COLLECT TEXT
+
+Gather sentences from sources such as books, articles, websites, or transcripts.
+
+STEP 2: TOKENIZE THE TEXT
+
+Tokenization divides text into units called tokens.
+
+A token may be:
+- A complete word.
+- Part of a word.
+- A punctuation mark.
+- Another unit defined by the tokenizer.
+
+For example, a sentence may be split into individual words or smaller subword units.
+
+STEP 3: CREATE NUMERICAL IDENTIFIERS
+
+The tokenizer or vocabulary system associates tokens with numerical IDs.
+
+These IDs allow the model to look up the corresponding numerical representations.
+
+STEP 4: CREATE OR LOOK UP VECTORS
+
+Each token is associated with a vector of numbers, often through a learned embedding layer.
+
+At the beginning of training, the embedding vectors may be initialized randomly.
+
+STEP 5: PROCESS THE SEQUENCE
+
+The neural network processes the vectors in sequence or through another architecture appropriate for the task.
+
+STEP 6: PREDICT THE NEXT TOKEN
+
+The model produces scores for possible next tokens.
+
+The highest-scoring token may be selected as a prediction, although actual generation systems can use other selection strategies.
+
+IMPORTANT DISTINCTION
+
+A token ID is not the same as a word embedding.
+
+- Token ID: A numerical identifier used to represent a token in the vocabulary.
+- Embedding: A learned vector containing multiple numerical values associated with that token.
+
+For example, the token "cat" might have an ID of 125 in a particular vocabulary, but that number alone does not express its meaning. Its embedding vector provides the learned numerical representation.
+
+============================================================
+17. TRAINING A LANGUAGE MODEL WITH NEXT-WORD PREDICTION
+============================================================
+
+A language model can learn by predicting words or tokens that appear in real text.
+
+This creates a training task where the model attempts to predict missing information from the surrounding sequence.
+
+Suppose the training sentence is:
+
+"The student enjoys studying artificial intelligence."
+
+The model can be trained using several examples:
+
+Input: "The"
+Target: "student"
+
+Input: "The student"
+Target: "enjoys"
+
+Input: "The student enjoys"
+Target: "studying"
+
+Input: "The student enjoys studying"
+Target: "artificial"
+
+Input: "The student enjoys studying artificial"
+Target: "intelligence"
+
+Each example teaches the model to predict the next token from the preceding context.
+
+Because the original sentence is available, the training process can determine the expected next token automatically.
+
+This reduces the need for people to manually label every training example.
+
+The process is often called self-supervised learning because the training targets are created from the data itself.
+
+IMPORTANT TERMINOLOGY
+
+Next-token prediction:
+Predicting the next token in a sequence based on the preceding tokens.
+
+Language modeling:
+Learning the patterns and probabilities of token sequences.
+
+Self-supervised learning:
+A training approach in which the data provides the targets used to train the model, rather than requiring separate human-provided labels for every example.
+
+Although the lecture discusses this process in the context of unsupervised learning, next-token prediction is more precisely described in modern machine learning as self-supervised learning.
+
+============================================================
+18. THE DECODER AND NEXT-TOKEN PREDICTION
+============================================================
+
+After the encoder or sequence-processing component creates an internal representation, a prediction layer can use that representation to estimate the next token.
+
+For a simple language model, the prediction layer produces a score for every possible token in the vocabulary.
+
+Suppose the vocabulary includes these possible next words:
+
+- Cake.
+- Milk.
+- Car.
+- Physics.
+
+After processing the context "I would like some chocolate," the model may assign different scores to each candidate.
+
+Illustrative scores:
+
+Cake: 0.45
+Milk: 0.30
+Car: 0.02
+Physics: 0.01
+
+These values are only an example. Actual model outputs depend on the model, context, vocabulary, and prediction method.
+
+If the scores are converted into probabilities, they can be interpreted as estimates of how likely each candidate is given the preceding context.
+
+The model's predicted next token is typically the one with the highest score when using a simple highest-score selection rule.
+
+During training, the model's output is compared with the actual next token in the training data.
+
+The resulting loss is used to adjust the model's parameters.
+
+This teaches the model to assign higher scores to appropriate continuations and lower scores to less likely ones.
+
+============================================================
+19. BACKPROPAGATION AND LEARNING WORD REPRESENTATIONS
+============================================================
+
+Backpropagation is a method used to calculate how a neural network's parameters contributed to its prediction error.
+
+A training process commonly includes the following steps:
+
+1. Forward pass:
+   The model processes the input and generates a prediction.
+
+2. Loss calculation:
+   The model compares its prediction with the expected target.
+
+3. Backpropagation:
+   The model calculates gradients that indicate how its parameters affect the loss.
+
+4. Parameter update:
+   An optimization algorithm adjusts the weights and biases to reduce the loss.
+
+5. Repetition:
+   The model repeats this process across many training examples.
+
+During language-model training, the adjustable parameters may include:
+- RNN weights.
+- Prediction-layer weights and biases.
+- Word or token embedding vectors.
+
+At the beginning, the model may have random embeddings that do not capture useful word relationships.
+
+As training continues, the model updates its parameters to improve next-token predictions.
+
+These updates can cause words that appear in similar contexts to develop related vector representations.
+
+For example, if "cocoa" and "chocolate" appear in related contexts, the model may learn representations that reflect some of their shared usage patterns.
+
+The model is not necessarily given a direct instruction to make every pair of similar words have similar vectors. Instead, useful relationships can emerge as a result of optimizing the language-modeling objective.
+
+Important lesson:
+The model learns both how to make predictions and internal numerical representations that help it make those predictions.
+
+============================================================
+20. VISUALIZING WORD REPRESENTATIONS
+============================================================
+
+Word vectors can be examined to understand some of the relationships a model has learned.
+
+Because word embeddings may contain dozens, hundreds, or more dimensions, they cannot be directly plotted on an ordinary two-dimensional graph.
+
+Researchers can use dimensionality-reduction techniques to project high-dimensional vectors into two or three dimensions for visualization.
+
+The resulting visualization can help reveal groups of words with related representations.
+
+Example: Food-Related Words
+
+A model may learn related representations for:
+- Chocolate.
+- Cocoa.
+- Candy.
+- Cake.
+
+Example: Physics-Related Words
+
+A model may learn related representations for:
+- Physics.
+- Newton.
+- Universe.
+- Energy.
+
+The relationships emerge from patterns in the training data.
+
+However, a two-dimensional visualization is only an approximation of the original high-dimensional space. Some relationships may be distorted when the data is projected into fewer dimensions.
+
+Also, related vectors do not guarantee that words have identical meanings. Their representations may reflect shared contexts, associations, or other statistical patterns.
+
+============================================================
+21. LIMITATIONS OF LEARNED WORD REPRESENTATIONS
+============================================================
+
+Learned word representations are useful, but they have limitations.
+
+1. MEANING DEPENDS ON CONTEXT
+
+A word can have multiple meanings.
+
+For example, "bank" can refer to a financial institution or a riverbank.
+
+Some embedding methods assign one main vector to a word, which may combine its different meanings.
+
+Other models generate context-dependent representations that can change according to how a word is used.
+
+2. TRAINING DATA AFFECTS LEARNING
+
+If a model learns from a narrow collection of text, it may develop an incomplete understanding of language.
+
+3. BIASES CAN BE LEARNED
+
+A model can reproduce stereotypes or other biases present in its training data.
+
+4. WORD ASSOCIATION IS NOT THE SAME AS TRUE UNDERSTANDING
+
+A model may learn that certain words often appear together without necessarily understanding the real-world relationship between the concepts.
+
+5. LONG SENTENCES CAN BE CHALLENGING
+
+A model may struggle to preserve important information across long sequences, depending on its architecture and training method.
+
+6. REPRESENTATIONS MAY BE TASK-SPECIFIC
+
+A representation that works well for one task may not work equally well for another.
+
+For example, learning language patterns from cooking recipes may help a model predict recipe-related words, but it may not provide sufficient information to distinguish all real-world flowers, plants, and objects.
+
+Important lesson:
+Language models learn from patterns in their data. Their abilities and limitations depend on the information they encounter and the objectives used to train them.
+
+============================================================
+22. USING LANGUAGE MODELS FOR DIFFERENT TASKS
+============================================================
+
+Once a model learns useful language representations, similar principles can support many applications.
+
+A. MACHINE TRANSLATION
+
+A system receives text in one language and produces text in another language.
+
+Example:
+English input → Spanish output.
+
+The system must preserve meaning while accounting for differences in vocabulary, grammar, and sentence structure.
+
+B. QUESTION ANSWERING
+
+A system receives a question and generates an answer based on the available context or knowledge.
+
+Example:
+Input: "What is the capital of France?"
+Output: "Paris."
+
+C. TEXT SUMMARIZATION
+
+A system processes a longer document and produces a shorter version containing its main points.
+
+D. CHATBOTS AND VIRTUAL ASSISTANTS
+
+A system interprets a user's message and generates a response that fits the conversation.
+
+Examples include assistants that answer questions, provide information, or help users complete tasks.
+
+E. ROBOT CONTROL
+
+A system can process written or spoken instructions and translate them into actions.
+
+For example, a household robot might receive a command to locate and pick up an object.
+
+Language processing alone is not enough to guarantee successful physical action. The robot may also need perception, planning, navigation, and control systems.
+
+============================================================
+23. WHY ONE LANGUAGE MODEL MAY NOT WORK WELL FOR EVERY TASK
+============================================================
+
+A model learns patterns from the data and training objective it receives.
+
+Consequently, a model trained for one type of language task may not automatically perform well on a different task.
+
+Example: Cooking Recipes
+
+Imagine training a model on thousands of cooking recipes.
+
+It might learn that:
+- Roses can be made from icing.
+- Icing flowers are placed on cakes.
+- Certain ingredients frequently appear together.
+
+However, this does not necessarily mean the model understands the difference between a decorative icing rose and a real rose that grows on a plant and has thorns.
+
+The model's learned representations reflect the patterns emphasized by its training data.
+
+If it has little experience with botanical descriptions, it may not have developed strong representations for the characteristics of real flowers.
+
+This illustrates an important principle:
+
+The knowledge a model develops depends partly on the data it sees and the tasks it is trained to perform.
+
+To build a model that performs well on a particular task, developers may need to provide:
+- Appropriate training data.
+- A suitable model architecture.
+- A useful learning objective.
+- Additional training or fine-tuning.
+- Evaluation methods that measure the desired capabilities.
+
+============================================================
+24. NLP, UNSUPERVISED LEARNING, AND SELF-SUPERVISED LEARNING
+============================================================
+
+The lecture connects NLP to the concepts of unsupervised learning introduced earlier.
+
+Both approaches involve learning patterns from data.
+
+However, it is useful to distinguish between unsupervised learning and self-supervised learning.
+
+UNSUPERVISED LEARNING
+
+A model discovers patterns or structure in data without relying on externally supplied target labels.
+
+Example:
+Using clustering to group similar documents without assigning topic labels beforehand.
+
+SELF-SUPERVISED LEARNING
+
+A model creates training targets from the data itself.
+
+Example:
+A language model receives the beginning of a sentence and learns to predict the next token from the original text.
+
+The correct next token is available because it already appears in the training data.
+
+This allows the model to learn from large text collections without requiring a person to label every next-word example manually.
+
+SUPERVISED LEARNING
+
+A model learns from examples with target answers supplied through a labeled dataset or another external annotation process.
+
+Example:
+Training a classifier on emails labeled "spam" or "not spam."
+
+These categories overlap in broad goals, but the distinctions describe different ways of organizing and supplying learning signals.
+
+Modern language models commonly rely heavily on self-supervised learning, even though introductory materials may discuss these methods under the broader topic of unsupervised learning.
+
+============================================================
+25. IMPORTANT TERMS TO REMEMBER
+============================================================
+
+Natural Language Processing (NLP):
+The field of AI concerned with processing, understanding, and generating human language.
+
+Natural Language Understanding (NLU):
+The part of NLP concerned with interpreting language and extracting meaning.
+
+Natural Language Generation (NLG):
+The part of NLP concerned with producing language from information or representations.
+
+Ambiguity:
+A situation in which a word or phrase has more than one possible interpretation.
+
+Context:
+The surrounding words, information, or situation that helps determine meaning.
+
+Morphology:
+The study of how words are formed and how their meaningful parts relate to one another.
+
+Distributional Semantics:
+An approach to learning about word meaning from the contexts in which words appear.
+
+Co-occurrence:
+The appearance of two words within a defined context, such as the same sentence or nearby window of text.
+
+Count Vector:
+A numerical representation based on counts of word occurrences or co-occurrences.
+
+Stop Words:
+Words that a particular text-processing method treats as less useful for a particular task, often because they occur frequently.
+
+Vector:
+An ordered list of numerical values.
+
+Word Embedding:
+A learned vector representation of a word or token.
+
+Language Modeling:
+Learning patterns in language to estimate sequence likelihoods or predict likely continuations.
+
+Token:
+A unit of text processed by a language model, such as a word, part of a word, or punctuation mark.
+
+Tokenization:
+The process of dividing text into tokens.
+
+Encoder:
+A component that transforms input data into an internal representation.
+
+Decoder:
+A component that uses a representation to generate an output.
+
+Recurrent Neural Network (RNN):
+A neural network architecture designed to process sequential data while carrying information forward through hidden states.
+
+Hidden State:
+An internal representation updated as an RNN processes each element of a sequence.
+
+Next-Token Prediction:
+The task of predicting the next token based on the preceding sequence.
+
+Backpropagation:
+A method for calculating gradients that help a neural network adjust its parameters to reduce prediction error.
+
+Self-Supervised Learning:
+A learning approach in which training targets are derived from the data itself.
+
+============================================================
+26. KEY TAKEAWAYS
+============================================================
+
+1. Natural Language Processing allows computers to analyze, understand, and generate human language.
+
+2. Natural Language Understanding focuses on interpreting language, while Natural Language Generation focuses on producing it.
+
+3. Words do not always have fixed meanings. Context can change how a word or sentence should be interpreted.
+
+4. Morphology can reveal relationships between word forms, but spelling similarity does not guarantee semantic similarity.
+
+5. Distributional semantics uses patterns in surrounding words to estimate relationships in meaning.
+
+6. Count vectors represent words using numerical counts of their appearances with other words, but these representations can become large and sparse.
+
+7. Word embeddings provide learned numerical representations that can capture useful relationships between words.
+
+8. Language modeling involves learning patterns in sequences of text, often by predicting the next token.
+
+9. Recurrent Neural Networks process sequences step by step and update a hidden state as they read new information.
+
+10. The hidden state helps a model carry information from earlier words into later predictions, although traditional RNNs can struggle with long-range dependencies.
+
+11. Neural networks use numerical representations rather than directly processing words as ordinary human-readable text.
+
+12. Backpropagation helps update a model's parameters, including its word representations, to improve predictions.
+
+13. Encoder-decoder models transform input information into a representation and use that representation to generate an output.
+
+14. Self-supervised learning allows language models to train using targets derived automatically from existing text.
+
+15. Language models can support translation, summarization, question answering, chatbots, and other applications.
+
+16. The training data and learning objective influence what a model learns and how well it performs on different tasks.
+
+17. Learning word associations does not guarantee complete understanding of real-world concepts.
+
+============================================================
+27. REVIEW QUESTIONS
+============================================================
+
+1. What is Natural Language Processing, and why is it important in AI?
+
+2. What is the difference between Natural Language Understanding and Natural Language Generation?
+
+3. Why can the same word have different meanings in different contexts?
+
+4. What is morphology, and what are its limitations?
+
+5. Explain distributional semantics in your own words.
+
+6. What is a count vector, and how does it represent relationships between words?
+
+7. Why might stop-word removal help some NLP tasks? Why can it harm others?
+
+8. What is a word embedding, and how is it different from a token ID?
+
+9. What is language modeling?
+
+10. How can a model learn to predict the next word without a person manually labeling every example?
+
+11. What is the purpose of an encoder-decoder model?
+
+12. How does a Recurrent Neural Network process a sentence?
+
+13. What is a hidden state, and why is it important?
+
+14. How does backpropagation help a language model learn?
+
+15. What is the difference between unsupervised learning and self-supervised learning?
+
+16. Give three examples of real-world NLP applications.
+
+17. Why might a language model trained on cooking recipes have difficulty distinguishing real flowers from decorative icing flowers?
+
+18. Why does a model's training data affect its capabilities and limitations?
+
+============================================================
+28. FINAL SUMMARY
+============================================================
+
+Natural Language Processing is the area of artificial intelligence concerned with working with human language. Its two broad goals are understanding language and generating language.
+
+Because words can be ambiguous and their meanings depend on context, NLP systems must learn relationships between words and the information surrounding them. Distributional semantics provides one way to do this by examining which words frequently appear in similar contexts. Count vectors represent these relationships through numerical counts, while learned word embeddings provide more compact numerical representations.
+
+Language modeling takes these ideas further by training a model to predict likely continuations of text. A neural network can process words or tokens represented as numerical vectors, build internal representations, and predict the next token. During training, backpropagation updates the model's parameters to improve its predictions and can also improve its learned word representations.
+
+Recurrent Neural Networks are one architecture for processing language sequences. They update a hidden state as each word is read, allowing information from earlier parts of a sentence to influence later predictions. Encoder-decoder models provide a broader framework in which input information is transformed into a representation that can be used to generate an output.
+
+Modern language models often learn from text using self-supervised learning, where the original text supplies the targets for tasks such as next-token prediction. These techniques support applications such as translation, summarization, question answering, and conversational AI.
+
+The central idea is that computers can learn useful patterns in language by analyzing large amounts of text. However, the resulting representations are influenced by the training data and learning objectives, and learning statistical relationships between words does not automatically guarantee complete understanding of their real-world meaning.
